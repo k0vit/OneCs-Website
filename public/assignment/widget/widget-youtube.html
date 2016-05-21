@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
+    <meta charset="UTF-8">
+    <title>Youtube Widget</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/assignment/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav role="navigation" class="navbar-default navbar-fixed-top">
+    <div class = "container">
+        <span class="navbar-text pull-left">
+            <a href="widget-list.html" class="navbar-link img-right-spacing">
+                  <span class="glyphicon glyphicon-chevron-left">
+                  </span>
+            </a>
+        </span>
+        <span class="navbar-header navbar-brand">
+            Widget Edit
+        </span>
+        <span class="navbar-text pull-right">
+                <a href="widget-list.html" class="navbar-link">
+                  <span class="glyphicon glyphicon-ok">
+                  </span>
+                </a>
+            </span>
+    </div>
+</nav>
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="youtube-vid-name">Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="youtube-vid-name"
+                   placeholder="Youtube Video Name">
+        </div>
+        <div class="form-group">
+            <label for="youtube-vid-text">Text</label>
+            <input type="text"
+                   class="form-control"
+                   id="youtube-vid-text"
+                   placeholder="Youtube Video Text">
+        </div>
+        <div class="form-group">
+            <label for="youtube-vid-url">URL</label>
+            <input type=text
+                   class="form-control"
+                   id="youtube-vid-url"
+                   placeholder="Youtube Video URL">
+        </div>
+        <div class="form-group">
+            <label for="youtube-vid-width">Width</label>
+            <input type="text"
+                   class="form-control"
+                   id="youtube-vid-width"
+                   placeholder="Youtube Video Width">
+        </div>
+    </form>
+
+    <a class="btn btn-danger  btn-block"
+       href="widget-list.html">Delete</a>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <span class="navbar-text pull-right">
+                <a href="/assignment/user/profile.html">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+        </span>
+    </div>
+</nav>
+
+</body>
+</html>
