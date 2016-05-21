@@ -4,6 +4,7 @@ input.form-control {
 
 body {
     padding-top: 60px;
+    padding-bottom: 60px;
 }
 
 .navbar-text.pull-right {
@@ -22,4 +23,16 @@ p.navbar-text.pull-left {
     padding-bottom: 5px;
     border-bottom-left-radius: 8px;
     opacity: 0.7;
+}
+
+li.borderless {
+    border : 0 none;
+}
+
+.img-right-spacing {
+    margin-right: 15px;
+}
+
+.black {
+    color: black;
 }
