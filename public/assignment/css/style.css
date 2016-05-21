@@ -15,14 +15,23 @@ p.navbar-text.pull-left {
     margin-left: 15px;
 }
 
-.jga-widget-tool {
+.widget-relative-pos {
+    position: relative;
+}
+
+.select-width {
+    width: auto;
+}
+
+.widget-tool {
     position: absolute;
-    right: 15px;
+    right: 0;
     background-color: white;
     padding-left: 5px;
     padding-bottom: 5px;
     border-bottom-left-radius: 8px;
     opacity: 0.7;
+    z-index:1;
 }
 
 li.borderless {
