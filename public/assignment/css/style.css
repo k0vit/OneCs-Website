@@ -2,6 +2,11 @@ input.form-control {
     margin-bottom: 5px;
 }
 
+::-webkit-file-upload-button, button {
+    background-color: white;
+    border: none;
+}
+
 body {
     padding-top: 60px;
     padding-bottom: 60px;
