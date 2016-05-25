@@ -1,29 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
-    <meta charset="UTF-8">
-    <title>Create New Page</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/assignment/css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav role="navigation" class="navbar-default navbar-fixed-top">
     <div class = "container">
         <span class="navbar-text pull-left">
-            <a href="page-list.html" class="navbar-link img-right-spacing">
+            <a href="page-list.view.client.html" class="navbar-link img-right-spacing">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
             </a>
         </span>
         <span class="navbar-header navbar-brand">
-           <b>New Page</b>
+           <b>Edit Page</b>
         </span>
         <span class="navbar-text pull-right">
-                <a href="page-list.html" class="navbar-link">
+                <a href="page-list.view.client.html" class="navbar-link">
                   <span class="glyphicon glyphicon-ok">
                   </span>
                 </a>
@@ -38,6 +25,7 @@
             <input type="text"
                    class="form-control"
                    id="page-name"
+                   value="Blog Post"
                    placeholder="Page Name">
         </div>
         <div class="form-group">
@@ -48,6 +36,9 @@
                    placeholder="Page Title">
         </div>
     </form>
+
+    <a class="btn btn-danger  btn-block"
+       href="page-list.view.client.html">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
@@ -59,6 +50,3 @@
         </span>
     </div>
 </nav>
-
-</body>
-</html>
