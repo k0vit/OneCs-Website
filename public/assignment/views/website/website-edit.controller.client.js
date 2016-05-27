@@ -5,8 +5,8 @@
 
     function EditWebsiteController($routeParams, WebsiteService) {
         var vm = this;
-        vm.userId = $routeParams.userId;
-        vm.websiteId = $routeParams.websiteId;
+        vm.userId = $routeParams.id;
+        vm.websiteId = $routeParams.wid;
 
         function init() {
             vm.website = WebsiteService.findWebsiteById(vm.websiteId);

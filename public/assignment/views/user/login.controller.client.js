@@ -10,10 +10,10 @@
         vm.login = login;
 
         function login (username, password) {
-            var user = UserService.findUserByUsernameAndPassword(username, password);
+            var user = UserService.findUserByCredential(username, password);
             if(user) {
                 var id = user._id;
-                $location.url("/profile/" + id);
+                $location.url("/user/" + id);
             } else {
                 vm.error = "User not found";
             }

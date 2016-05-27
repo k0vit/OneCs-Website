@@ -14,11 +14,13 @@
 
         var api = {
             createUser: createUser,
-            findUserByUsernameAndPassword: findUserByUsernameAndPassword,
+            findUserByCredential: findUserByCredential,
             findUserById: findUserById,
             updateUser: updateUser,
-            deleteUser: deleteUser
+            deleteUser: deleteUser,
+            findUserByUsername: findUserByUsername
         };
+
         return api;
 
         function updateUser(id, newUser) {
@@ -26,29 +28,65 @@
                 if(users[i]._id === id) {
                     users[i].firstName = newUser.firstName;
                     users[i].lastName = newUser.lastName;
+                    users[i].email = newUser.email;
+                    console.log(users);
                     return true;
                 }
             }
+            console.log(users);
+            console.log(false);
             return false;
         }
-        function createUser(user) {}
-        function deleteUser(id) {}
-        function findUserByUsernameAndPassword(username, password) {
+
+        function createUser(user) {
+            if (findUserByUsername(user.username)) {
+                console.log("username not unique");
+                return false;
+            } 
+            user._id = new Date().getTime() + "";
+            users.push(user);
+            console.log(users);
+            return user;
+        }
+
+        function deleteUser(id) {
+            for(var i in users) {
+                if(users[i]._id === id) {
+                    users.splice(i, i);
+                    console.log(users);
+                    break;
+                }
+            }
+            console.log(false);
+            console.log(users);
+        }
+
+        function findUserByCredential(username, password) {
             for(var i in users) {
                 if(users[i].username === username && users[i].password === password) {
                     return users[i];
                 }
             }
-            return null;
+            return false;
         }
+
         function findUserById(id) {
             for(var i in users) {
                 if(users[i]._id === id) {
+                    console.log("user by id found")
                     return users[i];
                 }
             }
-            return null;
+            return false;
         }
 
+        function findUserByUsername(username) {
+            for(var i in users) {
+                if(users[i].username === username) {
+                    return users[i];
+                }
+            }
+            return false;
+        }
     }
 })();

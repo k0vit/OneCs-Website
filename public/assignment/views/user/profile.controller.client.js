@@ -6,12 +6,14 @@
     function ProfileController($routeParams, UserService) {
         var vm = this;
         vm.updateUser = updateUser;
-
         var id = $routeParams["id"];
         var index = -1;
+
         function init() {
             vm.user = UserService.findUserById(id);
+            console.log(vm.user);
         }
+
         init();
 
         function updateUser() {
