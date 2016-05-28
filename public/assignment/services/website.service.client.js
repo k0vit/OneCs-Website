@@ -1,5 +1,6 @@
 (function(){
-    angular.module("WebAppMaker")
+    angular
+        .module("WebAppMaker")
         .factory("WebsiteService", WebsiteService);
 
     var websites = [
@@ -12,30 +13,65 @@
     ];
 
     function WebsiteService() {
-
         var api = {
-            findWebsitesForUser: findWebsitesForUser,
-            findWebsiteById: findWebsiteById
+            createWebsite: createWebsite,
+            findWebsitesByUser: findWebsitesByUser,
+            deleteWebsite: deleteWebsite,
+            findWebsiteById: findWebsiteById,
+            updateWebsite: updateWebsite
         };
         return api;
 
+        function deleteWebsite(websiteId) {
+            for(var i in websites) {
+                if(websites[i]._id === websiteId) {
+                    websites.splice(i, 1);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function createWebsite(userId, website) {
+            var newWebsite = {
+                _id: (new Date()).getTime()+"",
+                name: website.name,
+                description: website.description,
+                developerId: userId
+            };
+            websites.push(newWebsite);
+            return newWebsite;
+        }
+
+        function findWebsitesByUser(userId) {
+            var resultSet = [];
+            for(var i in websites) {
+                if(websites[i].developerId === userId) {
+                    resultSet.push(websites[i]);
+                }
+            }
+            return resultSet;
+        }
+        
         function findWebsiteById(websiteId) {
             for(var i in websites) {
                 if(websites[i]._id === websiteId) {
                     return websites[i];
                 }
             }
-            return null;
+            return false;
         }
 
-        function findWebsitesForUser(userId) {
-            var result = [];
-            for(var i in websites) {
-                if(websites[i].developerId === userId) {
-                    result.push(websites[i]);
-                }
+        function updateWebsite(websiteId, newWebsite) {
+            var website = findWebsiteById(websiteId);
+            if (website) {
+                website.name = newWebsite.name;
+                website.description = newWebsite.description;
+                return true;
             }
-            return result;
+            else {
+                return false;
+            }
         }
     }
 })();
