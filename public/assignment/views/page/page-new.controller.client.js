@@ -1,19 +1,20 @@
 (function(){
     angular
         .module("WebAppMaker")
-        .controller("NewWebsiteController", NewWebsiteController);
+        .controller("NewPageController", NewPageController);
 
-    function NewWebsiteController($routeParams, WebsiteService, $location) {
+    function NewPageController($routeParams, PageService, $location) {
         var vm = this;
         vm.userId = $routeParams.id;
         vm.websiteId = $routeParams.wid;
-        vm.createWebsite = createWebsite;
+        vm.pageId = $routeParams.pid;
+        vm.createPage = createPage;
 
-        function createWebsite() {
-            var result = WebsiteService.createWebsite(vm.userId, vm.website);
+        function createPage() {
+            var result = PageService.createPage(vm.websiteId, vm.page);
 
             if(result) {
-                $location.url("/user/" + vm.userId + "/website");
+                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             } else {
                 vm.error = "Failed to create website"
             }
