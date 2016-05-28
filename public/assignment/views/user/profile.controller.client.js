@@ -10,16 +10,23 @@
         var index = -1;
 
         function init() {
-            vm.user = UserService.findUserById(id);
+            vm.user = angular.copy(UserService.findUserById(id));
             console.log(vm.user);
         }
 
         init();
 
         function updateUser() {
+            if (!vm.user.email) {
+                vm.error = "Please provide valid email id";
+                return;
+            }
+
             var result = UserService.updateUser(vm.user._id, vm.user);
+
             if(result === true) {
                 vm.success = "User successfully updated";
+                vm.error = false;
             } else {
                 vm.error = "User not found";
             }
