@@ -34,7 +34,7 @@
             var newPage = {
                 _id: (new Date()).getTime()+"",
                 name: page.name,
-                description: page.description,
+                title: page.title,
                 websiteId: websiteId
             };
             pages.push(newPage);
@@ -64,7 +64,7 @@
             var page = findPageById(pageID);
             if (page) {
                 page.name = newPage.name;
-                page.description = newPage.description;
+                page.title = newPage.title;
                 return true;
             }
             else {

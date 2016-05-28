@@ -1,7 +1,7 @@
 <nav role="navigation" class="navbar-default navbar-fixed-top">
     <div class = "container">
         <span class="navbar-text pull-left">
-            <a href="page-list.view.client.html" class="navbar-link img-right-spacing">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link img-right-spacing">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
             </a>
@@ -10,7 +10,7 @@
            <b>Edit Page</b>
         </span>
         <span class="navbar-text pull-right">
-                <a href="page-list.view.client.html" class="navbar-link">
+                <a ng-click="model.updatePage()" class="navbar-link">
                   <span class="glyphicon glyphicon-ok">
                   </span>
                 </a>
@@ -22,29 +22,29 @@
     <form>
         <div class="form-group">
             <label for="page-name">Name</label>
-            <input type="text"
-                   class="form-control"
-                   id="page-name"
-                   value="Blog Post"
-                   placeholder="Page Name">
+            <input  ng-model="model.page.name"
+                    type="text"
+                    class="form-control"
+                    id="page-name"
+                    placeholder="Page Name">
         </div>
         <div class="form-group">
             <label for="page-title">Title</label>
-            <input type="text"
-                   class="form-control"
-                   id="page-title"
-                   placeholder="Page Title">
+            <input  ng-model="model.page.title"
+                    type="text"
+                    class="form-control"
+                    id="page-title"
+                    placeholder="Page Title">
         </div>
     </form>
 
-    <a class="btn btn-danger  btn-block"
-       href="page-list.view.client.html">Delete</a>
+    <a class="btn btn-danger  btn-block" ng-click="model.deletePage()">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <span class="navbar-text pull-right">
-                <a href="/assignment/user/profile.html">
+               <a href="#/user/{{model.userId}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </span>

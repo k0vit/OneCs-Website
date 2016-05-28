@@ -1,37 +1,38 @@
 (function(){
     angular
         .module("WebAppMaker")
-        .controller("EditWebsiteController", EditWebsiteController);
+        .controller("EditPageController", EditPageController);
 
-    function EditWebsiteController($routeParams, WebsiteService, $location) {
+    function EditPageController($routeParams, PageService, $location) {
         var vm = this;
         vm.userId = $routeParams.id;
         vm.websiteId = $routeParams.wid;
-        vm.updateWebsite = updateWebsite;
-        vm.deleteWebsite = deleteWebsite;
+        vm.pageId = $routeParams.pid;
+        vm.updatePage = updatePage;
+        vm.deletePage = deletePage;
 
         function init() {
-            vm.website = angular.copy(WebsiteService.findWebsiteById(vm.websiteId));
+            vm.page = angular.copy(PageService.findPageById(vm.pageId));
         }
         init();
 
-        function updateWebsite() {
-            var result = WebsiteService.updateWebsite(vm.websiteId, vm.website);
+        function updatePage() {
+            var result = PageService.updatePage(vm.pageId, vm.page);
 
             if(result) {
-                $location.url("/user/" + vm.userId + "/website");
+                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             } else {
-                vm.error = "Failed to update website"
+                vm.error = "Failed to update page";
             }
         }
 
-        function deleteWebsite() {
-            var result = WebsiteService.deleteWebsite(vm.websiteId);
+        function deletePage() {
+            var result = PageService.deletePage(vm.pageId);
 
             if(result) {
-                $location.url("/user/" + vm.userId + "/website");
+                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             } else {
-                vm.error = "Failed to delete website"
+                vm.error = "Failed to delete page";
             }
         }
     }
