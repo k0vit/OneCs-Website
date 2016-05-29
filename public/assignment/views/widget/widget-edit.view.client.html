@@ -1,0 +1,65 @@
+<nav role="navigation" class="navbar-default navbar-fixed-top">
+    <div class = "container">
+        <span class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link img-right-spacing">
+                  <span class="glyphicon glyphicon-chevron-left">
+                  </span>
+            </a>
+        </span>
+        <span class="navbar-header navbar-brand">
+            <b>Widget Edit</b>
+        </span>
+        <span class="navbar-text pull-right">
+                <a ng-click="model.updateWidget()" class="navbar-link">
+                  <span class="glyphicon glyphicon-ok">
+                  </span>
+                </a>
+            </span>
+    </div>
+</nav>
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="widget-name">Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="widget-name"
+                   placeholder="Widget Name"
+                   ng-model="model.widget.name">
+        </div>
+        <div class="form-group">
+            <label for="widget-text">Text</label>
+            <input type="text"
+                   class="form-control"
+                   id="widget-text"
+                   placeholder="Widget Text"
+                   ng-model="model.widget.text">
+        </div>
+
+        <div ng-switch="model.widget.widgetType">
+            <div ng-switch-when="HEADER">
+                <ng-include src="'views/widget/widget-heading.view.client.html'"/>
+            </div>
+            <div ng-switch-when="IMAGE">
+                <ng-include src="'views/widget/widget-image.view.client.html'"/>
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <ng-include src="'views/widget/widget-youtube.view.client.html'"/>
+            </div>
+        </div>
+    </form>
+    <a class="btn btn-danger  btn-block"
+       ng-click="model.deleteWidget()">Delete</a>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <span class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+        </span>
+    </div>
+</nav>

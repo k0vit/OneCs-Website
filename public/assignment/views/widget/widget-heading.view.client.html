@@ -1,63 +1,14 @@
-<nav role="navigation" class="navbar-default navbar-fixed-top">
-    <div class = "container">
-        <span class="navbar-text pull-left">
-            <a href="widget-list.view.client.html" class="navbar-link img-right-spacing">
-                  <span class="glyphicon glyphicon-chevron-left">
-                  </span>
-            </a>
-        </span>
-        <span class="navbar-header navbar-brand">
-           <b> Widget Edit </b>
-        </span>
-        <span class="navbar-text pull-right">
-                <a href="widget-list.view.client.html" class="navbar-link">
-                  <span class="glyphicon glyphicon-ok">
-                  </span>
-                </a>
-            </span>
-    </div>
-</nav>
-
-<div class="container">
-    <form>
-        <div class="form-group">
-            <label for="heading-name">Name</label>
-            <input type="text"
-                   class="form-control"
-                   id="heading-name"
-                   placeholder="Heading Name">
-        </div>
-        <div class="form-group">
-            <label for="heading-text">Text</label>
-            <input type="text"
-                   class="form-control"
-                   id="heading-text"
-                   placeholder="Heading Text">
-        </div>
-        <div class="form-group">
-            <label for="heading-size">Size</label>
-            <select id="heading-size" class="form-control" size="1">
-                <option value="one">1</option>
-                <option value="twp">2</option>
-                <option value="three">3</option>
-                <option value="four">4</option>
-                <option value="five">5</option>
-                <option value="six">6</option>
-                <option selected="selected">Select Heading Size</option>
-            </select>
-        </div>
-    </form>
-
-    <a class="btn btn-danger  btn-block"
-       href="widget-list.view.client.html">Delete</a>
+<div class="form-group">
+    <label for="heading-size">Size</label>
+    <select id="heading-size" class="form-control"  ng-model="model.widget.size">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option selected="selected">Select Heading Size</option>
+    </select>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-        <span class="navbar-text pull-right">
-                <a href="/assignment/user/profile.html">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
-        </span>
-    </div>
-</nav>
+
