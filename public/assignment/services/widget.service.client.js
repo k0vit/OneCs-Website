@@ -22,6 +22,7 @@
 
     function WidgetService() {
         var api = {
+            findWidgetsByName: findWidgetsByName,
             createWidget: createWidget,
             findWidgetsByPageId: findWidgetsByPageId,
             deleteWidget: deleteWidget,
@@ -67,6 +68,16 @@
         return false;
     }
 
+
+    function findWidgetsByName(name) {
+        for(var i in widgets) {
+            if(widgets[i].name === name) {
+                return widgets[i];
+            }
+        }
+        return false;
+    }
+
     function updateWidget(widgetId, widget) {
         for(var i in widgets) {
             if(widgets[i]._id === widgetId) {
@@ -78,4 +89,5 @@
         console.log(widgets);
         return false;
     }
+
 })();

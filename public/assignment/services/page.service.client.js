@@ -16,7 +16,8 @@
             findPageByWebsiteId: findPageByWebsiteId,
             deletePage: deletePage,
             findPageById: findPageById,
-            updatePage: updatePage
+            updatePage: updatePage,
+            findPageByName: findPageByName
         };
         return api;
 
@@ -49,6 +50,15 @@
                 }
             }
             return resultSet;
+        }
+
+        function findPageByName(pageName) {
+            for(var i in pages) {
+                if(pages[i].name === pageName) {
+                    return pages[i];
+                }
+            }
+            return false;
         }
 
         function findPageById(pageId) {

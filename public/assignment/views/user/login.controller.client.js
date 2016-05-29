@@ -7,6 +7,10 @@
         var vm = this;
         vm.login = login;
         function login (username, password) {
+            if (!username || !password) {
+                vm.error = "Invalid username and password";
+            }
+
             var user = UserService.findUserByCredential(username, password);
             if(user) {
                 var id = user._id;

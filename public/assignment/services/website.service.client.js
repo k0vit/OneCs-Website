@@ -14,6 +14,7 @@
 
     function WebsiteService() {
         var api = {
+            findWebsiteByName: findWebsiteByName,
             createWebsite: createWebsite,
             findWebsitesByUser: findWebsitesByUser,
             deleteWebsite: deleteWebsite,
@@ -56,6 +57,15 @@
         function findWebsiteById(websiteId) {
             for(var i in websites) {
                 if(websites[i]._id === websiteId) {
+                    return websites[i];
+                }
+            }
+            return false;
+        }
+
+        function findWebsiteByName(name) {
+            for(var i in websites) {
+                if(websites[i].name === name) {
                     return websites[i];
                 }
             }
