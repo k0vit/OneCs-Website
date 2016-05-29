@@ -15,6 +15,11 @@ p.navbar-text.pull-left {
     margin-left: 15px;
 }
 
+.li-widget {
+    margin-top : 15px;
+    margin-bottom : 15px;
+}
+
 .widget-relative-pos {
     position: relative;
 }
