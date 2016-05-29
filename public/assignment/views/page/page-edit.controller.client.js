@@ -22,7 +22,7 @@
             if(result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             } else {
-                vm.error = "Failed to update page";
+                vm.error = "Internal Error: Failed to update page";
             }
         }
 
@@ -32,7 +32,7 @@
             if(result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             } else {
-                vm.error = "Failed to delete page";
+                vm.error = "Internal Error: Failed to delete page";
             }
         }
     }

@@ -21,7 +21,7 @@
             if(result) {
                 $location.url("/user/" + vm.userId + "/website");
             } else {
-                vm.error = "Failed to update website"
+                vm.error = "Internal Error: Failed to update website";
             }
         }
 
@@ -31,7 +31,7 @@
             if(result) {
                 $location.url("/user/" + vm.userId + "/website");
             } else {
-                vm.error = "Failed to delete website"
+                vm.error = "Internal Error: Failed to delete website";
             }
         }
     }

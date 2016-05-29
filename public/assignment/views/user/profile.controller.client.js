@@ -19,6 +19,7 @@
         function updateUser() {
             if (!vm.user.email) {
                 vm.error = "Please provide valid email id";
+                vm.success = false;
                 return;
             }
 
@@ -28,7 +29,8 @@
                 vm.success = "User successfully updated";
                 vm.error = false;
             } else {
-                vm.error = "User not found";
+                vm.error = "Failed while retrieving data for this user";
+                vm.success = false;
             }
         }
     }

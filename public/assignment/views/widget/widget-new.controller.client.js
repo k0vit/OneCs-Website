@@ -22,7 +22,7 @@
             if(result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             } else {
-                vm.error = "Failed to create widget"
+                vm.error = "Internal Error: Failed to create widget"
             }
         }
     }

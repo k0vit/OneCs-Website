@@ -28,7 +28,7 @@
             if(result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             } else {
-                vm.error = "Failed to update widget"
+                vm.error = "Internal Error: Failed to update widget"
             }
         }
 
@@ -38,7 +38,7 @@
             if(result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             } else {
-                vm.error = "Failed to delete widget"
+                vm.error = "Internal Error: Failed to delete widget"
             }
         }
     }

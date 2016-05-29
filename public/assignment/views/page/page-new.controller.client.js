@@ -16,7 +16,7 @@
             if(result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             } else {
-                vm.error = "Failed to create website"
+                vm.error = "Internal Error: Failed to create website"
             }
         }
     }
