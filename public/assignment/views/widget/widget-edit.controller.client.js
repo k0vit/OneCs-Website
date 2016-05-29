@@ -43,6 +43,10 @@
                     vm.error = "Please provide size of the heading";
                     return false;
                 }
+                else if (!vm.widget.text.trim()) {
+                    vm.error = "Please provide heading text";
+                    return false;
+                }
                 break;
             case "IMAGE":
             case "YOUTUBE":
