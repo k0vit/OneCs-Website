@@ -70,6 +70,11 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
+            .when("/user/:id/website/:wid/page/:pid/widget/new/:wtype", {
+                templateUrl: "views/widget/widget-new.view.client.html",
+                controller: "NewWidgetController",
+                controllerAs: "model"
+            })
             .otherwise({
                 templateUrl: "views/user/login.view.client.html",
                 controller: "LoginController",
