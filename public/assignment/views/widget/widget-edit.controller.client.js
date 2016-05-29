@@ -23,23 +23,49 @@
         init();
 
         function updateWidget() {
+            var isValid = validate();
+
+            if (isValid) {
             var result = WidgetService.updateWidget(vm.widgetId, vm.widget);
 
-            if(result) {
+            if (result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             } else {
                 vm.error = "Internal Error: Failed to update widget"
             }
         }
+    }
 
-        function deleteWidget() {
-            var result = WidgetService.deleteWidget(vm.widgetId);
+    function validate() {
+        switch(vm.widget.widgetType) {
+            case "HEADER":
+                if ((!vm.widget.size) || vm.widget.size === "Select Heading Size") {
+                    vm.error = "Please provide size of the heading";
+                    return false;
+                }
+                break;
+            case "IMAGE":
+            case "YOUTUBE":
+                if ((!vm.widget.url)) {
+                    vm.error = "Please provide url";
+                    return false;
+                }
+                if ((!vm.widget.width)) {
+                    vm.widget.width = "100%";
+                }
+                break;
+        }
+        return true;
+    }
 
-            if(result) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            } else {
-                vm.error = "Internal Error: Failed to delete widget"
-            }
+    function deleteWidget() {
+        var result = WidgetService.deleteWidget(vm.widgetId);
+
+        if(result) {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+        } else {
+            vm.error = "Internal Error: Failed to delete widget"
         }
     }
+}
 })();

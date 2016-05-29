@@ -38,10 +38,6 @@
                 vm.error = "Please provide unique website name";
                 return false;
             }
-            else if (WebsiteService.findWebsiteByName(vm.website.name)) {
-                vm.error = "Website Name already exists";
-                return false;
-            }
             return true;
         }
 
