@@ -16,13 +16,33 @@
         init();
 
         function updateWebsite() {
-            var result = WebsiteService.updateWebsite(vm.websiteId, vm.website);
+            var isValid = validate();
 
-            if(result) {
-                $location.url("/user/" + vm.userId + "/website");
-            } else {
-                vm.error = "Internal Error: Failed to update website";
+            if (isValid) {
+                var result = WebsiteService.updateWebsite(vm.websiteId, vm.website);
+
+                if (result) {
+                    $location.url("/user/" + vm.userId + "/website");
+                } else {
+                    vm.error = "Internal Error: Failed to update website";
+                }
             }
+        }
+
+        function validate() {
+            if (!vm.website) {
+                vm.error = "Please provide website name and description";
+                return false;
+            }
+            else if (!vm.website.name) {
+                vm.error = "Please provide unique website name";
+                return false;
+            }
+            else if (WebsiteService.findWebsiteByName(vm.website.name)) {
+                vm.error = "Website Name already exists";
+                return false;
+            }
+            return true;
         }
 
         function deleteWebsite() {
