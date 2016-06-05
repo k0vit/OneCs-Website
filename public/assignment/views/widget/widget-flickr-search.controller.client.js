@@ -16,7 +16,30 @@
         vm.searchPhotos = searchPhotos;
         vm.selectPhoto = selectPhoto;
 
+        function init() {
+            if (vm.widgetId) {
+                WidgetService
+                    .findWidgetsById(vm.widgetId)
+                    .then(
+                        function (response) {
+                            vm.widget = response.data;
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                        }
+                    );
+            }
+        }
+
+        init();
+
         function searchPhotos(searchTerm) {
+            if (!searchTerm) {
+                vm.error = "Please provide search text"
+                return;
+            }
+
+            vm.error = false;
             FlickrService
                 .searchPhotos(searchTerm)
                 .then(function(response) {
@@ -30,9 +53,30 @@
         function selectPhoto(photo) {
             var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
             url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
-            WidgetService
-                .updateWidget(websiteId, pageId, widgetId, {url: url})
-                .then();
+
+            if (vm.widgetId) {
+                vm.widget.url = url;
+                WidgetService
+                    .updateWidget(vm.widgetId, vm.widget)
+                    .then(navigate, displayErrorMsg);
+            }
+            else {
+                var newWidget = {};
+                newWidget.url = url;
+                newWidget.width= "100%";
+                newWidget.widgetType="IMAGE";
+                WidgetService
+                    .createWidget(vm.pageId, newWidget)
+                    .then(navigate, displayErrorMsg);
+            }
+        }
+
+        function navigate() {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+        }
+
+        function displayErrorMsg(error) {
+            vm.error = error.data;
         }
     }
 })();
