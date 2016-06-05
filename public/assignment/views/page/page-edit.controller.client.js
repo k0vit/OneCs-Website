@@ -12,22 +12,33 @@
         vm.deletePage = deletePage;
 
         function init() {
-            vm.page = angular.copy(PageService.findPageById(vm.pageId));
+            PageService
+                .findPageById(vm.pageId)
+                .then(
+                    function (response) {
+                        vm.page = response.data;
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
         }
         init();
 
         function updatePage() {
-            var isValid = validate();
-
-            if (isValid) {
-                var result = PageService.updatePage(vm.pageId, vm.page);
-
-                if (result) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                } else {
-                    vm.error = "Internal Error: Failed to update page";
-                }
+            if (validate()) {
+                PageService
+                    .updatePage(vm.pageId, vm.page)
+                    .then(navigate, displayErrorMsg);
             }
+        }
+
+        function navigate() {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+        }
+
+        function displayErrorMsg(error) {
+            vm.error = error.data;
         }
 
         function validate() {
@@ -47,13 +58,9 @@
         }
 
         function deletePage() {
-            var result = PageService.deletePage(vm.pageId);
-
-            if(result) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-            } else {
-                vm.error = "Internal Error: Failed to delete page";
-            }
+            PageService
+                .deletePage(vm.pageId)
+                .then(navigate, displayErrorMsg);
         }
     }
 })();

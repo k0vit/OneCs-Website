@@ -19,7 +19,7 @@ module.exports = function(app) {
         var newWebsite = req.body;
         for (var w in websites) {
             if (websites[w].name === newWebsite.name) {
-                res.status(400).send("Website name " + newWebsite.website + " is already in use");
+                res.status(400).send("Website name " + newWebsite.name + " is already in use");
                 return;
             }
         }

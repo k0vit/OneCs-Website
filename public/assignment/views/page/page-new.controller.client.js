@@ -11,16 +11,17 @@
         vm.createPage = createPage;
 
         function createPage() {
-            var isValid = validate();
+            if (validate()) {
+                PageService
+                    .createPage(vm.websiteId, vm.page)
+                    .then(function (response) {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                        }
+                    );
 
-            if (isValid) {
-                var result = PageService.createPage(vm.websiteId, vm.page);
-
-                if (result) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                } else {
-                    vm.error = "Internal Error: Failed to create website"
-                }
             }
         }
 
@@ -35,10 +36,6 @@
             }
             else if (!vm.page.title) {
                 vm.error = "Please provide page title";
-                return false;
-            }
-            else if (PageService.findPageByName(vm.page.name)) {
-                vm.error = "Page Name already exists";
                 return false;
             }
             return true;
