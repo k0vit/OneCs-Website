@@ -46,3 +46,14 @@ li.borderless {
 .black {
     color: black;
 }
+
+.flickr-search-row-margin {
+    margin-top: 15px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.flickr-search-col-padding {
+    padding-right: 0px;
+    padding-left: 0px;
+}

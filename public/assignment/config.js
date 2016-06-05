@@ -70,9 +70,19 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
+            .when("/user/:id/website/:wid/page/:pid/widget/new/flickr", {
+                templateUrl: "views/widget/widget-flickr-search.view.client.html",
+                controller: "FlickrImageSearchController",
+                controllerAs: "model"
+            })
             .when("/user/:id/website/:wid/page/:pid/widget/new/:wtype", {
                 templateUrl: "views/widget/widget-new.view.client.html",
                 controller: "NewWidgetController",
+                controllerAs: "model"
+            })
+            .when("/user/:id/website/:wid/page/:pid/widget/:wgid/flickr", {
+                templateUrl: "views/widget/widget-flickr-search.view.client.html",
+                controller: "FlickrImageSearchController",
                 controllerAs: "model"
             })
             .otherwise({

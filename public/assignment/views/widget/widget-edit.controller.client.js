@@ -15,6 +15,7 @@
         vm.widgetId = $routeParams.wgid;
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
+        vm.navigateToSearchFlickr = navigateToSearchFlickr;
 
         function init() {
             WidgetService
@@ -30,6 +31,11 @@
         }
 
         init();
+
+        function navigateToSearchFlickr() {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/"
+            + vm.widgetId + "/flickr");
+        }
 
         function updateWidget() {
             if (validate()) {

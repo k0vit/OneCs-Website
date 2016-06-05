@@ -14,6 +14,7 @@
         vm.websiteId = $routeParams.wid;
         vm.widgetType  = $routeParams.wtype;
         vm.createWidget = createWidget;
+        vm.navigateToSearchFlickr = navigateToSearchFlickr;
 
         function createWidget() {
             if (validate()) {
@@ -28,6 +29,10 @@
                         }
                     );
             }
+        }
+
+        function navigateToSearchFlickr() {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/new/flickr");
         }
 
         function validate() {
