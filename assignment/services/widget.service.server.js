@@ -14,11 +14,13 @@ module.exports = function (app) {
         { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
     ];
 
+    app.post ("/api/upload", upload.single('myFile'), uploadImage);
     app.post("/api/page/:pageId/widget", createWidget);
     app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
     app.get("/api/widget/:widgetId", findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
+    app.post("/api/upload", uploadImage);
 
     function createWidget(req, res) {
         var newWidget = req.body;
@@ -79,20 +81,49 @@ module.exports = function (app) {
     }
 
     function uploadImage(req, res) {
-        var widgetId      = req.body.widgetId;
-        var width         = req.body.width;
-        var myFile        = req.file;
-        var originalname  = myFile.originalname; // file name on user's computer
-        var filename      = myFile.filename;     // new file name in upload folder
-        var path          = myFile.path;         // full path of uploaded file
-        var destination   = myFile.destination;  // folder where file is saved to
-        var size          = myFile.size;
-        var mimetype      = myFile.mimetype;
-        for(var i in widgets) {
-            if(widgets[i]._id === widgetId) {
-                widgets[i].url = "/uploads/"+filename;
+        var widgetId = req.body.widgetId;
+        var userId = req.body.userId;
+        var pageId = req.body.pageId;
+        var websiteId = req.body.websiteId;
+        var width = req.body.width;
+        var myFile = req.file;
+
+        if(myFile == null) {
+            if (widgetId) {
+                res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+            }
+            else {
+                res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/new/IMAGE");
+            }
+            return;
+        }
+
+        var filename = myFile.filename;
+
+        if (widgetId) {
+            for (var i in widgets) {
+                if (widgets[i]._id === widgetId) {
+                    widgets[i].url = "/uploads/" + filename;
+                    res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
+                    return;
+                }
             }
         }
-        res.redirect("/assignment/#/user/:uid/website/:wid/page/:pid/widget/345");
+        else {
+            var newWidget = {};
+            newWidget.widgetType = "IMAGE";
+            newWidget._id =  (new Date()).getTime() + "";
+            newWidget.url = "/uploads/" + filename;
+            newWidget.pageId = pageId;
+            if (width) {
+                newWidget.width = width;
+            }
+            else {
+                newWidget.width = "100%";
+            }
+            widgets.push(newWidget);
+            res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
+            return;
+        }
     }
 }

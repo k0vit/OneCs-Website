@@ -23,38 +23,34 @@
     <div ng-show="model.error" class="alert alert-danger">
         {{model.error}}
     </div>
+    <div class="form-group">
+        <label for="widget-name">Name</label>
+        <input type="text"
+               class="form-control"
+               id="widget-name"
+               placeholder="Widget Name"
+               ng-model="model.widget.name">
+    </div>
+    <div class="form-group">
+        <label for="widget-text">Text</label>
+        <input type="text"
+               class="form-control"
+               id="widget-text"
+               placeholder="Widget Text"
+               ng-model="model.widget.text">
+    </div>
 
-    <form>
-        <div class="form-group">
-            <label for="widget-name">Name</label>
-            <input type="text"
-                   class="form-control"
-                   id="widget-name"
-                   placeholder="Widget Name"
-                   ng-model="model.widget.name">
+    <div ng-switch="model.widgetType">
+        <div ng-switch-when="HEADER">
+            <ng-include src="'views/widget/widget-heading.view.client.html'"/>
         </div>
-        <div class="form-group">
-            <label for="widget-text">Text</label>
-            <input type="text"
-                   class="form-control"
-                   id="widget-text"
-                   placeholder="Widget Text"
-                   ng-model="model.widget.text">
+        <div ng-switch-when="IMAGE">
+            <ng-include src="'views/widget/widget-image.view.client.html'"/>
         </div>
-
-        <div ng-switch="model.widgetType">
-            <div ng-switch-when="HEADER">
-                <ng-include src="'views/widget/widget-heading.view.client.html'"/>
-            </div>
-            <div ng-switch-when="IMAGE">
-                <ng-include src="'views/widget/widget-image.view.client.html'"/>
-            </div>
-            <div ng-switch-when="YOUTUBE">
-                <ng-include src="'views/widget/widget-youtube.view.client.html'"/>
-            </div>
+        <div ng-switch-when="YOUTUBE">
+            <ng-include src="'views/widget/widget-youtube.view.client.html'"/>
         </div>
-
-    </form>
+    </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
