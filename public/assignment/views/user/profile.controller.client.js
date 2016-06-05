@@ -1,33 +1,41 @@
-(function(){
+(function() {
     angular
         .module("WebAppMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, UserService) {
+    function ProfileController($routeParams, UserService, $location) {
         var vm = this;
         vm.updateUser = updateUser;
         var id = $routeParams["id"];
-        var index = -1;
 
         function init() {
-            vm.user = angular.copy(UserService.findUserById(id));
-            console.log(vm.user);
+            UserService
+                .findUserById(id)
+                .then(
+                    function(response) {
+                        vm.user = response.data;
+                    },
+                    function(error) {
+                        vm.error = error.data;
+                    }
+                );
         }
-
         init();
 
         function updateUser() {
-            var isValid = validate();
-            if (isValid) {
-                var result = UserService.updateUser(vm.user._id, vm.user);
-
-                if (result === true) {
-                    vm.success = "User successfully updated";
-                    vm.error = false;
-                } else {
-                    vm.error = "Failed while retrieving data for this user";
-                    vm.success = false;
-                }
+            if (validate()) {
+                UserService
+                    .updateUser(id, vm.user)
+                    .then(
+                        function (response) {
+                            vm.success = "User successfully updated";
+                            vm.error = false;
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                            vm.success = false;
+                        }
+                    );
             }
         }
 

@@ -20,40 +20,40 @@
             var isValid = validate();
 
             if (isValid) {
-            var result = PageService.updatePage(vm.pageId, vm.page);
+                var result = PageService.updatePage(vm.pageId, vm.page);
 
-            if (result) {
+                if (result) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                } else {
+                    vm.error = "Internal Error: Failed to update page";
+                }
+            }
+        }
+
+        function validate() {
+            if (!vm.page) {
+                vm.error = "Please provide page name and title";
+                return false;
+            }
+            else if (!vm.page.name) {
+                vm.error = "Please provide unique page name";
+                return false;
+            }
+            else if (!vm.page.title) {
+                vm.error = "Please provide page title";
+                return false;
+            }
+            return true;
+        }
+
+        function deletePage() {
+            var result = PageService.deletePage(vm.pageId);
+
+            if(result) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             } else {
-                vm.error = "Internal Error: Failed to update page";
+                vm.error = "Internal Error: Failed to delete page";
             }
         }
     }
-
-    function validate() {
-        if (!vm.page) {
-            vm.error = "Please provide page name and title";
-            return false;
-        }
-        else if (!vm.page.name) {
-            vm.error = "Please provide unique page name";
-            return false;
-        }
-        else if (!vm.page.title) {
-            vm.error = "Please provide page title";
-            return false;
-        }
-        return true;
-    }
-
-    function deletePage() {
-        var result = PageService.deletePage(vm.pageId);
-
-        if(result) {
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-        } else {
-            vm.error = "Internal Error: Failed to delete page";
-        }
-    }
-}
 })();

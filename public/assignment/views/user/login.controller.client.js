@@ -6,18 +6,26 @@
     function LoginController($location, UserService) {
         var vm = this;
         vm.login = login;
-        function login (username, password) {
-            if (!username || !password) {
-                vm.error = "Invalid username and password";
-            }
 
-            var user = UserService.findUserByCredential(username, password);
-            if(user) {
-                var id = user._id;
-                vm.error = false;
-                $location.url("/user/" + id);
-            } else {
-                vm.error = "Invalid username and password";
+        function login(username, password) {
+            if (!username || !password) {
+                vm.error = "Please provide username and password";
+            }
+            else {
+                UserService
+                    .findUserByCredential(username, password)
+                    .then(
+                        function (response) {
+                            var user = response.data;
+                            if (user) {
+                                var id = user._id;
+                                $location.url("/user/" + id);
+                            }
+                        },
+                        function (error) {
+                            vm.error = "Invalid username or password";
+                        }
+                    );
             }
         }
     }

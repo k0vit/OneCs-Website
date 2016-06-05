@@ -8,14 +8,18 @@
         vm.createUser = createUser;
 
         function createUser() {
-            var result = validate();
-            if (result) {
-                var user = UserService.createUser(vm.user);
-                if (user) {
-                    $location.url("/user/" + user._id);
-                } else {
-                    vm.error = "Username should be unique";
-                }
+            if (validate()) {
+                UserService
+                    .createUser(vm.user.username, vm.user.password)
+                    .then(
+                        function (response) {
+                            var user = response.data;
+                            $location.url("/user/" + user._id);
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                        }
+                    );
             }
         }
 
@@ -26,10 +30,6 @@
             }
             else if (!vm.user.username) {
                 vm.error = "Please provide username";
-                return false;
-            }
-            else if (UserService.findUserByUsername(vm.user.username)) {
-                vm.error = "Username already exists";
                 return false;
             }
             else if (!vm.user.password) {
