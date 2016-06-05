@@ -16,17 +16,17 @@
         vm.createWidget = createWidget;
 
         function createWidget() {
-            var isValid = validate();
-
-            if (isValid) {
+            if (validate()) {
                 vm.widget.widgetType = vm.widgetType;
-                var result = WidgetService.createWidget(vm.pageId, angular.copy(vm.widget));
-
-                if (result) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                } else {
-                    vm.error = "Internal Error: Failed to create widget"
-                }
+                WidgetService
+                    .createWidget(vm.pageId, vm.widget)
+                    .then(function (response) {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                        }
+                    );
             }
         }
 

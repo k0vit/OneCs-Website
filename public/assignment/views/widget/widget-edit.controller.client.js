@@ -17,23 +17,34 @@
         vm.deleteWidget = deleteWidget;
 
         function init() {
-            vm.widget = angular.copy(WidgetService.findWidgetsById(vm.widgetId));
-            console.log(vm.widget);
+            WidgetService
+                .findWidgetsById(vm.widgetId)
+                .then(
+                    function (response) {
+                        vm.widget = response.data;
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
         }
+
         init();
 
         function updateWidget() {
-            var isValid = validate();
-
-            if (isValid) {
-                var result = WidgetService.updateWidget(vm.widgetId, vm.widget);
-
-                if (result) {
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                } else {
-                    vm.error = "Internal Error: Failed to update widget"
-                }
+            if (validate()) {
+                WidgetService
+                    .updateWidget(vm.widgetId, vm.widget)
+                    .then(navigate, displayErrorMsg);
             }
+        }
+
+        function navigate() {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+        }
+
+        function displayErrorMsg(error) {
+            vm.error = error.data;
         }
 
         function validate() {
@@ -43,7 +54,7 @@
                         vm.error = "Please provide size of the heading";
                         return false;
                     }
-                    else if (!vm.widget.text.trim()) {
+                    else if (!vm.widget.text) {
                         vm.error = "Please provide heading text";
                         return false;
                     }
@@ -63,13 +74,9 @@
         }
 
         function deleteWidget() {
-            var result = WidgetService.deleteWidget(vm.widgetId);
-
-            if(result) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            } else {
-                vm.error = "Internal Error: Failed to delete widget"
-            }
+            WidgetService
+                .deleteWidget(vm.widgetId)
+                .then(navigate, displayErrorMsg);
         }
     }
 })();
