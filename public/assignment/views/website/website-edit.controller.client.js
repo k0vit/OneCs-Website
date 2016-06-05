@@ -11,22 +11,34 @@
         vm.deleteWebsite = deleteWebsite;
 
         function init() {
-            vm.website = angular.copy(WebsiteService.findWebsiteById(vm.websiteId));
+            WebsiteService
+                .findWebsiteById(vm.websiteId)
+                .then(
+                    function (response) {
+                        vm.website = response.data;
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
         }
+
         init();
 
         function updateWebsite() {
-            var isValid = validate();
-
-            if (isValid) {
-                var result = WebsiteService.updateWebsite(vm.websiteId, vm.website);
-
-                if (result) {
-                    $location.url("/user/" + vm.userId + "/website");
-                } else {
-                    vm.error = "Internal Error: Failed to update website";
-                }
+            if (validate()) {
+                WebsiteService
+                    .updateWebsite(vm.websiteId, vm.website)
+                    .then(navigate, displayErrorMsg);
             }
+        }
+
+        function navigate() {
+            $location.url("/user/" + vm.userId + "/website");
+        }
+
+        function displayErrorMsg(error) {
+            vm.error = error.data;
         }
 
         function validate() {
@@ -42,13 +54,9 @@
         }
 
         function deleteWebsite() {
-            var result = WebsiteService.deleteWebsite(vm.websiteId);
-
-            if(result) {
-                $location.url("/user/" + vm.userId + "/website");
-            } else {
-                vm.error = "Internal Error: Failed to delete website";
-            }
+            WebsiteService
+                .deleteWebsite(vm.websiteId)
+                .then(navigate, displayErrorMsg);
         }
     }
 })();

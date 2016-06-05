@@ -12,9 +12,8 @@
         { "_id": "789", "name": "Chess",       "developerId": "234" }
     ];
 
-    function WebsiteService() {
+    function WebsiteService($http) {
         var api = {
-            findWebsiteByName: findWebsiteByName,
             createWebsite: createWebsite,
             findWebsitesByUser: findWebsitesByUser,
             deleteWebsite: deleteWebsite,
@@ -24,64 +23,35 @@
         return api;
 
         function deleteWebsite(websiteId) {
-            for(var i in websites) {
-                if(websites[i]._id === websiteId) {
-                    websites.splice(i, 1);
-                    return true;
-                }
-            }
-            return false;
+            return $http.delete(getUrlWithWebsiteId(websiteId));
         }
 
         function createWebsite(userId, website) {
             var newWebsite = {
-                _id: (new Date()).getTime()+"",
                 name: website.name,
                 description: website.description,
-                developerId: userId
             };
-            websites.push(newWebsite);
-            return newWebsite;
+            return $http.post(getUrlWithUserId(userId), newWebsite);
         }
 
         function findWebsitesByUser(userId) {
-            var resultSet = [];
-            for(var i in websites) {
-                if(websites[i].developerId === userId) {
-                    resultSet.push(websites[i]);
-                }
-            }
-            return resultSet;
+            return $http.get(getUrlWithUserId(userId));
         }
 
         function findWebsiteById(websiteId) {
-            for(var i in websites) {
-                if(websites[i]._id === websiteId) {
-                    return websites[i];
-                }
-            }
-            return false;
-        }
-
-        function findWebsiteByName(name) {
-            for(var i in websites) {
-                if(websites[i].name === name) {
-                    return websites[i];
-                }
-            }
-            return false;
+            return $http.get(getUrlWithWebsiteId(websiteId));
         }
 
         function updateWebsite(websiteId, newWebsite) {
-            var website = findWebsiteById(websiteId);
-            if (website) {
-                website.name = newWebsite.name;
-                website.description = newWebsite.description;
-                return true;
-            }
-            else {
-                return false;
-            }
+            return $http.put(getUrlWithWebsiteId(websiteId), newWebsite);
+        }
+
+        function getUrlWithUserId(userId) {
+            return "/api/user/" + userId + "/website";
+        }
+
+        function getUrlWithWebsiteId(websiteId) {
+            return "/api/website/" + websiteId;
         }
     }
 })();

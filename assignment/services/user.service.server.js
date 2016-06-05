@@ -61,7 +61,7 @@ module.exports = function(app) {
             }
         }
 
-        res.status(400).send("User with ID: "+ id +" not found");
+        res.status(400).send("User with ID: "+ userId +" not found");
     }
 
     function findUser(req, res) {
