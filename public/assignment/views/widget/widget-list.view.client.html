@@ -18,7 +18,7 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="container" id="sortable">
     <div ng-repeat="widget in model.widgets" class="li-widget">
         <div class="widget-relative-pos">
             <div class="widget-tool">
@@ -72,3 +72,9 @@
         </span>
     </div>
 </nav>
+
+<script>
+    $(function() {
+        $( "#sortable" ).sortable();
+    });
+</script>
