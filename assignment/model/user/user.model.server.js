@@ -12,7 +12,7 @@ module.exports = function(mongoose) {
         deleteUser: deleteUser
     };
     return api;
-    
+
     function createUser(user) {
         return User.create(user);
     }
@@ -20,27 +20,22 @@ module.exports = function(mongoose) {
     function findUserById(userId) {
         return User.findById(userId);
     }
-    
+
     function findUserByCredentials(username, password) {
         return User.findOne({username: username, password: password});
     }
-    
-    function findUserByUsername() {
-        
+
+    function findUserByUsername(username) {
+        return User.findOne({username: username});
     }
-    
+
     function updateUser(id, newUser) {
         return User.update(
             {_id: id},
-            {$set :
-                {
-                    firstName: newUser.firstName,
-                    lastName: newUser.lastName
-                }
-            }
+            {$set : newUser}
         );
     }
-    
+
     function deleteUser(userId) {
         return User.remove({_id: userId});
     }

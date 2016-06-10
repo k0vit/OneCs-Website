@@ -1,17 +1,18 @@
-var mongoose = require("mongoose");
-
 module.exports = function() {
 
     var WebsiteSchema = require("./website.schema.server")();
     var Website = mongoose.model("Website", WebsiteSchema);
 
     var api = {
-        createWebsite: createWebsite,
-        findAllWebsitesForUser: findAllWebsitesForUser
+        createWebsiteForUser: createWebsiteForUser,
+        findAllWebsitesForUser: findAllWebsitesForUser,
+        findWebsiteById: findWebsiteById,
+        updateWebsite: updateWebsite,
+        deleteWebsite: deleteWebsite
     };
     return api;
 
-    function createWebsite(userId, website) {
+    function createWebsiteForUser(userId, website) {
         website._user = userId;
         return Website.create(website);
     }
@@ -20,4 +21,18 @@ module.exports = function() {
         return Website.find({_user: userId});
     }
 
+    function findWebsiteById(websiteId) {
+        return Website.findById(websiteId);
+    }
+
+    function updateWebsite(websiteId, website) {
+        return Website.update(
+            {_id: websiteId},
+            {$set: website}
+        );
+    }
+
+    function deleteWebsite(websiteId) {
+        return Website.remove({_id: websiteId});
+    }
 };
