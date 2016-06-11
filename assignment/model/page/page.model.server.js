@@ -9,7 +9,8 @@ module.exports = function() {
         findAllPagesForWebsite: findAllPagesForWebsite,
         findPageById: findPageById,
         updatePage: updatePage,
-        deletePage: deletePage
+        deletePage: deletePage,
+        findPageByName: findPageByName
     };
     return api;
 
@@ -24,6 +25,10 @@ module.exports = function() {
 
     function findPageById(pageId) {
         return Page.findById(pageId);
+    }
+
+    function findPageByName(name) {
+        return Page.findOne({name: name});
     }
 
     function updatePage(pageId, page) {
