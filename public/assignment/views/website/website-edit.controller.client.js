@@ -54,9 +54,11 @@
         }
 
         function deleteWebsite() {
-            WebsiteService
-                .deleteWebsite(vm.websiteId)
-                .then(navigate, displayErrorMsg);
+            if (!vm.error) {
+                WebsiteService
+                    .deleteWebsite(vm.websiteId)
+                    .then(navigate, displayErrorMsg);
+            }
         }
     }
 })();

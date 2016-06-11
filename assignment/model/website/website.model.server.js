@@ -9,12 +9,14 @@ module.exports = function() {
         findAllWebsitesForUser: findAllWebsitesForUser,
         findWebsiteById: findWebsiteById,
         updateWebsite: updateWebsite,
-        deleteWebsite: deleteWebsite
+        deleteWebsite: deleteWebsite,
+        findWebsiteByName: findWebsiteByName
     };
     return api;
 
     function createWebsiteForUser(userId, website) {
         website._user = userId;
+        website.dateCreated = new Date();
         return Website.create(website);
     }
 
@@ -24,6 +26,10 @@ module.exports = function() {
 
     function findWebsiteById(websiteId) {
         return Website.findById(websiteId);
+    }
+
+    function findWebsiteByName(name, userId) {
+        return Website.findOne({name: name, _user: userId});
     }
 
     function updateWebsite(websiteId, website) {

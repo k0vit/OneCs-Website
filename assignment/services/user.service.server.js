@@ -51,7 +51,7 @@ module.exports = function(app, models) {
                     res.send(200);
                 },
                 function (error) {
-                    res.status(404).send("Unable to remove user with Id: " + id);
+                    res.status(500).send("Unable to remove user with Id: " + id);
                 }
             );
     }

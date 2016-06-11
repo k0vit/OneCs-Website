@@ -1,4 +1,6 @@
-module.exports = function(app) {
+module.exports = function(app, models) {
+
+    var websiteModel = models.websiteModel;
 
     app.post("/api/user/:userId/website", createWebsite);
     app.get("/api/user/:userId/website", findAllWebsitesForUser);
@@ -8,68 +10,100 @@ module.exports = function(app) {
 
     function createWebsite(req, res) {
         var newWebsite = req.body;
-        for (var w in websites) {
-            if (websites[w].name === newWebsite.name) {
-                res.status(400).send("Website name " + newWebsite.name + " is already in use");
-                return;
-            }
-        }
+        var userId = req.params.userId;
 
-        var devId = req.params.userId;
-        newWebsite._id = (new Date()).getTime() + "";
-        newWebsite.developerId = devId;
-        websites.push(newWebsite);
-        res.json(newWebsite);
+        websiteModel
+            .findWebsiteByName(newWebsite.name, userId)
+            .then(
+                function (website) {
+                    if (website) {
+                        res.status(403).send("Requested website name " + newWebsite.name + " is already taken");
+                    }
+                    else {
+                        createNewWebsite(userId, newWebsite, res);
+                    }
+                },
+                function(error) {
+                    res.status(500).send("Failed to create website. Internal Server error");
+                }
+            );
+    }
+
+    function createNewWebsite(userId, newWebsite, res) {
+        websiteModel
+            .createWebsiteForUser(userId, newWebsite)
+            .then(
+                function (website) {
+                    res.json(website);
+                },
+                function (error) {
+                    res.status(500).send("Failed to create website. Internal Server error");
+                }
+            );
     }
 
     function deleteWebsite(req, res) {
         var id = req.params.websiteId;
-        for(var i in websites) {
-            if(websites[i]._id === id) {
-                websites.splice(i, 1);
-                res.send(200);
-                return;
-            }
-        }
-        res.status(404).send("Unable to remove website with ID: " + id);
+        websiteModel
+            .deleteWebsite(id)
+            .then(
+                function (stats) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.status(500).send("Failed to delete website. Internal Server error");
+                }
+            );
     }
 
     function updateWebsite(req, res) {
         var id = req.params.websiteId;
         var newWebsite = req.body;
-        for(var i in websites) {
-            if(websites[i]._id === id) {
-                websites[i] = newWebsite;
-                res.send(200);
-                return;
-            }
-        }
-        res.status(400).send("Website with ID: "+ id +" not found");
+
+        websiteModel
+            .updateWebsite(id, newWebsite)
+            .then(
+                function (website) {
+                    res.json(website);
+                },
+                function (error) {
+                    res.status(500).send("Failed to update website. Internal Server error");
+                }
+            );
     }
 
     function findWebsiteById(req, res) {
         var websiteId = req.params.websiteId;
-        for(var i in websites) {
-            if(websiteId === websites[i]._id) {
-                res.send(websites[i]);
-                return;
-            }
-        }
 
-        res.status(400).send("Website with ID: "+ id +" not found");
+        websiteModel
+            .findWebsiteById(websiteId)
+            .then(
+                function (website) {
+                    if (!website) {
+                        res.status(400).send("Website with ID: "+ websiteId +" not found");
+                    }
+                    else {
+                        res.json(website);
+                    }
+                },
+                function (error) {
+                    res.status(500).send("Failed to retrieve website. Website with ID: "+ websiteId +" not found");
+                }
+            );
     }
 
     function findAllWebsitesForUser(req, res) {
-        var resultSet = [];
-        var devId = req.params.userId;
+        var userId = req.params.userId;
 
-        for(var i in websites) {
-            if(websites[i].developerId === devId) {
-                resultSet.push(websites[i]);
-            }
-        }
-
-        res.json(resultSet);
-        return;
+        websiteModel
+            .findAllWebsitesForUser(userId)
+            .then(
+                function (websites) {
+                    res.json(websites);
+                },
+                function (error) {
+                    res.status(500).send("Failed to retrieve websites. Internal Server error");
+                }
+            );
     }
 };
