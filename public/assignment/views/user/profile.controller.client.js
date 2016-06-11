@@ -6,6 +6,7 @@
     function ProfileController($routeParams, UserService, $location) {
         var vm = this;
         vm.updateUser = updateUser;
+        vm.unregisterUser = unregisterUser;
         var id = $routeParams["id"];
 
         function init() {
@@ -37,6 +38,20 @@
                         }
                     );
             }
+        }
+
+        function unregisterUser() {
+            UserService
+                .deleteUser(id)
+                .then(
+                    function (response) {
+                        $location.url("/login");
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                        vm.success = false;
+                    }
+                );
         }
 
         function validate() {

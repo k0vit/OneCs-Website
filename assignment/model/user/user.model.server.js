@@ -1,5 +1,6 @@
-module.exports = function(mongoose) {
+module.exports = function() {
 
+    var mongoose = require("mongoose");
     var UserSchema = require("./user.schema.server")(mongoose);
     var User = mongoose.model("User", UserSchema);
 
@@ -14,6 +15,7 @@ module.exports = function(mongoose) {
     return api;
 
     function createUser(user) {
+        user.dateCreated = new Date();
         return User.create(user);
     }
 

@@ -23,7 +23,7 @@
                             }
                         },
                         function (error) {
-                            vm.error = "Invalid username or password";
+                            vm.error = error.data;
                         }
                     );
             }
