@@ -1,6 +1,7 @@
 module.exports = function(app, models) {
 
     var pageModel = models.pageModel;
+    var websiteModel = models.websiteModel;
 
     app.post("/api/website/:websiteId/page", createPage);
     app.get("/api/website/:websiteId/page", findAllPagesForWebsite);
@@ -34,7 +35,7 @@ module.exports = function(app, models) {
             .createPage(websiteId, newPage)
             .then(
                 function (page) {
-                    res.json(page);
+                    updateWebsitePages(websiteId, page, res);
                 },
                 function (error) {
                     res.status(500).send("Failed to create page. Internal Server error");
@@ -42,16 +43,66 @@ module.exports = function(app, models) {
             );
     }
 
-    function deletePage(req, res) {
-        var id = req.params.pageId;
-        pageModel
-            .deletePage(id)
+    function updateWebsitePages(websiteId, page, res) {
+        var pageId = page._id;
+        websiteModel
+            .findWebsiteById(websiteId)
             .then(
-                function (stats) {
-                    res.sendStatus(200);
+                function(website){
+                    website._pages.push(pageId);
+                    website.save();
+                    res.json(page);
+                },
+                function(error){
+                    res.status(500).send("Internal Server Error. " +
+                        "Page created successfully but fail to update website about this page.");
+                }
+            );
+    }
+
+    function deletePage(req, res) {
+        var pageId = req.params.pageId;
+
+        pageModel
+            .findPageById(pageId)
+            .then(
+                function (page) {
+                    var websiteId = page._website;
+                    removePage(res, websiteId, pageId);
+                },
+                function (error) {
+                    res.status(500).send("Failed to delete page as unable to find page with id as "+ pageId +
+                        ". Internal Server error");
+                }
+            );
+    }
+
+    function removePage(res, websiteId, pageId) {
+        pageModel
+            .deletePage(pageId)
+            .then(
+                function (stat) {
+                    removePageFromWebsite(res, websiteId, pageId);
                 },
                 function (error) {
                     res.status(500).send("Failed to delete page. Internal Server error");
+                }
+            );
+    }
+
+    function removePageFromWebsite(res, websiteId, pageId) {
+        websiteModel
+            .findWebsiteById(websiteId)
+            .then(
+                function(website) {
+                    var elemIndex = website._pages.indexOf(pageId);
+                    website._pages.splice(elemIndex, 1);
+                    website.save();
+                    res.sendStatus(200);
+                },
+                function(error) {
+                    res.status(500).send("Page deleted successfully but failed to update website." +
+                        " Internal Server error");
                 }
             );
     }
