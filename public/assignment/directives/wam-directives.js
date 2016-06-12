@@ -16,6 +16,7 @@
                     },
                     stop: function(event,ui) {
                         endIndex = ui.item.index();
+                        console.log(startIndex, endIndex);
                         myScope.callback({start:startIndex, end:endIndex});
                     }
                 });

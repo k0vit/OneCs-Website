@@ -12,6 +12,7 @@ module.exports = function (app, models) {
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
     app.post("/api/upload", uploadImage);
+    app.put("/page/:pageId/widget", reorderWidget);
 
     function createWidget(req, res) {
         var newWidget = req.body;
@@ -153,6 +154,23 @@ module.exports = function (app, models) {
                 },
                 function (error) {
                     res.status(500).send("Failed to get requested widget. Internal Server error");
+                }
+            );
+    }
+
+    function reorderWidget(req, res) {
+        var start = parseInt(req.query.start);
+        var end = parseInt(req.query.end);
+        var pageId = req.params.pageId;
+
+        widgetModel
+            .reorderWidget(pageId, start, end)
+            .then(
+                function (widget) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.status(500).send("Failed to get reorder widget. Internal Server error");
                 }
             );
     }

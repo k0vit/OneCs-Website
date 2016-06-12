@@ -71,7 +71,35 @@ module.exports = function() {
     }
 
     function reorderWidget(pageId, start, end) {
-
+        return Widget
+            .find({_page: pageId})
+            .sort({position: 1})
+            .exec()
+            .then(
+                function(widgets) {
+                    var prevPos = -1;
+                    for (var i = 0; i < widgets.length; i++) {
+                        if (i==start) {
+                            prevPos = widgets[i].position;
+                        }
+                        else if (i>start && i<=end) {
+                            var currentPos = widgets[i].position;
+                            widgets[i].position = prevPos;
+                            prevPos = currentPos;
+                            if (i==end) {
+                                widgets[start].position = prevPos;
+                                widgets[start].save();
+                            }
+                            widgets[i].save();
+                        }
+                    }
+                    return;
+                },
+                function(error) {
+                    console.log(error)
+                    return;
+                }
+            );
     }
 
     function findMaxPos(pageId){

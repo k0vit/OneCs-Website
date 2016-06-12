@@ -48,7 +48,7 @@
         }
 
         function reorderWidget(pageId, start, end) {
-            return $http.put(getUrlWithPageId(pageId) + "?start=" + start +"&end=" + end);
+            return $http.put("/page/" + pageId + "/widget?start=" + start +"&end=" + end);
         }
     }
 })();
