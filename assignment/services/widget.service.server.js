@@ -1,6 +1,7 @@
 module.exports = function (app, models) {
 
     var widgetModel = models.widgetModel;
+    var pageModel = models.pageModel;
     var multer = require('multer');
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
 
@@ -38,10 +39,27 @@ module.exports = function (app, models) {
             .createWidget(pageId, newWidget)
             .then(
                 function (widget) {
-                    res.json(widget);
+                    updatePageWidgetLst(pageId, widget, res);
                 },
                 function (error) {
                     res.status(500).send("Failed to create widget. Internal Server error");
+                }
+            );
+    }
+
+    function updatePageWidgetLst(pageId, widget, res) {
+        var widgetId = widget._id;
+        pageModel
+            .findPageById(pageId)
+            .then(
+                function(page){
+                    page._widgets.push(widgetId);
+                    page.save();
+                    res.json(widget);
+                },
+                function(error){
+                    res.status(500).send("Internal Server Error. " +
+                        "Widget created successfully but fail to update page about this widget.");
                 }
             );
     }
@@ -63,16 +81,48 @@ module.exports = function (app, models) {
     }
 
     function deleteWidget(req, res) {
-        var id = req.params.widgetId;
+        var widgetId = req.params.widgetId;
 
         widgetModel
-            .deleteWidget(id)
+            .findWidgetById(widgetId)
             .then(
-                function (stats) {
-                    res.sendStatus(200);
+                function (widget) {
+                    var pageId = widget._page;
+                    removeWidget(res, pageId, widgetId);
+                },
+                function (error) {
+                    res.status(500).send("Failed to delete widget as unable to find widget with id as "+ widgetId +
+                        ". Internal Server error");
+                }
+            );
+    }
+
+    function removeWidget(res, pageId, widgetId) {
+        widgetModel
+            .deleteWidget(widgetId)
+            .then(
+                function (stat) {
+                    removeWidgetFromWidgetLst(res, pageId, widgetId);
                 },
                 function (error) {
                     res.status(500).send("Failed to delete widget. Internal Server error");
+                }
+            );
+    }
+
+    function removeWidgetFromWidgetLst(res, pageId, widgetId) {
+        pageModel
+            .findPageById(pageId)
+            .then(
+                function(page) {
+                    var elemIndex = page._widgets.indexOf(widgetId);
+                    page._widgets.splice(elemIndex, 1);
+                    page.save();
+                    res.sendStatus(200);
+                },
+                function(error) {
+                    res.status(500).send("Widget deleted successfully but failed to update page." +
+                        " Internal Server error");
                 }
             );
     }
