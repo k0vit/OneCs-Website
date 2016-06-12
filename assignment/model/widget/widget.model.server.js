@@ -11,9 +11,19 @@ module.exports = function() {
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
         reorderWidget: reorderWidget,
-        findWidgetByName: findWidgetByName
+        findWidgetByName: findWidgetByName,
+        updateWidgetUrl: updateWidgetUrl
     };
     return api;
+
+    function updateWidgetUrl(widgetId, url) {
+        return Widget.update(
+            {_id: widgetId},
+            {$set: {
+                url: url
+            }}
+        );
+    }
 
     function createWidget(pageId, widget) {
         widget._page = pageId;

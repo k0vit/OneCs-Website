@@ -129,29 +129,38 @@ module.exports = function (app, models) {
         var filename = myFile.filename;
 
         if (widgetId) {
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    widgets[i].url = "/uploads/" + filename;
-                    res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
-                    return;
-                }
-            }
+            widgetModel
+                .updateWidgetUrl(widgetId, "/uploads/" + filename)
+                .then(
+                    function (widget) {
+                        res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
+                    },
+                    function (error) {
+                        res.status(500).send("Failed to get upload the image. Internal Server error");
+                    }
+                );
         }
         else {
             var newWidget = {};
-            newWidget.widgetType = "IMAGE";
-            newWidget._id =  (new Date()).getTime() + "";
+            newWidget.type = "IMAGE";
             newWidget.url = "/uploads/" + filename;
-            newWidget.pageId = pageId;
             if (width) {
                 newWidget.width = width;
             }
             else {
                 newWidget.width = "100%";
             }
-            widgets.push(newWidget);
-            res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
-            return;
+
+            widgetModel
+                .createWidget(pageId, newWidget)
+                .then(
+                    function (widget) {
+                        res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
+                    },
+                    function (error) {
+                        res.status(500).send("Failed to create widget. Internal Server error");
+                    }
+                );
         }
     }
 }
