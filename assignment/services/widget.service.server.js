@@ -140,7 +140,6 @@ module.exports = function (app, models) {
                     res.status(500).send("Failed to get all the widgets for page id " + pageId + ". Internal Server error");
                 }
             );
-
     }
 
     function findWidgetById(req, res) {

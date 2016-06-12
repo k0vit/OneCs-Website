@@ -12,7 +12,7 @@
         vm.pageId = $routeParams.pid;
         vm.userId = $routeParams.id;
         vm.websiteId = $routeParams.wid;
-
+        vm.reorderWidget = reorderWidget;
         vm.getSafeHtml = getSafeHtml;
         vm.getSafeUrl = getSafeUrl;
 
@@ -39,6 +39,19 @@
             var id = urlParts[urlParts.length - 1];
             var url = "https://www.youtube.com/embed/" + id;
             return $sce.trustAsResourceUrl(url);
+        }
+
+        function reorderWidget(start, end) {
+            WidgetService
+                .reorderWidget(vm.pageId, start, end)
+                .then(
+                    function(response) {
+                        init();
+                    },
+                    function(error) {
+                        vm.error = error.data;
+                    }
+                );
         }
     }
 })();

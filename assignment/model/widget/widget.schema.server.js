@@ -12,6 +12,7 @@ module.exports = function() {
         url: String,
         width: String,
         height: Number,
+        position: Number,
         rows: Number,
         size: { type: Number, min: 1, max: 6 },
         class: String,

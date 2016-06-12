@@ -28,7 +28,23 @@ module.exports = function() {
     function createWidget(pageId, widget) {
         widget._page = pageId;
         widget.dateCreated = new Date();
-        return Widget.create(widget);
+        return findMaxPos(pageId).then(
+            function(wid) {
+                if (wid) {
+                    console.log(widget);
+                    widget.position = wid.position + 1;
+                    return Widget.create(widget)
+                }
+                else {
+                    console.log(widget);
+                    widget.position = 1;
+                    return Widget.create(widget)
+                }
+            },
+            function(error) {
+                return error;
+            }
+        );
     }
 
     function findAllWidgetsForPage(pageId) {
@@ -58,4 +74,7 @@ module.exports = function() {
 
     }
 
+    function findMaxPos(pageId){
+        return Widget.find({_page: pageId}).sort({position: -1}).findOne().exec();
+    }
 };

@@ -13,7 +13,8 @@
             findWidgetsByPageId: findWidgetsByPageId,
             deleteWidget: deleteWidget,
             findWidgetsById: findWidgetsById,
-            updateWidget: updateWidget
+            updateWidget: updateWidget,
+            reorderWidget: reorderWidget
         };
         return api;
 
@@ -45,6 +46,9 @@
         function getUrlWithPageId(pageId) {
             return "/api/page/" + pageId + "/widget";
         }
-    }
 
+        function reorderWidget(pageId, start, end) {
+            return $http.put(getUrlWithPageId(pageId) + "?start=" + start +"&end=" + end);
+        }
+    }
 })();
