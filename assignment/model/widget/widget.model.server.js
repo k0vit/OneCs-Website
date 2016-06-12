@@ -78,26 +78,44 @@ module.exports = function() {
             .then(
                 function(widgets) {
                     var prevPos = -1;
-                    for (var i = 0; i < widgets.length; i++) {
-                        if (i==start) {
-                            prevPos = widgets[i].position;
-                        }
-                        else if (i>start && i<=end) {
-                            var currentPos = widgets[i].position;
-                            widgets[i].position = prevPos;
-                            prevPos = currentPos;
-                            if (i==end) {
-                                widgets[start].position = prevPos;
-                                widgets[start].save();
+                    if (end > start) {
+                        for (var i = 0; i < widgets.length; i++) {
+                            if (i == start) {
+                                prevPos = widgets[i].position;
                             }
-                            widgets[i].save();
+                            else if (i > start && i <= end) {
+                                var currentPos = widgets[i].position;
+                                widgets[i].position = prevPos;
+                                prevPos = currentPos;
+                                if (i == end) {
+                                    widgets[start].position = prevPos;
+                                    widgets[start].save();
+                                }
+                                widgets[i].save();
+                            }
+                        }
+                    }
+                    else {
+                        for (var i = widgets.length-1; i >= 0; i--) {
+                            if (i == start) {
+                                prevPos = widgets[i].position;
+                            }
+                            else if (i < start && i >= end) {
+                                var currentPos = widgets[i].position;
+                                widgets[i].position = prevPos;
+                                prevPos = currentPos;
+                                if (i == end) {
+                                    widgets[start].position = prevPos;
+                                    widgets[start].save();
+                                }
+                                widgets[i].save();
+                            }
                         }
                     }
                     return;
                 },
                 function(error) {
-                    console.log(error)
-                    return;
+                    return error;
                 }
             );
     }

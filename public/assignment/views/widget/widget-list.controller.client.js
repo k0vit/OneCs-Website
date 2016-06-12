@@ -42,13 +42,16 @@
         }
 
         function reorderWidget(start, end) {
+            if (start == end) {
+                return;
+            }
             WidgetService
                 .reorderWidget(vm.pageId, start, end)
                 .then(
-                    function(response) {
+                    function (response) {
                         init();
                     },
-                    function(error) {
+                    function (error) {
                         vm.error = error.data;
                     }
                 );
