@@ -64,7 +64,7 @@
                 var newWidget = {};
                 newWidget.url = url;
                 newWidget.width= "100%";
-                newWidget.widgetType="IMAGE";
+                newWidget.type="IMAGE";
                 WidgetService
                     .createWidget(vm.pageId, newWidget)
                     .then(navigate, displayErrorMsg);

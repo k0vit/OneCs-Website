@@ -1,4 +1,6 @@
-module.exports = function (app) {
+module.exports = function (app, models) {
+
+    var widgetModel = models.widgetModel;
     var multer = require('multer');
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
 
@@ -13,59 +15,97 @@ module.exports = function (app) {
     function createWidget(req, res) {
         var newWidget = req.body;
         var pageId = req.params.pageId;
-        newWidget._id = (new Date()).getTime() + "";
-        newWidget.pageId = pageId;
-        widgets.push(newWidget);
-        res.json(newWidget);
+
+        widgetModel
+            .findWidgetByName(newWidget.name, pageId)
+            .then(
+                function (widget) {
+                    if (widget) {
+                        res.status(403).send("Requested widget name " + newWidget.name + " is already taken");
+                    }
+                    else {
+                        createNewWidget(pageId, newWidget, res);
+                    }
+                },
+                function(error) {
+                    res.status(500).send("Failed to create widget. Internal Server error");
+                }
+            );
+    }
+
+    function createNewWidget(pageId, newWidget, res) {
+        widgetModel
+            .createWidget(pageId, newWidget)
+            .then(
+                function (widget) {
+                    res.json(widget);
+                },
+                function (error) {
+                    res.status(500).send("Failed to create widget. Internal Server error");
+                }
+            );
     }
 
     function updateWidget(req, res) {
         var id = req.params.widgetId;
         var newWidget = req.body;
-        for(var i in widgets) {
-            if(widgets[i]._id === id) {
-                widgets[i] = newWidget;
-                res.send(200);
-                return;
-            }
-        }
-        res.status(400).send("Widget with ID: "+ id +" not found");
+
+        widgetModel
+            .updateWidget(id, newWidget)
+            .then(
+                function (widget) {
+                    res.json(widget);
+                },
+                function (error) {
+                    res.status(500).send("Failed to update widget. Internal Server error");
+                }
+            );
     }
 
     function deleteWidget(req, res) {
         var id = req.params.widgetId;
-        for(var i in widgets) {
-            if(widgets[i]._id === id) {
-                widgets.splice(i, 1);
-                res.send(200);
-                return;
-            }
-        }
-        res.status(404).send("Unable to remove widget with Id: " + id);
+
+        widgetModel
+            .deleteWidget(id)
+            .then(
+                function (stats) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.status(500).send("Failed to delete widget. Internal Server error");
+                }
+            );
     }
 
     function findAllWidgetsForPage(req, res) {
-        var resultSet = [];
         var pageId = req.params.pageId;
 
-        for(var i in widgets) {
-            if(widgets[i].pageId === pageId) {
-                resultSet.push(widgets[i]);
-            }
-        }
-        res.json(resultSet);
-        return;
+        widgetModel
+            .findAllWidgetsForPage(pageId)
+            .then(
+                function (widgets) {
+                    res.json(widgets);
+                },
+                function (error) {
+                    res.status(500).send("Failed to get all the widgets for page id " + pageId + ". Internal Server error");
+                }
+            );
+
     }
 
     function findWidgetById(req, res) {
         var widgetId = req.params.widgetId;
-        for(var i in widgets) {
-            if(widgets[i]._id === widgetId) {
-                res.json(widgets[i]);
-                return;
-            }
-        }
-        res.status(404).send("Widget with id as " + widgetId + " not found");
+
+        widgetModel
+            .findWidgetById(widgetId)
+            .then(
+                function (widget) {
+                    res.json(widget);
+                },
+                function (error) {
+                    res.status(500).send("Failed to get requested widget. Internal Server error");
+                }
+            );
     }
 
     function uploadImage(req, res) {

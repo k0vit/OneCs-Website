@@ -23,6 +23,9 @@
                 .then(
                     function (response) {
                         vm.widget = response.data;
+                        if (vm.widget.size) {
+                            vm.widget.size = vm.widget.size + "";
+                        }
                     },
                     function (error) {
                         vm.error = error.data;
@@ -54,7 +57,7 @@
         }
 
         function validate() {
-            switch(vm.widget.widgetType) {
+            switch(vm.widget.type) {
                 case "HEADER":
                     if ((!vm.widget.size) || vm.widget.size === "Select Heading Size") {
                         vm.error = "Please provide size of the heading";

@@ -10,17 +10,23 @@ module.exports = function() {
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
-        reorderWidget: reorderWidget
+        reorderWidget: reorderWidget,
+        findWidgetByName: findWidgetByName
     };
     return api;
 
     function createWidget(pageId, widget) {
         widget._page = pageId;
+        widget.dateCreated = new Date();
         return Widget.create(widget);
     }
 
     function findAllWidgetsForPage(pageId) {
         return Widget.find({_page: pageId});
+    }
+
+    function findWidgetByName(name) {
+        return Widget.findOne({name: name});
     }
 
     function findWidgetById(widgetId) {

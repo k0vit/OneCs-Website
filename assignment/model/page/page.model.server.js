@@ -16,6 +16,7 @@ module.exports = function() {
 
     function createPage(websiteId, page) {
         page._website = websiteId;
+        page.dateCreated = new Date();
         return Page.create(page);
     }
 

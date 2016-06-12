@@ -4,13 +4,13 @@ module.exports = function() {
 
     var WidgetSchema = mongoose.Schema({
         _page: { type: mongoose.Schema.Types.ObjectId, ref: 'Page' },
-        type: { type: String, enum: ['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT'] },
+        type: { type: String, enum: ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT'] },
         name : String,
         text: String,
         placeholder: String,
         description : String,
         url: String,
-        width: Number,
+        width: String,
         height: Number,
         rows: Number,
         size: { type: Number, min: 1, max: 6 },
