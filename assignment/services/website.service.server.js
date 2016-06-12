@@ -1,6 +1,7 @@
 module.exports = function(app, models) {
 
     var websiteModel = models.websiteModel;
+    var userModel = models.userModel;
 
     app.post("/api/user/:userId/website", createWebsite);
     app.get("/api/user/:userId/website", findAllWebsitesForUser);
@@ -34,7 +35,12 @@ module.exports = function(app, models) {
             .createWebsiteForUser(userId, newWebsite)
             .then(
                 function (website) {
-                    res.json(website);
+                    if (website) {
+                        updateUserWebsite(userId, website, res);
+                    }
+                    else {
+                        res.status(400).send("Failed to create website for user id " + userId);
+                    }
                 },
                 function (error) {
                     res.status(500).send("Failed to create website. Internal Server error");
@@ -42,16 +48,66 @@ module.exports = function(app, models) {
             );
     }
 
+    function updateUserWebsite(userId, website, res) {
+        var websiteId = website._id;
+        userModel
+            .findUserById(userId)
+            .then(
+                function(user){
+                    user._websites.push(websiteId);
+                    user.save();
+                    res.json(website);
+                },
+                function(error){
+                    res.status(500).send("Internal Server Error. " +
+                        "Website created successfully but fail to update user about this website.");
+                }
+            );
+    }
+
     function deleteWebsite(req, res) {
-        var id = req.params.websiteId;
+        var websiteId = req.params.websiteId;
+
         websiteModel
-            .deleteWebsite(id)
+            .findWebsiteById(websiteId)
+            .then(
+                function (website) {
+                    var userId = website._user;
+                    removeWebsite(userId, websiteId, res);
+                },
+                function (error) {
+                    res.status(500).send("Failed to delete website as unable to find user with user for this website." +
+                        " Internal Server error");
+                }
+            );
+    }
+
+    function removeWebsite(userId, websiteId, res) {
+        websiteModel
+            .deleteWebsite(websiteId)
             .then(
                 function (stats) {
-                    res.sendStatus(200);
+                    removeWebsiteFromUser(res, userId, websiteId);
                 },
                 function (error) {
                     res.status(500).send("Failed to delete website. Internal Server error");
+                }
+            );
+    }
+
+    function removeWebsiteFromUser(res, userId, websiteId) {
+        userModel
+            .findUserById(userId)
+            .then(
+                function(user) {
+                    var elemIndex = user._websites.indexOf(websiteId);
+                    user._websites.splice(elemIndex, 1);
+                    user.save();
+                    res.sendStatus(200);
+                },
+                function(error) {
+                    res.status(500).send("Website deleted successfully but failed to update user." +
+                        " Internal Server error");
                 }
             );
     }
