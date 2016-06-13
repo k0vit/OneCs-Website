@@ -19,6 +19,7 @@
         function createWidget() {
             if (validate()) {
                 vm.widget.type = vm.widgetType;
+                console.log(vm.widget);
                 WidgetService
                     .createWidget(vm.pageId, vm.widget)
                     .then(function (response) {

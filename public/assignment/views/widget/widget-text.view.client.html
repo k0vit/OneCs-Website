@@ -1,0 +1,25 @@
+<div class="form-group">
+    <label for="widget-text-row">Rows</label>
+    <input ng-model="model.widget.rows"
+           class="form-control"
+           type="number"
+           placeholder="Number of rows"
+           id="widget-text-row"/>
+</div>
+
+<div class="form-group">
+    <label for="widget-text-placeholder">Placeholder</label>
+    <input ng-model="model.widget.placeholder"
+           class="form-control"
+           placeholder="Placeholder"
+           id="widget-text-placeholder"/>
+</div>
+
+<div class="form-group">
+    <div class="input-group">
+        <input type="text" class="form-control" value="Formatted">
+        <div class="input-group-addon">
+            <input ng-model="model.widget.formatted" type="checkbox"/>
+        </div>
+    </div>
+</div>
