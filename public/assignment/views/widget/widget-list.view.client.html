@@ -43,8 +43,9 @@
                     <div ng-switch-when="IMAGE">
                         <img class="img-responsive" ng-src="{{widget.url}}" width="{{widget.width}}"/>
                     </div>
-                    <div ng-switch-when="YOUTUBE">
-                        <iframe class="embed-responsive-item" width="{{widget.width}}" ng-src="{{model.getSafeUrl(widget)}}" frameborder="0" allowfullscreen></iframe>
+                    <div ng-switch-when="YOUTUBE" class="youtube-widget">
+                        <iframe class="embed-responsive-item" width="{{widget.width}}" ng-src="{{model.getSafeUrl(widget)}}" frameborder="0" allowfullscreen>
+                        </iframe>
                     </div>
                     <div ng-switch-default>
                         Unable to render widget
