@@ -33,6 +33,7 @@ module.exports = function() {
     }
 
     function updateWebsite(websiteId, website) {
+        delete website._id;
         return Website.update(
             {_id: websiteId},
             {$set: website}

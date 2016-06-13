@@ -32,6 +32,7 @@ module.exports = function() {
     }
 
     function updateUser(id, newUser) {
+        delete newUser._id;
         return User.update(
             {_id: id},
             {$set : newUser}
