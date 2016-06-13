@@ -18,21 +18,7 @@ module.exports = function (app, models) {
         var newWidget = req.body;
         var pageId = req.params.pageId;
 
-        widgetModel
-            .findWidgetByName(newWidget.name, pageId)
-            .then(
-                function (widget) {
-                    if (widget) {
-                        res.status(403).send("Requested widget name " + newWidget.name + " is already taken");
-                    }
-                    else {
-                        createNewWidget(pageId, newWidget, res);
-                    }
-                },
-                function(error) {
-                    res.status(500).send("Failed to create widget. Internal Server error");
-                }
-            );
+        createNewWidget(pageId, newWidget, res);
     }
 
     function createNewWidget(pageId, newWidget, res) {
