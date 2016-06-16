@@ -5,12 +5,12 @@
 
     function RegisterController($location, UserService) {
         var vm = this;
-        vm.createUser = createUser;
+        vm.register = register;
 
-        function createUser() {
+        function register() {
             if (validate()) {
                 UserService
-                    .createUser(vm.user.username, vm.user.password)
+                    .register(vm.user.username, vm.user.password)
                     .then(
                         function (response) {
                             var user = response.data;

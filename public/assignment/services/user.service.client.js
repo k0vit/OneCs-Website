@@ -8,26 +8,36 @@
         var userBaseUrl = "/api/user/";
 
         var api = {
-            createUser: createUser,
+            register: register,
             findUserByCredential: findUserByCredential,
             findUserById: findUserById,
             updateUser: updateUser,
             deleteUser: deleteUser,
-            findUserByUsername: findUserByUsername
+            findUserByUsername: findUserByUsername,
+            login: login,
+            logout: logout
         };
 
         return api;
+
+        function login(user) {
+            return $http.post("/api/login", user);
+        }
+
+        function logout(user) {
+            return $http.post("/api/logout");
+        }
 
         function updateUser(id, newUser) {
             return $http.put(getUrlWithId(id), newUser);
         }
 
-        function createUser(username, password) {
+        function register(username, password) {
             var user = {
                 username: username,
                 password: password
             };
-            return $http.post(userBaseUrl, user);
+            return $http.post("/api/register", user);
         }
 
         function deleteUser(id) {

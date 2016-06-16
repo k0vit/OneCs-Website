@@ -31,12 +31,10 @@ module.exports = function() {
         return findMaxPos(pageId).then(
             function(wid) {
                 if (wid) {
-                    console.log(widget);
                     widget.position = wid.position + 1;
                     return Widget.create(widget)
                 }
                 else {
-                    console.log(widget);
                     widget.position = 1;
                     return Widget.create(widget)
                 }
