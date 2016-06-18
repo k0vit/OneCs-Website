@@ -3,12 +3,15 @@
         .module("WebAppMaker")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, UserService, $location) {
+    function ProfileController($routeParams, UserService, $location, $rootScope) {
         var vm = this;
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
-        var id = $routeParams["id"];
+
+        console.log($rootScope.currentUser);
+
+        var id = $rootScope.currentUser._id;
 
         function init() {
             UserService
@@ -46,7 +49,7 @@
                 .logout()
                 .then(
                     function(response) {
-                        $location.url("/");
+                        $location.url("/login");
                     },
                     function (error) {
                         vm.error = erro.data;

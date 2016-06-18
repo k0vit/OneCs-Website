@@ -15,16 +15,21 @@
             deleteUser: deleteUser,
             findUserByUsername: findUserByUsername,
             login: login,
-            logout: logout
+            logout: logout,
+            loggedIn: loggedIn
         };
 
         return api;
+        
+        function loggedIn() {
+            return $http.get("/api/loggedin");
+        }
 
         function login(user) {
             return $http.post("/api/login", user);
         }
 
-        function logout(user) {
+        function logout() {
             return $http.post("/api/logout");
         }
 

@@ -20,10 +20,13 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
-            .when("/user/:id", {
+            .when("/profile", {
                 templateUrl: "views/user/profile.view.client.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedIn: checkLoggedIn
+                }
             })
             .when("/user/:id/website", {
                 templateUrl: "views/website/website-list.view.client.html",
@@ -89,6 +92,30 @@
                 templateUrl: "views/user/login.view.client.html",
                 controller: "LoginController",
                 controllerAs: "model"
-            })
+            });
+
+        function checkLoggedIn(UserService, $location, $q, $rootScope) {
+            var deferred = $q.defer();
+
+            UserService
+                .loggedIn()
+                .then(
+                    function(response) {
+                        var user = response.data;
+                        if(user == '0') {
+                            $rootScope.currentUser = null;
+                            deferred.reject();
+                            $location.url("/login");
+                        } else {
+                            $rootScope.currentUser = user;
+                            deferred.resolve();
+                        }
+                    },
+                    function(err) {
+                        $location.url("/login");
+                    }
+                );
+            return deferred.promise;
+        }
     }
 })();
