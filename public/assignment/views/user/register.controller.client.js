@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, UserService, $rootScope) {
         var vm = this;
         vm.register = register;
 
@@ -14,7 +14,8 @@
                     .then(
                         function (response) {
                             var user = response.data;
-                            $location.url("/user/" + user._id);
+                            $rootScope.currentUser = user;
+                            $location.url("/profile");
                         },
                         function (error) {
                             vm.error = error.data;

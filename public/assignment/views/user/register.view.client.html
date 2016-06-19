@@ -29,8 +29,8 @@
                name="password"
                required
                ng-class="{'validation': (registerForm.Password.$invalid ||
-               registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue) &&
-               (registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue)}"
+               registerForm.verifyPassword.$modelValue != registerForm.password.$modelValue) &&
+               registerForm.$submitted}"
         />
 
         <span ng-show="registerForm.password.$invalid && registerForm.$submitted" class="validation">
@@ -44,15 +44,15 @@
                name="verifyPassword"
                required
                ng-class="{'validation': (registerForm.verifyPassword.$invalid ||
-               registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue) &&
-               (registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue)}"
+               registerForm.verifyPassword.$modelValue != registerForm.password.$modelValue) &&
+               registerForm.$submitted}"
         />
 
           <span ng-show="registerForm.verifyPassword.$invalid && registerForm.$submitted" class="validation">
             Please enter verify password
         </span>
 
-        <span ng-show="(registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue) &&
+        <span ng-show="(registerForm.verifyPassword.$modelValue != registerForm.password.$modelValue) &&
          registerForm.verifyPassword.$valid && registerForm.password.$valid && registerForm.$submitted"
               class="validation">
             Password does not match
