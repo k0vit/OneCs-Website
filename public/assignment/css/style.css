@@ -1,3 +1,12 @@
+.btn-icon {
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
 .validation {
     color: red;
 }

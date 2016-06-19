@@ -50,10 +50,6 @@
                 vm.error = "Please provide unique page name";
                 return false;
             }
-            else if (!vm.page.title) {
-                vm.error = "Please provide page title";
-                return false;
-            }
             return true;
         }
 

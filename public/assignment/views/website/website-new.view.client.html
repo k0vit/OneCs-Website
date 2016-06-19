@@ -1,5 +1,6 @@
-<nav role="navigation" class="navbar-default navbar-fixed-top">
-    <div class="container">
+<form name="websiteNewForm" novalidate>
+    <nav role="navigation" class="navbar-default navbar-fixed-top">
+        <div class="container">
         <span class="navbar-text pull-left">
              <a href="#/user/{{model.userId}}/website" class="navbar-link img-right-spacing">
                   <span class="glyphicon glyphicon-chevron-left">
@@ -10,27 +11,32 @@
             <b>New Website</b>
         </span>
         <span class="navbar-text pull-right">
-                 <a ng-click="model.createWebsite()" class="navbar-link">
-                  <span class="glyphicon glyphicon-ok">
-                  </span>
-                </a>
-            </span>
-    </div>
-</nav>
+            <button type="submit" ng-click="model.createWebsite()" class="navbar-link pull-right btn-icon">
+                <span class="glyphicon glyphicon-ok"></span>
+            </button>
+        </span>
 
-<div class="container">
-    <div ng-show="model.error" class="alert alert-danger">
-        {{model.error}}
-    </div>
+        </div>
+    </nav>
 
-    <form>
+    <div class="container">
+        <div ng-show="model.error" class="alert alert-danger">
+            {{model.error}}
+        </div>
+
         <div class="form-group">
             <label for="website-name">Name</label>
             <input ng-model="model.website.name"
                    type="text"
                    class="form-control"
                    id="website-name"
-                   placeholder="Website Name"/>
+                   placeholder="Website Name"
+                   name="websiteName"
+                   required
+                   ng-class="{'validation': websiteNewForm.websiteName.$invalid && websiteNewForm.$submitted}"/>
+            <span ng-show="websiteNewForm.websiteName.$invalid && websiteNewForm.$submitted" class="validation">
+            Please enter unique website name
+            </span>
         </div>
         <div class="form-group">
             <label for="website-description">Description</label>
@@ -40,15 +46,15 @@
                           class="form-control"
                           placeholder="Website Description"></textarea>
         </div>
-    </form>
-</div>
+    </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
         <span class="navbar-text pull-right">
                <a href="#/user/{{model.userId}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </span>
-    </div>
-</nav>
+        </div>
+    </nav>
+</form>

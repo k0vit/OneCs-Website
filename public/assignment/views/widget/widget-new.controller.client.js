@@ -42,6 +42,11 @@
                 return false;
             }
 
+            if (!vm.widget.name) {
+                vm.error = "Please provide unique widget name";
+                return false;
+            }
+
             switch(vm.widgetType) {
                 case "HEADER":
                     if ((!vm.widget.size) || vm.widget.size === "Select Heading Size") {
@@ -61,6 +66,12 @@
                     }
                     if ((!vm.widget.width)) {
                         vm.widget.width = "100%";
+                    }
+                    break;
+                case "HTML":
+                    if ((!vm.widget.text)) {
+                        vm.error = "Please provide valid text";
+                        return false;
                     }
                     break;
             }

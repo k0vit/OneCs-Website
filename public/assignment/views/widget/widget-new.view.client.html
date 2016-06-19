@@ -1,5 +1,6 @@
-<nav role="navigation" class="navbar-default navbar-fixed-top">
-    <div class = "container">
+<form name="widgetNewForm" novalidate>
+    <nav role="navigation" class="navbar-default navbar-fixed-top">
+        <div class = "container">
         <span class="navbar-text pull-left">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"
                class="navbar-link img-right-spacing">
@@ -11,35 +12,43 @@
             <b>New Widget</b>
         </span>
         <span class="navbar-text pull-right">
-                <a ng-click="model.createWidget()" class="navbar-link">
-                  <span class="glyphicon glyphicon-ok">
-                  </span>
-                </a>
+            <button type="submit" ng-click="model.createWidget()" class="navbar-link pull-right btn-icon">
+                <span class="glyphicon glyphicon-ok"></span>
+            </button>
+        </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div ng-show="model.error" class="alert alert-danger">
+            {{model.error}}
+        </div>
+        <div class="form-group">
+            <label for="widget-name">Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="widget-name"
+                   placeholder="Widget Name"
+                   ng-model="model.widget.name"
+                   name="widgetName"
+                   required
+                   ng-class="{'validation': widgetNewForm.widgetName.$invalid && widgetNewForm.$submitted}"/>
+            <span ng-show="widgetNewForm.widgetName.$invalid && widgetNewForm.$submitted" class="validation">
+            Please enter unique widget name
             </span>
+        </div>
+        <div class="form-group">
+            <label for="widget-text">Text</label>
+            <input type="text"
+                   class="form-control"
+                   id="widget-text"
+                   placeholder="Widget Text"
+                   ng-model="model.widget.text">
+        </div>
     </div>
-</nav>
+</form>
 
 <div class="container">
-    <div ng-show="model.error" class="alert alert-danger">
-        {{model.error}}
-    </div>
-    <div class="form-group">
-        <label for="widget-name">Name</label>
-        <input type="text"
-               class="form-control"
-               id="widget-name"
-               placeholder="Widget Name"
-               ng-model="model.widget.name">
-    </div>
-    <div class="form-group">
-        <label for="widget-text">Text</label>
-        <input type="text"
-               class="form-control"
-               id="widget-text"
-               placeholder="Widget Text"
-               ng-model="model.widget.text">
-    </div>
-
     <div ng-switch="model.widgetType">
         <div ng-switch-when="HEADER">
             <ng-include src="'views/widget/widget-heading.view.client.html'"/>

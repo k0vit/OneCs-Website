@@ -1,5 +1,6 @@
-<nav role="navigation" class="navbar-default navbar-fixed-top">
-    <div class = "container">
+<form name="pageNewForm" novalidate>
+    <nav role="navigation" class="navbar-default navbar-fixed-top">
+        <div class = "container">
         <span class="navbar-text pull-left">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link img-right-spacing">
                   <span class="glyphicon glyphicon-chevron-left">
@@ -10,45 +11,51 @@
            <b>New Page</b>
         </span>
         <span class="navbar-text pull-right">
-               <a ng-click="model.createPage()" class="navbar-link">
-                  <span class="glyphicon glyphicon-ok">
-                  </span>
-                </a>
-            </span>
-    </div>
-</nav>
-
-<div class="container">
-    <div ng-show="model.error" class="alert alert-danger">
-        {{model.error}}
-    </div>
-
-    <form>
-        <div class="form-group">
-            <label for="page-name">Name</label>
-            <input ng-model="model.page.name"
-                   type="text"
-                   class="form-control"
-                   id="page-name"
-                   placeholder="Page Name">
+            <button type="submit" ng-click="model.createPage()" class="navbar-link pull-right btn-icon">
+                <span class="glyphicon glyphicon-ok"></span>
+            </button>
+        </span>
         </div>
-        <div class="form-group">
-            <label for="page-title">Title</label>
-            <input  ng-model="model.page.title"
-                    type="text"
-                    class="form-control"
-                    id="page-title"
-                    placeholder="Page Title">
-        </div>
-    </form>
-</div>
+    </nav>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
+        <div ng-show="model.error" class="alert alert-danger">
+            {{model.error}}
+        </div>
+
+        <form>
+            <div class="form-group">
+                <label for="page-name">Name</label>
+                <input ng-model="model.page.name"
+                       type="text"
+                       class="form-control"
+                       id="page-name"
+                       placeholder="Page Name"
+                       name="pageName"
+                       required
+                       ng-class="{'validation': pageNewForm.pageName.$invalid && pageNewForm.$submitted}"/>
+            <span ng-show="pageNewForm.pageName.$invalid && pageNewForm.$submitted" class="validation">
+            Please enter unique page name
+            </span>
+            </div>
+            <div class="form-group">
+                <label for="page-title">Title</label>
+                <input  ng-model="model.page.title"
+                        type="text"
+                        class="form-control"
+                        id="page-title"
+                        placeholder="Page Title">
+            </div>
+        </form>
+    </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
         <span class="navbar-text pull-right">
                  <a href="#/user/{{model.userId}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </span>
-    </div>
-</nav>
+        </div>
+    </nav>
+</form>
