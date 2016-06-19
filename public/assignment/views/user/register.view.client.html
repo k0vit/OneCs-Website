@@ -1,36 +1,71 @@
 <div class="container">
 
-    <div ng-show="model.error" class="alert alert-danger">
-        {{model.error}}
-    </div>
+    <form name="registerForm" novalidate>
 
-    <h1>Register</h1>
+        <div ng-show="model.error" class="alert alert-danger">
+            {{model.error}}
+        </div>
 
-    <input ng-model="model.user.username"
-           type="text"
-           class="form-control"
-           placeholder="username"
-    />
+        <h1>Register</h1>
 
-    <input ng-model="model.user.password"
-           type="password"
-           class="form-control"
-           placeholder="password"
-    />
+        <input ng-model="model.user.username"
+               type="text"
+               class="form-control"
+               placeholder="username"
+               name="username"
+               required
+               autocomplete="off" autocorrect="off" autocapitalize="off"
+               ng-class="{'validation': registerForm.username.$invalid && registerForm.$submitted}"
+        />
 
-    <input ng-model="model.verifyPassword"
-           type="password"
-           class="form-control"
-           placeholder="verify password"
-    />
+         <span ng-show="registerForm.username.$invalid && registerForm.$submitted" class="validation">
+            Please enter valid username
+        </span>
 
-    <a ng-click="model.register()"
-       class="btn btn-primary btn-block"
-       href="">Register
-    </a>
+        <input ng-model="model.user.password"
+               type="password"
+               class="form-control"
+               placeholder="password"
+               name="password"
+               required
+               ng-class="{'validation': (registerForm.Password.$invalid ||
+               registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue) &&
+               (registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue)}"
+        />
 
-    <a class="btn btn-danger  btn-block"
-       href="#/login">Cancel
-    </a>
+        <span ng-show="registerForm.password.$invalid && registerForm.$submitted" class="validation">
+            Please enter valid password
+        </span>
+
+        <input ng-model="model.verifyPassword"
+               type="password"
+               class="form-control"
+               placeholder="verify password"
+               name="verifyPassword"
+               required
+               ng-class="{'validation': (registerForm.verifyPassword.$invalid ||
+               registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue) &&
+               (registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue)}"
+        />
+
+          <span ng-show="registerForm.verifyPassword.$invalid && registerForm.$submitted" class="validation">
+            Please enter verify password
+        </span>
+
+        <span ng-show="(registerForm.verfiyPassword.$modelValue != registerForm.password.$modelValue) &&
+         registerForm.verifyPassword.$valid && registerForm.password.$valid && registerForm.$submitted"
+              class="validation">
+            Password does not match
+        </span>
+
+        <button ng-click="model.register()"
+                class="btn btn-primary btn-block"> Register
+        </button>
+
+        <a class="btn btn-danger  btn-block"
+           href="#/login">Cancel
+        </a>
+
+    </form>
 
 </div>

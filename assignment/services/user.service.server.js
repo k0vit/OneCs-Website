@@ -179,6 +179,8 @@ module.exports = function(app, models) {
                     res.status(500).send("Unable to remove user with Id: " + id);
                 }
             );
+
+        req.logOut();
     }
 
     function updateUser(req, res) {

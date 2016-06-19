@@ -1,32 +1,51 @@
 <div class="container">
-    <div ng-if="model.error" class="alert alert-danger">
-        {{model.error}}
-    </div>
+    <form name="loginForm" novalidate>
 
-    <h2>Login</h2>
+        <div ng-if="model.error" class="alert alert-danger">
+            {{model.error}}
+        </div>
 
-    <input ng-model="model.user.username"
-           class="form-control"
-           placeholder="username"
-           type="text"
-    />
+        <h2>Login</h2>
 
-    <input ng-model="model.user.password"
-           class="form-control"
-           placeholder="password"
-           type="password"
-    />
+        <input ng-model="model.user.username"
+               class="form-control"
+               placeholder="username"
+               type="text"
+               name="username"
+               required
+               autocomplete="off" autocorrect="off" autocapitalize="off"
+               ng-class="{'validation': loginForm.username.$invalid && loginForm.$submitted}"
+        />
 
-    <a ng-click="model.login()"
-       class="btn btn-primary btn-block">Login
-    </a>
+        <span ng-show="loginForm.username.$invalid && loginForm.$submitted" class="validation">
+            Please enter valid username
+        </span>
 
-    <a href="/auth/facebook" class="btn btn-primary btn-block">
-        <span class="fa fa-facebook"></span>
-        Facebook
-    </a>
+        <input ng-model="model.user.password"
+               class="form-control"
+               placeholder="password"
+               type="password"
+               name="password"
+               required
+               ng-class="{'validation': loginForm.password.$invalid && loginForm.$submitted}"
+        />
 
-    <a class="btn btn-success btn-block"
-       href="#/register">Register
-    </a>
+        <span ng-show="loginForm.password.$invalid && loginForm.$submitted" class="validation">
+            Please enter valid password
+        </span>
+
+        <button ng-click="model.login()"
+                class="btn btn-primary btn-block"
+                name="loginBtn">Login
+        </button>
+
+        <a href="/auth/facebook" class="btn btn-primary btn-block">
+            <span class="fa fa-facebook"></span>
+            Facebook
+        </a>
+
+        <a class="btn btn-success btn-block"
+           href="#/register">Register
+        </a>
+    </form>
 </div>

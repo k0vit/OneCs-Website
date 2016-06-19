@@ -1,3 +1,11 @@
+.validation {
+    color: red;
+}
+
+input.validation {
+    border-color: red;
+}
+
 input.form-control {
     margin-bottom: 5px;
 }
