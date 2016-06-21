@@ -34,29 +34,34 @@
     </div>
 </nav>
 
-<div class="container">
-    <div ng-show="model.error" class="alert alert-danger">
-        {{model.error}}
-    </div>
-
-    <div class="input-group">
-        <input ng-model="searchText" type="text" class="form-control">
-        <span class="input-group-btn">
-            <a ng-click="model.searchPhotos(searchText)" class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-search"></span>
-            </a>
-        </span>
-    </div>
-
-    <div class="row flickr-search-row-margin">
-        <div class="col-xs-4 flickr-search-col-padding" ng-repeat="photo in model.photos.photo">
-            <img ng-click="model.selectPhoto(photo)"
-                 ng-src="https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"
-                 width="100%"/>
+<div class="search-relative-pos">
+    <div class="search-form">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="input-group">
+                    <input ng-model="model.search"
+                           class="form-control"
+                           placeholder="Enter Search Term Here"
+                           type="text"
+                           name="Search"
+                           required
+                           autocomplete="off" autocorrect="off" autocapitalize="off"/>
+                            <span class="input-group-btn">
+                                <button ng-model="model.title"
+                                        ng-click="model.search()"
+                                        class="btn btn-danger"
+                                        type="button">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="item-image">
+        <img src="resources/category/book/book-large.jpg" class="img-responsive" width="100%">
+    </div>
 </div>
-
 
 <div ng-show="model.isUserLoggedIn">
     <nav class="navbar navbar-default navbar-fixed-bottom">

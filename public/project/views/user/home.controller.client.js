@@ -7,9 +7,11 @@
         var vm = this;
         var slideCount = 2;
         var slides = [
-            'resources/home-slide/code.jpg',
-            'resources/home-slide/laptop.jpg',
-            'resources/home-slide/cs-topics.png'
+            'resources/home-slide/cs-topics3.png',
+            'resources/home-slide/cs-topics2.png',
+            'resources/home-slide/cs-topics.png',
+            'resources/home-slide/languages.png',
+            'resources/home-slide/laptop.jpg'
         ];
 
         function init() {
@@ -21,7 +23,7 @@
         init();
 
         function changeSlide() {
-            vm.slide = slides[(slideCount%3)];
+            vm.slide = slides[(slideCount%(slides.length))];
             slideCount++;
         }
     }

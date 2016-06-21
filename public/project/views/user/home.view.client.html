@@ -29,29 +29,28 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="search-relative-pos">
-        <div class="search-form">
-            <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4">
-                    <select id="Category" class="form-control" ng-model="model.category">
-                        <option value="Book">Book</option>
-                        <option value="Research Paper">Research Paper</option>
-                        <option value="Jobs">Jobs</option>
-                        <option value="Courses">Courses</option>
-                        <option value="IDE">IDE</option>
-                        <option value="Category" ng-selected="true">Select Category</option>
-                    </select>
-                </div>
-                <div class="col-sm-8 col-md-8 col-lg-8">
-                    <div class="input-group">
-                        <input ng-model="model.search"
-                               class="form-control"
-                               placeholder="Enter Search Term Here"
-                               type="text"
-                               name="Search"
-                               required
-                               autocomplete="off" autocorrect="off" autocapitalize="off"/>
+<div class="search-relative-pos">
+    <div class="search-form">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <select id="Category" class="form-control search-field" ng-model="model.category">
+                    <option value="Book">Book</option>
+                    <option value="Research Paper">Research Paper</option>
+                    <option value="Jobs">Jobs</option>
+                    <option value="Courses">Courses</option>
+                    <option value="IDE">IDE</option>
+                    <option value="Category" ng-selected="true">Select Category</option>
+                </select>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <div class="input-group">
+                    <input ng-model="model.search"
+                           class="form-control search-field"
+                           placeholder="Enter Search Term Here"
+                           type="text"
+                           name="Search"
+                           required
+                           autocomplete="off" autocorrect="off" autocapitalize="off"/>
                             <span class="input-group-btn">
                                 <button ng-model="model.title"
                                         ng-click="model.search()"
@@ -60,18 +59,19 @@
                                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                             </span>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="item-image">
-            <img ng-src={{model.slide}} class="img-responsive" width="100%">
-        </div>
     </div>
+    <div class="item-image">
+        <img ng-src={{model.slide}} class="img-responsive" width="100%">
+    </div>
+</div>
 
+<div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">
-            <img src="resources/category/book.jpg" class="img-responsive thumbnail" width="100%">
+            <img src="resources/category/book/book-small.jpg" class="img-responsive thumbnail" width="100%">
             <div class="carousel-caption">
                 <h4>Books</h4>
             </div>
@@ -102,4 +102,3 @@
         </div>
     </div>
 </div>
-
