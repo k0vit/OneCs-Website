@@ -49,6 +49,14 @@ input.validation {
     margin: auto;
 }
 
+.img-right-spacing {
+    margin-right: 15px;
+}
+
+p.navbar-text.pull-left {
+    margin-left: 15px;
+}
+
 input.form-control {
     margin-bottom: 5px;
 }

@@ -7,9 +7,9 @@
         var vm = this;
         var slideCount = 2;
         var slides = [
-            'resources/2016_news_computerscience-883x432.jpg',
-            'resources/computer-science.jpg',
-            'resources/most_popular_twitter_topics.png'
+            'resources/home-slide/code.jpg',
+            'resources/home-slide/laptop.jpg',
+            'resources/home-slide/cs-topics.png'
         ];
 
         function init() {
