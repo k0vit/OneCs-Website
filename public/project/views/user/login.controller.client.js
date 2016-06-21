@@ -1,14 +1,15 @@
 (function(){
     angular
-        .module("WebAppMaker")
+        .module("OneCs")
         .controller("LoginController", LoginController);
 
-    function LoginController($location, UserService, $rootScope) {
+    function LoginController($location, $rootScope) {
         var vm = this;
+        vm.isCollapsed = true;
         vm.login = login;
 
         function login() {
-            if (!vm.user || !vm.user.username || !vm.user.password) {
+            /*if (!vm.user || !vm.user.username || !vm.user.password) {
                 vm.error = "Please provide username and password";
             }
             else {
@@ -26,7 +27,7 @@
                             vm.error = error.data;
                         }
                     );
-            }
+            }*/
         }
     }
 })();

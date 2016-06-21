@@ -1,14 +1,15 @@
 (function(){
     angular
-        .module("WebAppMaker")
+        .module("OneCs")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService, $rootScope) {
+    function RegisterController($location, $rootScope) {
         var vm = this;
+        vm.isCollapsed = true;
         vm.register = register;
 
         function register() {
-            if (validate()) {
+          /*  if (validate()) {
                 UserService
                     .register(vm.user.username, vm.user.password)
                     .then(
@@ -21,7 +22,7 @@
                             vm.error = error.data;
                         }
                     );
-            }
+            }*/
         }
 
         function validate() {
