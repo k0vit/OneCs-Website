@@ -1,3 +1,3 @@
 (function(){
-    angular.module("OnsCs", ["ngRoute", "textAngular"]);
+    angular.module("OneCs", ["ngRoute", "textAngular"]);
 })();
