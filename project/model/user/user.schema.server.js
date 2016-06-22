@@ -13,6 +13,10 @@ module.exports = function() {
         role: { type: String, enum: ['ADMIN', 'STUDENT'] },
         dateCreated: {type: Date},
         dateUpdated: {type: Date, default: Date.now},
+        google: {
+            id:    String,
+            token: String
+        }
     }, {collection: "project.user"});
 
     return UserSchema

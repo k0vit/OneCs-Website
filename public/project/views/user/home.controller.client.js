@@ -21,8 +21,6 @@
             $interval(changeSlide, 10000);
             vm.isUserLoggedIn = false;
 
-            console.log($rootScope.currentUser);
-
             if (!$rootScope.currentUser) {
                 UserService
                     .loggedIn()

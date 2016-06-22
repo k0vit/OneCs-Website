@@ -10,7 +10,6 @@
 
         function register() {
             if (validate()) {
-                console.log(vm.user)
                 UserService
                     .register(vm.user)
                     .then(

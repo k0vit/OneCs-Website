@@ -62,7 +62,7 @@
                 .deleteUser(id)
                 .then(
                     function (response) {
-                        $location.url("/login");
+                        $location.url("/home");
                     },
                     function (error) {
                         vm.error = error.data;
@@ -72,20 +72,11 @@
         }
 
         function validate() {
-            if (!vm.user.email) {
-                vm.error = "Please provide valid email id";
-                vm.success = false;
-                return;
-            }
-            else if (!vm.user.lastName) {
-                vm.error = "Please provide last name";
-                vm.success = false;
-                return;
-            }
-            else if (!vm.user.firstName) {
-                vm.error = "Please provide first name";
-                vm.success = false;
-                return;
+            console.log(vm.user);
+            if (!vm.user || !vm.user.username || !vm.user.email
+                || !vm.user.firstName || !vm.user.lastName || !vm.user.role || vm.user.role === "default") {
+                vm.error = "Please fill all the fields. All the fields are mandatory";
+                return false;
             }
             return true;
         }

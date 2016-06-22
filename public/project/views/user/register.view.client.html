@@ -31,9 +31,9 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="container accordion-outer-div">
 
-    <form name="registerForm" novalidate>
+    <form name="registerForm" novalidate class="accordion-height">
 
         <div class="alert alert-info" ng-show="!model.error">
             <strong>Welcome!</strong> Please provide your details below. All the fields are mandatory.
@@ -167,7 +167,7 @@
             </select>
             <span ng-show="(registerForm.role.$modelValue === 'default') || (registerForm.role.$invalid && registerForm.$submitted)"
                   class="validation">
-            Please enter valid email address
+            Please select your role
         </span>
         </div>
 
