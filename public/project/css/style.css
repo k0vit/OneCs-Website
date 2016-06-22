@@ -1,3 +1,12 @@
+.accordion-height {
+    padding: 10px;
+    width: 100%;
+}
+
+.accordion-outer-div {
+    height:100vh;
+}
+
 .navbar-text.pull-right {
     margin-right: 18px;
 }
