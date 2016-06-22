@@ -1,10 +1,9 @@
 <nav role="navigation" class="navbar-default navbar-fixed-top navbar-inverse">
-    <div class="container">
+    <div class = "container">
         <div class="navbar-header">
             <button type="button"
                     class="navbar-toggle"
-                    ng-click="model.isCollapsed = !model.isCollapsed"
-                    ng-show="!model.isUserLoggedIn">
+                    ng-click="model.isCollapsed = !model.isCollapsed">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -16,17 +15,35 @@
         </div>
         <div class="navbar-collapse"
              ng-class="{collapse: model.isCollapsed}"
-             ng-show="!model.isUserLoggedIn">
+             ng-click="model.isCollapsed = !model.isCollapsed">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="SignIn">
-                        <i class="fa fa-sign-in"></i> SignIn
+                <li ng-show="!model.isUserLoggedIn">
+                    <a href="#/login">
+                        <span class="glyphicon glyphicon-log-in"></span> SignIn
                     </a>
                 </li>
-                <li>
-                    <a href="SignUp">
-                        <i class="fa fa-check-square-o"></i>
+                <li ng-show="!model.isUserLoggedIn">
+                    <a href="#/register">
+                        <span class="glyphicon glyphicon-check"></span>
                         SignUp
+                    </a>
+                </li>
+                <li ng-show="model.isUserLoggedIn">
+                    <a href="#/profile" class="navbar-link">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Profile
+                    </a>
+                </li>
+                <li ng-show="model.isUserLoggedIn">
+                    <a ng-click="model.logout()" class="navbar-link">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        Sign-Out
+                    </a>
+                </li>
+                <li ng-show="(model.isUserLoggedIn && model.user.role==='ADMIN')">
+                    <a ng-href="#/book-category/new" class="navbar-link">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Add Category
                     </a>
                 </li>
             </ul>
@@ -71,16 +88,4 @@
     <div class="item-image">
         <img src="resources/category/book/book-large.jpg" class="img-responsive" width="100%">
     </div>
-</div>
-
-<div ng-show="model.isUserLoggedIn">
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container">
-        <span class="navbar-text pull-right">
-                <a href="#/profile">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
-        </span>
-        </div>
-    </nav>
 </div>

@@ -5,6 +5,7 @@
 
     function HomeController($interval, $rootScope, UserService, $location) {
         var vm = this;
+        vm.logout = logout;
         var slideCount = 2;
         var slides = [
             'resources/home-slide/cs-topics3.png',
@@ -13,7 +14,6 @@
             'resources/home-slide/languages.png',
             'resources/home-slide/laptop.jpg'
         ];
-        vm.logout = logout;
 
         function init() {
             vm.isCollapsed = true;

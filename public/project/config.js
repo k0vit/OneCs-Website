@@ -33,22 +33,20 @@
                     loggedIn: checkLoggedIn
                 }
             })
-            .when("/user/:id/book", {
-                templateUrl: "views/book/book-search.view.client.html",
-                controller: "BookSearchController",
-                controllerAs: "model"
-            })
             .when("/book", {
                 templateUrl: "views/book/book-search.view.client.html",
                 controller: "BookSearchController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedIn: checkLoggedIn
+                }
             })
             .when("/book-category/new", {
                 templateUrl: "views/book/book-category-new.view.client.html",
                 controller: "BookCategoryNewController",
                 controllerAs: "model"
             })
-            .when("/book-category/:id", {
+            .when("/book-category/:bkId", {
                 templateUrl: "views/user/book-category-edit.view.client.html",
                 controller: "BookCategoryEditController",
                 controllerAs: "model"
