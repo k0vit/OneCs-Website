@@ -37,10 +37,20 @@
 <div class="search-relative-pos">
     <div class="search-form">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <select id="Category" class="form-control search-field" ng-model="model.category">
+                    <option value="Book">Book</option>
+                    <option value="Research Paper">Research Paper</option>
+                    <option value="Jobs">Jobs</option>
+                    <option value="Courses">Courses</option>
+                    <option value="IDE">IDE</option>
+                    <option value="Category" ng-selected="true">Select Category</option>
+                </select>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
                 <div class="input-group">
                     <input ng-model="model.search"
-                           class="form-control"
+                           class="form-control search-field"
                            placeholder="Enter Search Term Here"
                            type="text"
                            name="Search"

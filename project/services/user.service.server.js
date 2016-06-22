@@ -4,14 +4,6 @@ module.exports = function(app, models) {
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     var bcrypt = require("bcrypt-nodejs");
-    var FacebookStrategy = require('passport-facebook').Strategy;
-
-    var facebookConfig = {
-        clientID     : process.env.FACEBOOK_CLIENT_ID,
-        clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
-    };
-
 
     app.post("/api/user", createUser);
     app.get("/api/user/:userId", findUserById);
@@ -22,48 +14,10 @@ module.exports = function(app, models) {
     app.post('/api/logout', logout);
     app.post('/api/register', register);
     app.get('/api/loggedin', loggedin);
-    app.get("/auth/facebook", passport.authenticate('facebook'));
-    app.get("/auth/facebook/callback", passport.authenticate('facebook', {
-        successRedirect: '/assignment/#/profile',
-        failureRedirect: '/assignment/#/login'
-    }));
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
-    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
-
-    function facebookStrategy(token, refreshToken, profile, done) {
-        console.log(profile);
-        userModel
-            .findUserByFacebookId(profile.id)
-            .then(
-                function(facebookUser) {
-                    if(facebookUser) {
-                        return done(null, facebookUser);
-                    } else {
-                        facebookUser = {
-                            username: profile.displayName.replace(/ /g,''),
-                            facebook: {
-                                token: token,
-                                id: profile.id,
-                                displayName: profile.displayName
-                            }
-                        };
-                        userModel
-                            .createUser(facebookUser)
-                            .then(
-                                function(user) {
-                                    done(null, user);
-                                },
-                                function (error) {
-                                    done(error);
-                                }
-                            );
-                    }
-                }
-            );
-    }
 
     function localStrategy(username, password, done) {
         userModel

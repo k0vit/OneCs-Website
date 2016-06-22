@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module("WebAppMaker")
+        .module("OneCs")
         .controller("ProfileController", ProfileController);
 
     function ProfileController($routeParams, UserService, $location, $rootScope) {
@@ -8,9 +8,6 @@
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
-
-        console.log($rootScope.currentUser);
-
         var id = $rootScope.currentUser._id;
 
         function init() {

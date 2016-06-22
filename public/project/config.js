@@ -25,6 +25,11 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
+            .when("/profile", {
+                templateUrl: "views/user/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model"
+            })
             .when("/user/:id/book", {
                 templateUrl: "views/book/book-search.view.client.html",
                 controller: "BookSearchController",

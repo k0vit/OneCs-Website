@@ -14,12 +14,12 @@
         <div class="navbar-collapse" ng-class="{collapse: model.isCollapsed}">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="SignIn">
+                    <a href="#/login">
                         <i class="fa fa-sign-in"></i> SignIn
                     </a>
                 </li>
                 <li class="active">
-                    <a href="SignUp">
+                    <a href="#/register">
                         <i class="fa fa-check-square-o"></i>
                         SignUp
                     </a>
@@ -49,9 +49,15 @@
                    type="text"
                    class="form-control"
                    id="first"
+                   name="firstName"
                    placeholder="Alice"
-                   required/>
+                   required
+                   ng-class="{'validation': registerForm.firstName.$invalid && registerForm.$submitted}"/>
+            <span ng-show="registerForm.firstName.$invalid && registerForm.$submitted" class="validation">
+            Please enter your first name
+        </span>
         </div>
+
         <div class="form-group">
             <label for="last">Last Name</label>
             <input ng-model="model.user.lastName"
@@ -59,7 +65,12 @@
                    class="form-control"
                    id="last"
                    placeholder="Wonderland"
-                   required/>
+                   required
+                   name="lastName"
+                   ng-class="{'validation': registerForm.lastName.$invalid && registerForm.$submitted}"/>
+        <span ng-show="registerForm.lastName.$invalid && registerForm.$submitted" class="validation">
+            Please enter your last name
+        </span>
         </div>
 
         <div class="form-group">
@@ -74,11 +85,11 @@
                    autocomplete="off" autocorrect="off" autocapitalize="off"
                    ng-class="{'validation': registerForm.username.$invalid && registerForm.$submitted}"
             />
-        </div>
 
          <span ng-show="registerForm.username.$invalid && registerForm.$submitted" class="validation">
             Please enter valid username
         </span>
+        </div>
 
         <div class="form-group">
             <label for="password">Password</label>
@@ -89,15 +100,15 @@
                    name="password"
                    id="password"
                    required
-                   ng-class="{'validation': (registerForm.Password.$invalid ||
+                   ng-class="{'validation': (registerForm.password.$invalid ||
                registerForm.verifyPassword.$modelValue != registerForm.password.$modelValue) &&
                registerForm.$submitted}"
             />
-        </div>
 
         <span ng-show="registerForm.password.$invalid && registerForm.$submitted" class="validation">
             Please enter valid password
         </span>
+        </div>
 
         <div class="form-group">
             <label for="verify-password">Verify Password</label>
@@ -112,7 +123,6 @@
                registerForm.verifyPassword.$modelValue != registerForm.password.$modelValue) &&
                registerForm.$submitted}"
             />
-        </div>
 
           <span ng-show="registerForm.verifyPassword.$invalid && registerForm.$submitted" class="validation">
             Please enter verify password
@@ -123,6 +133,7 @@
               class="validation">
             Password does not match
         </span>
+        </div>
 
         <div class="form-group">
             <label for="email">Email</label>
@@ -132,16 +143,30 @@
                    class="form-control"
                    id="email"
                    placeholder="alice@wonderland.com"
-                   required/>
+                   required
+                   name="email"
+                   ng-class="{'validation': registerForm.email.$invalid && registerForm.$submitted}"/>
+        <span ng-show="registerForm.email.$invalid && registerForm.$submitted" class="validation">
+            Please enter valid email address
+        </span>
         </div>
 
         <div class="form-group">
             <label for="user-type">Role</label>
-            <select id="user-type" class="form-control" ng-model="model.user.type">
-                <option ng-selected="true" value="Student">Student</option>
-                <option value="Professor">Professor</option>
-                <option value="Employer">Employer</option>
+            <select id="user-type"
+                    class="form-control"
+                    name="role"
+                    ng-model="model.user.role"
+                    ng-class="{'validation': (registerForm.role.$modelValue === 'default') || (registerForm.role.$invalid && registerForm.$submitted)}">
+                <option value="STUDENT">STUDENT</option>
+                <option ng-selected="true" value="default">Select User Role</option>
+                <!--<option value="Professor">Professor</option>
+                <option value="Employer">Employer</option>-->
             </select>
+            <span ng-show="(registerForm.role.$modelValue === 'default') || (registerForm.role.$invalid && registerForm.$submitted)"
+                  class="validation">
+            Please enter valid email address
+        </span>
         </div>
 
         <button ng-click="model.register()"

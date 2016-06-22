@@ -8,15 +8,12 @@ module.exports = function() {
         firstName: String,
         lastName: String,
         email: String,
-        phone: String,
-        _websites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Website' }],
+        _bookLikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
+        _bookReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BookReview' }],
+        role: { type: String, enum: ['ADMIN', 'STUDENT'] },
         dateCreated: {type: Date},
         dateUpdated: {type: Date, default: Date.now},
-        facebook: {
-            id:    String,
-            token: String
-        }
-    }, {collection: "assignment.user"});
+    }, {collection: "project.user"});
 
     return UserSchema
 };

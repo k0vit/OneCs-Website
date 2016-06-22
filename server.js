@@ -15,6 +15,7 @@ app.use(session({ secret: process.env.SESSION_SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-require("./assignment/app.js")(app);
+//require("./assignment/app.js")(app);
+require("./project/app.js")(app);
 
 app.listen(port, ipaddress);

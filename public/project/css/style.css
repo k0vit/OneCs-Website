@@ -1,3 +1,11 @@
+.navbar-text.pull-right {
+    margin-right: 18px;
+}
+
+p.navbar-text.pull-left {
+    margin-left: 15px;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 60px;
@@ -36,6 +44,11 @@ body {
 input.validation {
     border-color: red;
 }
+
+select.validation {
+    border-color: red;
+}
+
 
 .item-image {
     position: relative;

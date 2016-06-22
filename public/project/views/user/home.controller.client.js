@@ -3,7 +3,7 @@
         .module("OneCs")
         .controller("HomeController", HomeController);
 
-    function HomeController($interval) {
+    function HomeController($interval, $rootScope, UserService) {
         var vm = this;
         var slideCount = 2;
         var slides = [
@@ -18,6 +18,29 @@
             vm.isCollapsed = true;
             vm.slide = slides[0];
             $interval(changeSlide, 10000);
+            vm.isUserLoggedIn = false;
+
+            console.log($rootScope.currentUser);
+
+            if (!$rootScope.currentUser) {
+                UserService
+                    .loggedIn()
+                    .then(
+                        function (user) {
+                            if (user.data != '0') {
+                                $rootScope.currentUser = user.data;
+                                vm.user = user.data;
+                                vm.isUserLoggedIn = true;
+                                console.log(user.data);
+                            }
+                        }
+                    );
+            }
+            else {
+                vm.user = $rootScope.currentUser;
+                vm.isUserLoggedIn = true;
+                console.log(vm.user);
+            }
         }
 
         init();
