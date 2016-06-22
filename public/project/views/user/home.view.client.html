@@ -13,7 +13,9 @@
                 <i class="fa fa-laptop"></i> OneCs
             </a>
         </div>
-        <div class="navbar-collapse" ng-class="{collapse: model.isCollapsed}">
+        <div class="navbar-collapse"
+             ng-class="{collapse: model.isCollapsed}"
+             ng-click="model.isCollapsed = !model.isCollapsed">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-show="!model.isUserLoggedIn">
                     <a href="#/login">
@@ -29,11 +31,11 @@
                 <li ng-show="model.isUserLoggedIn">
                     <a href="#/profile" class="navbar-link">
                         <span class="glyphicon glyphicon-user"></span>
-                         Profile
+                        Profile
                     </a>
                 </li>
                 <li ng-show="model.isUserLoggedIn">
-                    <a href="#/register">
+                    <a ng-click="model.logout()" class="navbar-link">
                         <span class="glyphicon glyphicon-log-out"></span>
                         Sign-Out
                     </a>

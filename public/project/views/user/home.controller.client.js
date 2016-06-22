@@ -3,7 +3,7 @@
         .module("OneCs")
         .controller("HomeController", HomeController);
 
-    function HomeController($interval, $rootScope, UserService) {
+    function HomeController($interval, $rootScope, UserService, $location) {
         var vm = this;
         var slideCount = 2;
         var slides = [
@@ -13,6 +13,7 @@
             'resources/home-slide/languages.png',
             'resources/home-slide/laptop.jpg'
         ];
+        vm.logout = logout;
 
         function init() {
             vm.isCollapsed = true;
@@ -31,7 +32,6 @@
                                 $rootScope.currentUser = user.data;
                                 vm.user = user.data;
                                 vm.isUserLoggedIn = true;
-                                console.log(user.data);
                             }
                         }
                     );
@@ -39,7 +39,6 @@
             else {
                 vm.user = $rootScope.currentUser;
                 vm.isUserLoggedIn = true;
-                console.log(vm.user);
             }
         }
 
@@ -48,6 +47,22 @@
         function changeSlide() {
             vm.slide = slides[(slideCount%(slides.length))];
             slideCount++;
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser=null;
+                        vm.user=null;
+                        vm.isUserLoggedIn=false;
+                        $location.url("/home");
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
         }
     }
 })();

@@ -8,6 +8,7 @@
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
+        vm.isCollapsed = true;
         var id = $rootScope.currentUser._id;
 
         function init() {
@@ -46,6 +47,7 @@
                 .logout()
                 .then(
                     function(response) {
+                        $rootScope.currentUser=null;
                         $location.url("/login");
                     },
                     function (error) {

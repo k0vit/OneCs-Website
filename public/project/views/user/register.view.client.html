@@ -11,7 +11,9 @@
                 <i class="fa fa-laptop"></i> OneCs
             </a>
         </div>
-        <div class="navbar-collapse" ng-class="{collapse: model.isCollapsed}">
+        <div class="navbar-collapse"
+             ng-class="{collapse: model.isCollapsed}"
+             ng-click="model.isCollapsed = !model.isCollapsed">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="#/login">

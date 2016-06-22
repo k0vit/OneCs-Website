@@ -28,7 +28,10 @@
             .when("/profile", {
                 templateUrl: "views/user/profile.view.client.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedIn: checkLoggedIn
+                }
             })
             .when("/user/:id/book", {
                 templateUrl: "views/book/book-search.view.client.html",
@@ -55,5 +58,28 @@
                 controller: "HomeController",
                 controllerAs: "model"
             });
+
+        function checkLoggedIn(UserService, $location, $q, $rootScope) {
+            var deferred = $q.defer();
+            UserService
+                .loggedIn()
+                .then(
+                    function(response) {
+                        var user = response.data;
+                        if(user == '0') {
+                            $rootScope.currentUser = null;
+                            deferred.reject();
+                            $location.url("/login");
+                        } else {
+                            $rootScope.currentUser = user;
+                            deferred.resolve();
+                        }
+                    },
+                    function(err) {
+                        $location.url("/home");
+                    }
+                );
+            return deferred.promise;
+        }
     }
 })();

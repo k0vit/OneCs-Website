@@ -11,15 +11,15 @@
                 <i class="fa fa-laptop"></i> OneCs
             </a>
         </div>
-        <div class="navbar-collapse" ng-class="{collapse: model.isCollapsed}">
+        <div class="navbar-collapse" ng-class="{collapse: model.isCollapsed}" ng-click="model.isCollapsed = !model.isCollapsed">
             <ul class="nav navbar-nav navbar-right">
                 <li class="active">
-                    <a href="SignIn">
+                    <a href="#/login">
                         <i class="fa fa-sign-in"></i> SignIn
                     </a>
                 </li>
                 <li>
-                    <a href="SignUp">
+                    <a href="#/register">
                         <i class="fa fa-check-square-o"></i>
                         SignUp
                     </a>
