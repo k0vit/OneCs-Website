@@ -44,12 +44,18 @@
             .when("/book-category/new", {
                 templateUrl: "views/book/book-category-new.view.client.html",
                 controller: "BookCategoryNewController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedIn: checkLoggedIn
+                }
             })
-            .when("/book-category/:bkId", {
+            .when("/book-category/:bkCatId", {
                 templateUrl: "views/user/book-category-edit.view.client.html",
                 controller: "BookCategoryEditController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    loggedIn: checkLoggedIn
+                }
             })
             .otherwise({
                 templateUrl: "views/user/home.view.client.html",
@@ -69,8 +75,8 @@
                             deferred.reject();
                             $location.url("/login");
                         } else {
-                            $rootScope.currentUser = user;
                             deferred.resolve();
+                            $rootScope.currentUser = user;
                         }
                     },
                     function(err) {

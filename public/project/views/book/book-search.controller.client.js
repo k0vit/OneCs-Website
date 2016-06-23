@@ -3,17 +3,29 @@
         .module("OneCs")
         .controller("BookSearchController", BookSearchController);
 
-    function BookSearchController($location, $rootScope, UserService) {
+    function BookSearchController($location, $rootScope, UserService, BookCategoryService) {
         var vm = this;
         vm.logout = logout;
 
         function init() {
             vm.isCollapsed = true;
             vm.isUserLoggedIn = false;
+
             if ($rootScope.currentUser) {
                 vm.isUserLoggedIn = true;
                 vm.user=$rootScope.currentUser;
             }
+
+            BookCategoryService
+                .findAllBookCategory()
+                .then(
+                    function(response) {
+                        vm.bookCategories = response.data;
+                    },
+                    function(error) {
+                        vm.error = error.data;
+                    }
+                );
         }
         init();
 

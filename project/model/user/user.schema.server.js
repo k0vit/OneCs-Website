@@ -8,7 +8,15 @@ module.exports = function() {
         firstName: String,
         lastName: String,
         email: String,
-        _bookLikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
+        bookLikes: [{
+            bookIsbn: String,
+            bookTitle: String,
+            bookSubtitle: String,
+            bookAuthors: [String],
+            bookPublication: String,
+            bookGoogleRating: String,
+            bookImageUrl: String
+        }],
         _bookReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BookReview' }],
         role: { type: String, enum: ['ADMIN', 'STUDENT'] },
         dateCreated: {type: Date},
