@@ -55,6 +55,12 @@ body {
     z-index:1;
 }
 
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}
+
 .carousel-caption {
     position: absolute;
     right: 15%;

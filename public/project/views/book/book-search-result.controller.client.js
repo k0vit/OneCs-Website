@@ -1,12 +1,11 @@
 (function() {
     angular
         .module("OneCs")
-        .controller("BookSearchController", BookSearchController);
+        .controller("BookSearchResultController", BookSearchResultController);
 
-    function BookSearchController($location, $rootScope, UserService, BookCategoryService) {
+    function BookSearchResultController($location, $rootScope, UserService) {
         var vm = this;
         vm.logout = logout;
-        vm.storeBookCategory = storeBookCategory;
 
         function init() {
             vm.isCollapsed = true;
@@ -16,17 +15,6 @@
                 vm.isUserLoggedIn = true;
                 vm.user=$rootScope.currentUser;
             }
-
-            BookCategoryService
-                .findAllBookCategory()
-                .then(
-                    function(response) {
-                        vm.bookCategories = response.data;
-                    },
-                    function(error) {
-                        vm.error = error.data;
-                    }
-                );
         }
         init();
 
@@ -44,12 +32,6 @@
                         vm.error = error.data;
                     }
                 );
-        }
-        
-        function storeBookCategory(bookCategory) {
-            console.log(bookCategory);
-            $rootScope.selectedBookCategory = bookCategory;
-            $location.url("/book/" + bookCategory.display);
         }
     }
 })();

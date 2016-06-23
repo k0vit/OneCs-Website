@@ -99,13 +99,13 @@
         <div ng-repeat="bookCategory in model.bookCategories">
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">
                 <div class="book-cat-relative-pos">
-                    <div class="book-cat-edit" ng-show="model.user.role=='ADMIN'">
-                        <a href="#/book-category/{{bookCategory._id}}">
-                            <span class="glyphicon glyphicon-cog img-right-spacing"></span>
-                        </a>
-                    </div>
-                    <a href="#/book">
-                        <img ng-src={{bookCategory.url}} class="img-responsive thumbnail" width="100%">
+                    <a href="#/book-category/{{bookCategory._id}}"
+                       class="book-cat-edit"
+                       ng-show="model.user.role=='ADMIN'">
+                        <span class="glyphicon glyphicon-cog img-right-spacing"></span>
+                    </a>
+                    <a ng-click="model.storeBookCategory(bookCategory)">
+                        <img ng-src="{{bookCategory.url}}" class="img-responsive thumbnail" width="100%">
                         <div class="carousel-caption">
                             <h3>{{bookCategory.display}}</h3>
                         </div>

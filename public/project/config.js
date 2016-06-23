@@ -41,6 +41,22 @@
                     loggedIn: checkLoggedIn
                 }
             })
+            .when("/book/:bkCat", {
+                templateUrl: "views/book/book-search-result.view.client.html",
+                controller: "BookSearchResultController",
+                controllerAs: "model",
+                resolve: {
+                    loggedIn: checkLoggedIn
+                }
+            })
+            .when("/book/:bkCat/:isbn", {
+                templateUrl: "views/book/book-detail.view.client.html",
+                controller: "BookDetailController",
+                controllerAs: "model",
+                resolve: {
+                    loggedIn: checkLoggedIn
+                }
+            })
             .when("/book-category/new", {
                 templateUrl: "views/book/book-category-new.view.client.html",
                 controller: "BookCategoryNewController",
