@@ -79,7 +79,7 @@
                 controllerAs: "model"
             });
 
-        function checkLoggedIn(UserService, $location, $q, $rootScope) {
+        function checkLoggedIn(UserService, $location, $q, $rootScope, $route) {
             var deferred = $q.defer();
             UserService
                 .loggedIn()
@@ -88,8 +88,13 @@
                         var user = response.data;
                         if(user == '0') {
                             $rootScope.currentUser = null;
-                            deferred.reject();
-                            $location.url("/login");
+                            if ($route.current.$$route.originalPath === '/profile') {
+                                deferred.reject();
+                                $location.url("/login");
+                            }
+                            else {
+                                deferred.resolve();
+                            }
                         } else {
                             deferred.resolve();
                             $rootScope.currentUser = user;

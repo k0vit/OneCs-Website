@@ -30,6 +30,12 @@ body {
 
 .category-image-padding {
     position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.book-category-padding {
+    position: relative;
     border-bottom: 1px solid silver;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -42,8 +48,8 @@ body {
     border-bottom: 1px solid silver;
     padding-top: 30px;
     padding-bottom: 30px;
-    overflow: hidden;
-    height:40vh;
+    overflow: auto;
+    height:45vh;
 }
 
 .book-search-option-help {

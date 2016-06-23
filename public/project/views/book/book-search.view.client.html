@@ -51,21 +51,23 @@
     </div>
 </nav>
 
+<div ng-show="model.error" class="alert alert-danger">
+    {{model.error}}
+</div>
+
 <div class="search-relative-pos">
     <div class="search-form">
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4">
                 <select id="SearchOptions" class="form-control search-field" ng-model="model.searchOptions">
                     <option value="Title">Title</option>
-                    <option value="Author">Author</option>
-                    <option value="ISBN">ISBN</option>
                     <option value="TitleNAuthor">Title & Author</option>
                     <option value="default" ng-selected="true">Search By</option>
                 </select>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <div class="input-group">
-                    <input ng-model="model.search"
+                    <input ng-model="model.searchTerm"
                            class="form-control search-field"
                            placeholder="Enter Search Term Here"
                            type="text"
@@ -74,7 +76,7 @@
                            autocomplete="off" autocorrect="off" autocapitalize="off"/>
                             <span class="input-group-btn">
                                 <button ng-model="model.title"
-                                        ng-click="model.search()"
+                                        ng-click="model.searchBooks()"
                                         class="btn btn-danger"
                                         type="button">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -83,7 +85,7 @@
                 </div>
                 <div>
                     <span class="book-search-option-help" ng-show="model.searchOptions==='TitleNAuthor'">
-                        <b>Title and Author seperated by <strong> Colon (:). E.g. Java:Joshua </strong> </b>
+                        <b>Title and Author seperated by <strong> Ampersand (&). E.g. Java&Joshua </strong> </b>
                     </span>
                 </div>
             </div>
@@ -97,14 +99,14 @@
 <div class="container">
     <div class="row">
         <div ng-repeat="bookCategory in model.bookCategories">
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 book-category-padding">
                 <div class="book-cat-relative-pos">
                     <a href="#/book-category/{{bookCategory._id}}"
                        class="book-cat-edit"
                        ng-show="model.user.role=='ADMIN'">
                         <span class="glyphicon glyphicon-cog img-right-spacing"></span>
                     </a>
-                    <a href="#/book/{{bookCategory.title}}:{{bookCategory.author}}">
+                    <a ng-click="model.searchBookByCategory(bookCategory.title, bookCategory.author)">
                         <img ng-src="{{bookCategory.url}}" class="img-responsive thumbnail" width="100%">
                         <div class="book-search-option-help">
                             <h3>{{bookCategory.display}}</h3>

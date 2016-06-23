@@ -31,9 +31,11 @@
         }
 
         function searchBooks() {
-            var searchTerm=$routeParams.bkCat.split(":");
+            var searchTerm=$routeParams.bkCat.split("&");
             var title = searchTerm[0];
             var author = searchTerm[1];
+            vm.title=title;
+            vm.author=author;
 
             BookSearchService
                 .searchBooks(title, author)
