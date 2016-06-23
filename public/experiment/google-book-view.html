@@ -7,18 +7,15 @@
     <title>Google Book Search Embedded Viewer API Example</title>
 </head>
 <body>
+
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
 <script type="text/javascript">
-    google.load("books", "0");
-
     function initialize() {
         var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
         viewer.load('ISBN:9781118871652');
     }
-
-    google.setOnLoadCallback(initialize);
 </script>
-<div id="viewerCanvas" style="width: 600px; height: 500px;"></div>
+<a ng-click="initialize()" id="viewerCanvas" style="width: 600px; height: 500px;"></a>
 </body>
 </html>
 

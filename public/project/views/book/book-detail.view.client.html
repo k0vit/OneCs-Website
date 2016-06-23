@@ -1,10 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<nav role="navigation" class="navbar-default navbar-fixed-top navbar-inverse">
+    <div class = "container">
+        <div class="navbar-header">
+            <button type="button"
+                    class="navbar-toggle"
+                    ng-click="model.isCollapsed = !model.isCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a ng-href="#/book/{{model.bkCat}}" class="navbar-brand navbar-link img-right-spacing">
+                  <span class="glyphicon glyphicon-chevron-left">
+                  </span>
+            </a>
+            <a class="navbar-brand" href="#/home">
+                <i class="fa fa-laptop"></i> OneCs
+            </a>
+        </div>
+        <div class="navbar-collapse"
+             ng-class="{collapse: model.isCollapsed}"
+             ng-click="model.isCollapsed = !model.isCollapsed">
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-show="!model.isUserLoggedIn">
+                    <a href="#/login">
+                        <span class="glyphicon glyphicon-log-in"></span> SignIn
+                    </a>
+                </li>
+                <li ng-show="!model.isUserLoggedIn">
+                    <a href="#/register">
+                        <span class="glyphicon glyphicon-check"></span>
+                        SignUp
+                    </a>
+                </li>
+                <li ng-show="model.isUserLoggedIn">
+                    <a href="#/profile" class="navbar-link">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Profile
+                    </a>
+                </li>
+                <li ng-show="model.isUserLoggedIn">
+                    <a ng-click="model.logout()" class="navbar-link">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        Sign-Out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-</body>
-</html>
+<div class="container">
+    <div id="viewerCanvas" ng-show="showViewerCanvas"></div>
+    <div class="row">
+        <div class="media media-padding">
+            <div class="media-left media-top col-sm-6">
+                <a ng-click="showViewerCanvas=true" onclick="initialize('9780132778046')">
+                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/digital/sitb/sticker/sitb-sticker-v3-small._CB341765094_.png">
+                </a>
+                <img class="media-object book-detail-img-padding" ng-src="{{model.book.volumeInfo.imageLinks.small}}">
+            </div>
+            <div class="col-sm-6">
+                <h2 class="media-heading">{{model.book.volumeInfo.title}}</h2>
+                <h4>{{model.book.volumeInfo.subtitle}}</h4>
+                <table class="table table-striped table-condensed table-responsive">
+                    <tr>
+                        <th>Authors</th>
+                        <td>
+                            <div ng-repeat="author in model.book.volumeInfo.authors">
+                                <div>{{author}}</div>
+                            </div>
+                        </td>
+                    <tr>
+                        <th>Publisher</th>
+                        <td>{{model.book.volumeInfo.publisher}}</td>
+                    </tr>
+                    <tr>
+                        <th>Published Date</th>
+                        <td>{{model.book.volumeInfo.publishedDate}}</td>
+                    </tr>
+                    <tr ng-repeat="(key, value) in model.book.volumeInfo.industryIdentifiers">
+                        <th>
+                            {{value.type}}
+                        </th>
+                        <td>
+                            {{value.identifier}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Google Rating</th>
+                        <td>{{model.book.volumeInfo.averageRating}}</td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>{{model.book.saleInfo.retailPrice.amount}}
+                            {{model.book.saleInfo.retailPrice.currencyCode}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-info"> About the book </h3>
+    <div class="book-desc-padding">
+        <h5 class="text-justify"><div ng-bind-html="model.getSafeHtml(model.book.volumeInfo.description)"></div></h5>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function initialize(isbn) {
+        console.log(isbn);
+        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+        viewer.load(isbn);
+    }
+</script>

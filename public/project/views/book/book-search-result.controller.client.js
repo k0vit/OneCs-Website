@@ -37,6 +37,13 @@
             vm.title=title;
             vm.author=author;
 
+            if (author) {
+                vm.bkCategory = $routeParams.bkCat;
+            }
+            else {
+                vm.bkCategory = title;
+            }
+
             BookSearchService
                 .searchBooks(title, author)
                 .then(

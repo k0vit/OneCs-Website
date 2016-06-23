@@ -49,7 +49,7 @@
                     loggedIn: checkLoggedIn
                 }
             })
-            .when("/book/:bkCat/:isbn", {
+            .when("/book/:bkCat/:bkId", {
                 templateUrl: "views/book/book-detail.view.client.html",
                 controller: "BookDetailController",
                 controllerAs: "model",

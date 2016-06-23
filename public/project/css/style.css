@@ -1,3 +1,17 @@
+.media-padding {
+    padding-top : 40px;
+    padding-bottom: 10px;
+}
+
+.book-detail-img-padding {
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.prod-details-table {
+    overflow-x: hidden;
+}
+
 .accordion-height {
     padding: 10px;
     width: 100%;
@@ -50,6 +64,14 @@ body {
     padding-bottom: 30px;
     overflow: auto;
     height:45vh;
+}
+
+.book-desc-padding {
+    position: relative;
+    border-bottom: 1px solid silver;
+    padding-bottom: 20px;
+    overflow: auto;
+    height:50vh;
 }
 
 .book-search-option-help {
@@ -119,6 +141,15 @@ select.validation {
     right: 0;
     margin: auto;
     height: 100%;
+}
+
+#viewerCanvas {
+    width: 100%;
+    height: 80vh;
+}
+
+.book-preview {
+    display: block;
 }
 
 .img-right-spacing {
