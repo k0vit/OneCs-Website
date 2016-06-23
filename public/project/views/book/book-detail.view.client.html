@@ -50,11 +50,17 @@
 </nav>
 
 <div class="container">
-    <div id="viewerCanvas" ng-show="showViewerCanvas"></div>
+    <div class="relative-pos" ng-show="showBookPreview">
+        <a ng-click="showBookPreview=false"
+           class="close-book-preview">
+            <span class="glyphicon glyphicon-remove img-right-spacing"></span>
+        </a>
+        <div id="viewerCanvas" ng-show="showBookPreview"></div>
+    </div>
     <div class="row">
         <div class="media media-padding">
             <div class="media-left media-top col-sm-6">
-                <a ng-click="showViewerCanvas=true" onclick="initialize('9780132778046')">
+                <a ng-click="showBookPreview=true" onclick="initialize('9780132778046')">
                     <img src="https://images-na.ssl-images-amazon.com/images/G/01/digital/sitb/sticker/sitb-sticker-v3-small._CB341765094_.png">
                 </a>
                 <img class="media-object book-detail-img-padding" ng-src="{{model.book.volumeInfo.imageLinks.small}}">
