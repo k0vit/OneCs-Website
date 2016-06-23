@@ -33,6 +33,15 @@ body {
     padding-bottom: 20px;
 }
 
+.book-result-padding {
+    position: relative;
+    border-bottom: 1px solid silver;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    overflow: hidden;
+    height:40vh;
+}
+
 .book-search-option-help {
     color: white;
     text-align: center;
@@ -85,7 +94,6 @@ input.validation {
 select.validation {
     border-color: red;
 }
-
 
 .item-image {
     position: relative;

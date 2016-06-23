@@ -3,18 +3,14 @@
         .module("OneCs")
         .controller("BookSearchResultController", BookSearchResultController);
 
-    function BookSearchResultController($location, $rootScope, UserService) {
+    function BookSearchResultController($routeParams, $location, $rootScope, UserService, BookSearchService) {
         var vm = this;
         vm.logout = logout;
+        vm.isCollapsed = true;
 
         function init() {
-            vm.isCollapsed = true;
-            vm.isUserLoggedIn = false;
-
-            if ($rootScope.currentUser) {
-                vm.isUserLoggedIn = true;
-                vm.user=$rootScope.currentUser;
-            }
+            checkIfUserLoggedIn();
+            searchBooks();
         }
         init();
 
@@ -32,6 +28,32 @@
                         vm.error = error.data;
                     }
                 );
+        }
+
+        function searchBooks() {
+            var searchTerm=$routeParams.bkCat.split(":");
+            var title = searchTerm[0];
+            var author = searchTerm[1];
+
+            BookSearchService
+                .searchBooks(title, author)
+                .then(
+                    function(response) {
+                        vm.books = response.data;
+                    },
+                    function(error) {
+                        vm.error = error;
+                    }
+                );
+        }
+
+        function checkIfUserLoggedIn() {
+            vm.isUserLoggedIn = false;
+
+            if ($rootScope.currentUser) {
+                vm.isUserLoggedIn = true;
+                vm.user=$rootScope.currentUser;
+            }
         }
     }
 })();

@@ -6,7 +6,6 @@
     function BookSearchController($location, $rootScope, UserService, BookCategoryService) {
         var vm = this;
         vm.logout = logout;
-        vm.storeBookCategory = storeBookCategory;
 
         function init() {
             vm.isCollapsed = true;
@@ -44,12 +43,6 @@
                         vm.error = error.data;
                     }
                 );
-        }
-        
-        function storeBookCategory(bookCategory) {
-            console.log(bookCategory);
-            $rootScope.selectedBookCategory = bookCategory;
-            $location.url("/book/" + bookCategory.display);
         }
     }
 })();

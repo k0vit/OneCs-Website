@@ -83,7 +83,7 @@
                 </div>
                 <div>
                     <span class="book-search-option-help" ng-show="model.searchOptions==='TitleNAuthor'">
-                        <b>Title and Author seperated by <strong> Semicolon (;). E.g. Java; Joshua </strong> </b>
+                        <b>Title and Author seperated by <strong> Colon (:). E.g. Java:Joshua </strong> </b>
                     </span>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                        ng-show="model.user.role=='ADMIN'">
                         <span class="glyphicon glyphicon-cog img-right-spacing"></span>
                     </a>
-                    <a ng-click="model.storeBookCategory(bookCategory)">
+                    <a href="#/book/{{bookCategory.title}}:{{bookCategory.author}}">
                         <img ng-src="{{bookCategory.url}}" class="img-responsive thumbnail" width="100%">
                         <div class="carousel-caption">
                             <h3>{{bookCategory.display}}</h3>
