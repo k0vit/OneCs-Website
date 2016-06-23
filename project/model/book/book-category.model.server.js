@@ -5,7 +5,7 @@ module.exports = function() {
     var BookCategory = mongoose.model("BookCategory", BookCategorySchema);
 
     var api = {
-        createCategory: createCategory,
+        createBookCategory: createBookCategory,
         findBookCategoryByTitle: findBookCategoryByTitle,
         findBookCategoryById: findBookCategoryById,
         updateBookCategory: updateBookCategory,
@@ -14,7 +14,7 @@ module.exports = function() {
     };
     return api;
 
-    function createCategory(bookCategory) {
+    function createBookCategory(bookCategory) {
         bookCategory.dateCreated = new Date();
         return BookCategory.create(bookCategory);
     }

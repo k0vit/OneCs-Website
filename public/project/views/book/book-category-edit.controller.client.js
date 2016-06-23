@@ -3,7 +3,7 @@
         .module("OneCs")
         .controller("BookCategoryEditController", BookCategoryEditController);
 
-    function BookCategoryNewController($routeParams, $location, $rootScope, UserService, BookCategoryService) {
+    function BookCategoryEditController($routeParams, $location, $rootScope, UserService, BookCategoryService) {
         var vm = this;
         vm.isCollapsed = true;
         vm.logout = logout;

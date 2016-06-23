@@ -6,6 +6,7 @@
     function BookCategoryService($http) {
 
         var api = {
+            createBookCategory: createBookCategory,
             findBookCategoryById: findBookCategoryById,
             updateBookCategory: updateBookCategory,
             deleteBookCategory: deleteBookCategory,
@@ -13,6 +14,10 @@
         };
 
         return api;
+
+        function createBookCategory(newBookCategory) {
+            return $http.post("/api/bookcategory/" ,newBookCategory);
+        }
 
         function updateBookCategory(id, newBookCategory) {
             return $http.put(getUrlWithId(id), newBookCategory);

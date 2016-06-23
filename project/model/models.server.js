@@ -14,7 +14,7 @@ module.exports = function() {
     mongoose.connect(connectionString);
 
     var userModel = require("./user/user.model.server.js")();
-    var bookCategoryModel = require("./book/book-category.model.server")();
+    var bookCategoryModel = require("./book/book-category.model.server.js")();
 
     var models = {
         userModel: userModel,

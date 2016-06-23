@@ -50,7 +50,7 @@
                 }
             })
             .when("/book-category/:bkCatId", {
-                templateUrl: "views/user/book-category-edit.view.client.html",
+                templateUrl: "views/book/book-category-edit.view.client.html",
                 controller: "BookCategoryEditController",
                 controllerAs: "model",
                 resolve: {
