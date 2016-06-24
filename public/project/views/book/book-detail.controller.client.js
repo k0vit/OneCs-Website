@@ -6,16 +6,23 @@
     function BookDetailController($sce, $routeParams, $location, $rootScope, UserService, BookSearchService) {
         var vm = this;
         vm.logout = logout;
+        vm.displayBookPreview = displayBookPreview;
         vm.getSafeHtml = getSafeHtml;
         vm.isCollapsed = true;
         vm.bkCat = $routeParams.bkCat;
         vm.bkId = $routeParams.bkId;
+        vm.showBookPreview = false;
 
         function init() {
             checkIfUserLoggedIn();
             getBookDetails();
         }
         init();
+
+        function displayBookPreview(isbn) {
+            vm.showBookPreview=true;
+            window.initialize(isbn);
+        }
 
         function getSafeHtml(htmlText) {
             return $sce.trustAsHtml(htmlText);

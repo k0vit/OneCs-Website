@@ -50,17 +50,17 @@
 </nav>
 
 <div class="container">
-    <div class="relative-pos" ng-show="showBookPreview">
-        <a ng-click="showBookPreview=false"
+    <div class="relative-pos" ng-show="model.showBookPreview">
+        <a ng-click="model.showBookPreview=false"
            class="close-book-preview">
             <span class="glyphicon glyphicon-remove img-right-spacing"></span>
         </a>
-        <div id="viewerCanvas" ng-show="showBookPreview"></div>
+        <div id="viewerCanvas" ng-show="model.showBookPreview"></div>
     </div>
     <div class="row">
         <div class="media media-padding">
             <div class="media-left media-top col-sm-6">
-                <a ng-click="showBookPreview=true" onclick="initialize('9780132778046')">
+            <a ng-click="model.displayBookPreview(model.book.volumeInfo.industryIdentifiers[1].identifier)">
                     <img src="https://images-na.ssl-images-amazon.com/images/G/01/digital/sitb/sticker/sitb-sticker-v3-small._CB341765094_.png">
                 </a>
                 <img class="media-object book-detail-img-padding" ng-src="{{model.book.volumeInfo.imageLinks.small}}">
@@ -92,11 +92,11 @@
                             {{value.identifier}}
                         </td>
                     </tr>
-                    <tr>
+                    <tr ng-show="model.book.volumeInfo.averageRating">
                         <th>Google Rating</th>
                         <td>{{model.book.volumeInfo.averageRating}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-show="model.book.saleInfo.retailPrice">
                         <th>Price</th>
                         <td>{{model.book.saleInfo.retailPrice.amount}}
                             {{model.book.saleInfo.retailPrice.currencyCode}}</td>
@@ -114,7 +114,6 @@
 
 <script type="text/javascript">
     function initialize(isbn) {
-        console.log(isbn);
         var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
         viewer.load(isbn);
     }
