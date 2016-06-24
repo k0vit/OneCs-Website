@@ -1,7 +1,7 @@
 module.exports = function() {
 
     var mongoose = require("mongoose");
-    var BookReviewSchema = require("./book-category.schema.server")(mongoose);
+    var BookReviewSchema = require("./book-review.schema.server")(mongoose);
     var BookReview = mongoose.model("BookReview", BookReviewSchema);
 
     var api = {
@@ -24,7 +24,7 @@ module.exports = function() {
     }
 
     function findBookReviewByUserId(userId) {
-        return BookReview.find({_user: userId});
+        return BookReview.find({'user._user': userId});
     }
 
     function updateBookReview(id, bookReview) {

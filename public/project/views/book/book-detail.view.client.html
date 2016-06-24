@@ -108,13 +108,13 @@
                         <i title="Like" class="fa fa-thumbs-o-up fa-lg fa-2x"></i>
                     </a>
                 </div>
-                <div ng-if="!model.isUserLoggedIn" class="alert alert-warning">
+                <div ng-show="!model.isUserLoggedIn" class="alert alert-warning">
                     <strong>Not logged in?</strong> Login to 'Like' this product or write a review about it.
                 </div>
                 <div ng-show="model.isUserLoggedIn && model.hasUserLikedThisBook">
                     <h5 class="text-info"><b>You have liked this product.
                         <span class="text-danger">Click below to dislike it!</span></b></h5>
-                    <a ng-click="model.removeProdToUserLikesLst()">
+                    <a class="text-danger" ng-click="model.removeProdToUserLikesLst()">
                         <i title="Unlike" class="fa fa-thumbs-o-down fa-lg fa-2x orangecolor"></i>
                     </a>
                 </div>
@@ -127,8 +127,74 @@
         <h5 class="text-justify"><div ng-bind-html="model.getSafeHtml(model.book.volumeInfo.description)"></div></h5>
     </div>
 
-    <div ng-if="!model.isUserLoggedIn" class="alert alert-warning">
+    <div ng-show="!model.isUserLoggedIn" class="alert alert-warning">
         <strong>Not logged in?</strong> Login to 'Like' this product or write a review about it.
+    </div>
+
+    <div ng-show="model.isUserLoggedIn">
+        <div class="text-left">
+            <a class="btn btn-success" ng-click="model.addReviewForm=!model.addReviewForm">
+                Leave a Review
+            </a>
+        </div>
+        <div class="well margin-well" ng-show="model.addReviewForm || model.editReviewForm">
+            <h4>What do you think about the product?</h4>
+            <form name="model.reviewForm" novalidate>
+                <div class="form-group">
+                    <textarea ng-model="model.review.title"
+                              placeholder="Title"
+                              class="form-control"
+                              rows="1">
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <textarea ng-model="model.review.comment"
+                              placeholder="Your Review"
+                              class="form-control"
+                              rows="3">
+
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label>Rating</label>
+                    <select id="Rating" ng-model="model.review.rating">
+                        <option value="1" ng-selected="true">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div ng-show="model.addReviewForm">
+                    <button type="submit"
+                            class="btn btn-primary"
+                            id="submit"
+                            ng-click="model.createReview()">
+                        Submit
+                    </button>
+                    <button type="submit"
+                            class="btn btn-secondary"
+                            ng-click="model.addReviewForm=!model.addReviewForm">
+                        Cancel
+                    </button>
+                </div>
+                <div ng-show="model.editReviewForm">
+                    <button type="update"
+                            class="btn btn-primary"
+                            ng-click="model.updateReview()">
+                        Update
+                    </button>
+                    <button type="submit"
+                            class="btn btn-secondary"
+                            ng-click="model.editReviewForm=!model.editReviewForm">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        {{model.reviews}}
     </div>
 </div>
 

@@ -4,10 +4,16 @@ module.exports = function() {
 
     var BookReviewSchema = mongoose.Schema({
         bookId: String,
+        bookCat: String,
         rating: Number,
         title: String,
         comment: String,
-        _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        user: {
+            _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            firstName: String,
+            lastName: String,
+            userName: String
+        },
         dateCreated: {type: Date},
         dateUpdated: {type: Date, default: Date.now},
     }, {collection: "project.book.review"});
