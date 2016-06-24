@@ -15,10 +15,12 @@ module.exports = function() {
 
     var userModel = require("./user/user.model.server.js")();
     var bookCategoryModel = require("./book/book-category.model.server.js")();
+    var bookReviewModel = require("./book/book-review.model.server.js")();
 
     var models = {
         userModel: userModel,
-        bookCategoryModel: bookCategoryModel
+        bookCategoryModel: bookCategoryModel,
+        bookReviewModel: bookReviewModel
     };
 
     return models;

@@ -3,7 +3,7 @@ module.exports = function() {
     var mongoose = require("mongoose");
 
     var BookReviewSchema = mongoose.Schema({
-        bookIsbn: String,
+        bookId: String,
         rating: Number,
         title: String,
         comment: String,
