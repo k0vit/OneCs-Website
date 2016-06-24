@@ -62,6 +62,8 @@
                 .deleteUser(id)
                 .then(
                     function (response) {
+                        vm.user=null;
+                        $rootScope.currentUser=null;
                         $location.url("/home");
                     },
                     function (error) {

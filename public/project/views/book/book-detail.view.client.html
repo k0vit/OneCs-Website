@@ -22,7 +22,7 @@
              ng-click="model.isCollapsed = !model.isCollapsed">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-show="!model.isUserLoggedIn">
-                    <a href="#/login">
+                    <a ng-click="model.login()">
                         <span class="glyphicon glyphicon-log-in"></span> SignIn
                     </a>
                 </li>
@@ -60,7 +60,7 @@
     <div class="row">
         <div class="media media-padding">
             <div class="media-left media-top col-sm-5 col-lg-3">
-            <a ng-click="model.displayBookPreview(model.book.volumeInfo.industryIdentifiers[1].identifier)">
+                <a ng-click="model.displayBookPreview(model.book.volumeInfo.industryIdentifiers[1].identifier)">
                     <img src="https://images-na.ssl-images-amazon.com/images/G/01/digital/sitb/sticker/sitb-sticker-v3-small._CB341765094_.png">
                 </a>
                 <img class="media-object book-detail-img-padding" ng-src="{{model.book.volumeInfo.imageLinks.small}}">
@@ -102,6 +102,22 @@
                             {{model.book.saleInfo.retailPrice.currencyCode}}</td>
                     </tr>
                 </table>
+                <div ng-show="model.isUserLoggedIn && !model.hasUserLikedThisBook">
+                    <h5 class="text-info"><b>Like this product? Let us know!</b></h5>
+                    <a ng-click="model.addProdToUserLikesLst()">
+                        <i title="Like" class="fa fa-thumbs-o-up fa-lg fa-2x"></i>
+                    </a>
+                </div>
+                <div ng-if="!model.isUserLoggedIn" class="alert alert-warning">
+                    <strong>Not logged in?</strong> Login to 'Like' this product or write a review about it.
+                </div>
+                <div ng-show="model.isUserLoggedIn && model.hasUserLikedThisBook">
+                    <h5 class="text-info"><b>You have liked this product.
+                        <span class="text-danger">Click below to dislike it!</span></b></h5>
+                    <a ng-click="model.removeProdToUserLikesLst()">
+                        <i title="Unlike" class="fa fa-thumbs-o-down fa-lg fa-2x orangecolor"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -109,6 +125,10 @@
     <h3 class="text-info"> About the book </h3>
     <div class="book-desc-padding">
         <h5 class="text-justify"><div ng-bind-html="model.getSafeHtml(model.book.volumeInfo.description)"></div></h5>
+    </div>
+
+    <div ng-if="!model.isUserLoggedIn" class="alert alert-warning">
+        <strong>Not logged in?</strong> Login to 'Like' this product or write a review about it.
     </div>
 </div>
 

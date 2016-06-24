@@ -11,7 +11,7 @@ module.exports = function() {
         findUserById: findUserById,
         updateUser: updateUser,
         deleteUser: deleteUser,
-        findUserByGoogleId: findUserByGoogleId
+        findUserByGoogleId: findUserByGoogleId,
     };
     return api;
 

@@ -20,7 +20,12 @@
                             var user = response.data;
                             if (user) {
                                 $rootScope.currentUser = user;
-                                $location.url("/profile");
+                                if ($rootScope.currentPath) {
+                                    $location.url($rootScope.currentPath);
+                                }
+                                else {
+                                    $location.url("/profile");
+                                }
                             }
                         },
                         function (error) {

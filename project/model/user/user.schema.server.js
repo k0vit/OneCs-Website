@@ -9,12 +9,10 @@ module.exports = function() {
         lastName: String,
         email: String,
         bookLikes: [{
-            bookIsbn: String,
+            bookId: String,
             bookTitle: String,
-            bookSubtitle: String,
             bookAuthors: [String],
-            bookPublication: String,
-            bookGoogleRating: String,
+            bookCategory: String,
             bookImageUrl: String
         }],
         _bookReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BookReview' }],

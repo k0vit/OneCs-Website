@@ -27,7 +27,6 @@ module.exports = function(app, models) {
             failureRedirect: '/project/#/login'
         }));
 
-
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
