@@ -59,13 +59,13 @@
     </div>
     <div class="row">
         <div class="media media-padding">
-            <div class="media-left media-top col-sm-6">
+            <div class="media-left media-top col-sm-5 col-lg-3">
             <a ng-click="model.displayBookPreview(model.book.volumeInfo.industryIdentifiers[1].identifier)">
                     <img src="https://images-na.ssl-images-amazon.com/images/G/01/digital/sitb/sticker/sitb-sticker-v3-small._CB341765094_.png">
                 </a>
                 <img class="media-object book-detail-img-padding" ng-src="{{model.book.volumeInfo.imageLinks.small}}">
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-5 col-sm-offset-1 col-lg-4 col-lg-offset-1">
                 <h2 class="media-heading">{{model.book.volumeInfo.title}}</h2>
                 <h4>{{model.book.volumeInfo.subtitle}}</h4>
                 <table class="table table-striped table-condensed table-responsive">

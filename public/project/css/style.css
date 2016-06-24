@@ -4,12 +4,13 @@
 }
 
 .book-detail-img-padding {
-    padding-left: 10px;
+    padding-left: 20px;
     padding-bottom: 10px;
+    width: 90%;
 }
 
 .prod-details-table {
-    overflow-x: hidden;
+    overflow-x: auto;
 }
 
 .accordion-height {
@@ -60,10 +61,10 @@ body {
 .book-result-padding {
     position: relative;
     border-bottom: 1px solid silver;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     overflow: auto;
-    height:45vh;
+    height:40vh;
 }
 
 .book-desc-padding {
