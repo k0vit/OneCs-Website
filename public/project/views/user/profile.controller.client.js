@@ -8,6 +8,7 @@
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
+        vm.navigateToBookDetailPage = navigateToBookDetailPage;
         vm.isCollapsed = true;
         var id = $rootScope.currentUser._id;
 
@@ -24,6 +25,11 @@
                 );
         }
         init();
+
+        function navigateToBookDetailPage(book) {
+            $rootScope.previousPath = "/profile";
+            $location.url("/book/" + book.bookCategory + "/" + book.bookId);
+        }
 
         function updateUser() {
             if (validate()) {

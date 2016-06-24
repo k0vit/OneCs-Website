@@ -20,8 +20,8 @@
                             var user = response.data;
                             if (user) {
                                 $rootScope.currentUser = user;
-                                if ($rootScope.currentPath) {
-                                    $location.url($rootScope.currentPath);
+                                if ($rootScope.previousPath) {
+                                    $location.url($rootScope.previousPath);
                                 }
                                 else {
                                     $location.url("/profile");

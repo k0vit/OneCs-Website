@@ -122,10 +122,31 @@
                 </button>
             </form>
         </div>
-        <h3>Likes</h3>
-        <div></div>
         <h3>Reviews</h3>
         <div></div>
+        <h3>Likes</h3>
+        <div class="row">
+            <div ng-repeat="book in model.user.bookLikes">
+                <div class="col-xs-12 col-sm-offset-1 col-sm-3 col-md-3 col-lg-2 user-like-padding">
+                    <a ng-click="model.navigateToBookDetailPage(book)">
+                        <img class=""
+                             ng-src="{{book.bookImageUrl}}">
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-5 col-md-2 col-lg-2 user-like-padding">
+                    <a ng-click="model.navigateToBookDetailPage(book)">
+                        <h4 class="text-info">{{book.bookTitle}}</h4>
+                    </a>
+                    <div ng-show="{{book.bookAuthors.length < 3}}">
+                        <h6>Authors:
+                            <div ng-repeat="author in book.bookAuthors">
+                                {{author}}
+                            </div>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

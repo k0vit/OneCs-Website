@@ -67,6 +67,15 @@ body {
     height: 50vh;
 }
 
+.user-like-padding {
+    position: relative;
+    border-bottom: 1px solid silver;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    overflow: auto;
+    height: 35vh;
+}
+
 .book-desc-padding {
     position: relative;
     border-bottom: 1px solid silver;

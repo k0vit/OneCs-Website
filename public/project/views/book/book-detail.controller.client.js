@@ -11,6 +11,7 @@
         vm.displayBookPreview = displayBookPreview;
         vm.getSafeHtml = getSafeHtml;
         vm.removeProdToUserLikesLst = removeProdToUserLikesLst;
+        vm.back = back;
         vm.isCollapsed = true;
         vm.bkCat = $routeParams.bkCat;
         vm.bkId = $routeParams.bkId;
@@ -19,9 +20,20 @@
         function init() {
             checkIfUserLoggedIn();
             getBookDetails();
-            hasUserLikedThisProd();
+            if (vm.user) {
+                hasUserLikedThisProd();
+            }
         }
         init();
+
+        function back() {
+            if ($rootScope.previousPath) {
+                $location.url($rootScope.previousPath);
+            }
+            else {
+                $location.url("/book/" + vm.bkCat);
+            }
+        }
 
         function hasUserLikedThisProd() {
             for (i = 0; i < vm.user.bookLikes.length; i++) {
@@ -33,7 +45,7 @@
         }
 
         function login() {
-            $rootScope.currentPath = "/book/" + vm.bkCat + "/" + vm.bkId;
+            $rootScope.previousPath = "/book/" + vm.bkCat + "/" + vm.bkId;
             $location.url("/login");
         }
 
@@ -96,7 +108,6 @@
                 .updateUser(vm.user._id, vm.user)
                 .then(
                     function(response) {
-                        console.log(response);
                         vm.hasUserLikedThisBook = true;
                     },
                     function (error) {
