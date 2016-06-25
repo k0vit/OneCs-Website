@@ -6,9 +6,9 @@
     function BookSearchResultController($routeParams, $location, $rootScope, UserService, BookSearchService) {
         var vm = this;
         vm.logout = logout;
-        vm.isCollapsed = true;
 
         function init() {
+            vm.isCollapsed = true;
             checkIfUserLoggedIn();
             searchBooks();
         }

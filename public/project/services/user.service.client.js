@@ -8,6 +8,7 @@
         var userBaseUrl = "/api/user/";
 
         var api = {
+            createUser: createUser,
             register: register,
             findUserByCredential: findUserByCredential,
             findUserById: findUserById,
@@ -39,6 +40,10 @@
 
         function register(user) {
             return $http.post("/api/register", user);
+        }
+
+        function createUser(newUser) {
+            return $http.post("/api/user", newUser);
         }
 
         function deleteUser(id) {

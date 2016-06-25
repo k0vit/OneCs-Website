@@ -5,8 +5,8 @@
 
     function RegisterController($location, $rootScope, UserService) {
         var vm = this;
-        vm.isCollapsed = true;
         vm.register = register;
+        vm.isCollapsed = true;
 
         function register() {
             if (validate()) {

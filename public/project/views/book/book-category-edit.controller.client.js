@@ -5,13 +5,15 @@
 
     function BookCategoryEditController($routeParams, $location, $rootScope, UserService, BookCategoryService) {
         var vm = this;
-        vm.isCollapsed = true;
         vm.logout = logout;
         vm.updateBookCategory = updateBookCategory;
         vm.deleteBookCategory = deleteBookCategory;
+        vm.navigateBack = navigateBack;
         var id = $routeParams.bkCatId;
 
         function init() {
+            vm.isCollapsed = true;
+
             if ($rootScope.currentUser.role != 'ADMIN') {
                 $location.url("/book");
             }
@@ -44,6 +46,15 @@
                         vm.success = false;
                     }
                 );
+        }
+
+        function navigateBack() {
+            if ($rootScope.previousPath) {
+                $location.url($rootScope.previousPath);
+            }
+            else {
+                $location.url("/book");
+            }
         }
 
         function updateBookCategory() {

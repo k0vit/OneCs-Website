@@ -9,11 +9,12 @@
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
         vm.navigateToBookDetailPage = navigateToBookDetailPage;
-        vm.isCollapsed = true;
         var otherUserId = $routeParams.otherUserId;
         var currentUserId;
 
         function init() {
+            vm.isCollapsed = true;
+            
             if (otherUserId &&
                 (!$rootScope.currentUser || otherUserId!=$rootScope.currentUser._id)) {
                 getUserDetails(otherUserId);

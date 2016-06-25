@@ -1,0 +1,189 @@
+<nav role="navigation" class="navbar-default navbar-fixed-top navbar-inverse">
+    <div class = "container">
+        <span class="navbar-header navbar-brand">
+          <a class="navbar-link" href="#/home">
+                <i class="fa fa-laptop"></i> OneCs
+            </a>
+        </span>
+        <span class="navbar-right navbar-text pull-right">
+                <a ng-click="model.logout()" class="navbar-link">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        Sign-Out
+                </a>
+        </span>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="alert alert-warning">
+        Only <Strong>ADMIN </Strong> user should use this page.
+        If you are not admin please return to home page
+    </div>
+
+    <div class="alert alert-danger" ng-show="model.error">
+        {{model.error}}
+    </div>
+
+    <div class="alert alert-success" ng-show="model.success">
+        {{model.success}}
+    </div>
+
+    <div>
+        <ul class="nav nav-pills">
+            <li ng-class="{active: model.selectedMenu==='addBookCat'}">
+                <a ng-click="model.setSelectedMenu('addBookCat')">
+                    Add Book Category
+                </a>
+            </li>
+            <li ng-class="{active: model.selectedMenu==='listBookCat'}">
+                <a ng-click="model.setSelectedMenu('listBookCat')">
+                    List Book Category
+                </a>
+            </li>
+            <li ng-class="{active: model.selectedMenu==='addUser'}">
+                <a ng-click="model.setSelectedMenu('addUser')">
+                    Add User
+                </a>
+            </li>
+            <li ng-class="{active: model.selectedMenu==='listUser'}">
+                <a ng-click="model.setSelectedMenu('listUser')">
+                    List User
+                </a>
+            </li>
+            <li ng-class="{active: model.selectedMenu==='listReviews'}">
+                <a ng-click="model.setSelectedMenu('listReviews')">
+                    List Reviews
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div ng-show="model.selectedMenu==='addBookCat'">
+        <h3> Add Book Category</h3>
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input ng-model="model.bookCategory.title"
+                   type="text"
+                   class="form-control"
+                   id="title"
+                   placeholder="Java"
+                   required/>
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input ng-model="model.bookCategory.author"
+                   type="text"
+                   class="form-control"
+                   id="author"
+                   placeholder="Joshua Bloch"/>
+
+        </div>
+        <div class="form-group">
+            <label for="display">Display Text</label>
+            <input ng-model="model.bookCategory.display"
+                   type="text"
+                   class="form-control"
+                   id="display"
+                   placeholder="JAVA"/>
+        </div>
+        <div class="form-group">
+            <label for="url">Image Url</label>
+            <input ng-model="model.bookCategory.url"
+                   type="text"
+                   class="form-control"
+                   id="url"
+                   placeholder="resources/category/book/book-category/image-name.jpg"/>
+        </div>
+        <button ng-click="model.createBookCategory()"
+                class="btn btn-primary btn-block"> Create Book Category
+        </button>
+    </div>
+
+    <div ng-show="model.selectedMenu==='listBookCat'">
+        <h3> Listing Book Categories</h3>
+        <div class="row">
+            <div ng-repeat="bookCategory in model.bookCategories">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 book-category-padding">
+                    <div class="relative-pos">
+                        <a ng-click="model.navigateToEditBookCat(bookCategory._id)"
+                           class="book-cat-edit">
+                            <span class="glyphicon glyphicon-cog img-right-spacing"></span>
+                        </a>
+                        <a ng-click="model.searchBookByCategory(bookCategory.title, bookCategory.author)">
+                            <img ng-src="{{bookCategory.url}}" class="img-responsive thumbnail" width="100%">
+                            <div class="book-search-option-help">
+                                <h3>{{bookCategory.display}}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="model.selectedMenu==='addUser'">
+        <h3> Add User </h3>
+        <form name="registerForm" novalidate>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input ng-model="model.newuser.username"
+                       type="text"
+                       class="form-control"
+                       placeholder="alicew"
+                       name="username"
+                       id="username"
+                       required
+                       autocomplete="off" autocorrect="off" autocapitalize="off"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input ng-model="model.newuser.password"
+                       type="password"
+                       class="form-control"
+                       placeholder="password"
+                       name="password"
+                       id="password"
+                       required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="verify-password">Verify Password</label>
+                <input ng-model="model.verifyPassword"
+                       type="password"
+                       class="form-control"
+                       placeholder="verify password"
+                       name="verifyPassword"
+                       id="verify-password"
+                       required
+                />
+            </div>
+            <div class="form-group">
+                <label for="user-type">Role</label>
+                <select id="user-type"
+                        class="form-control"
+                        name="role"
+                        ng-model="model.newuser.role">
+                <option value="STUDENT">STUDENT</option>
+                <option value="ADMIN">ADMIN</option>
+                <option ng-selected="true" value="default">Select User Role</option>
+                </select>
+            </div>
+
+            <button ng-click="model.register()"
+                    class="btn btn-primary btn-block"> Register
+            </button>
+        </form>
+    </div>
+
+    <div ng-show="model.selectedMenu==='listUser'">
+        <h3> Listing User </h3>
+    </div>
+
+    <div ng-show="model.selectedMenu==='listReviews'">
+        <h3> Listing Book Reviews</h3>
+    </div>
+</div>

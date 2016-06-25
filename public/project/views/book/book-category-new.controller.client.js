@@ -5,11 +5,12 @@
 
     function BookCategoryNewController($location, $rootScope, UserService, BookCategoryService) {
         var vm = this;
-        vm.isCollapsed = true;
         vm.logout = logout;
         vm.createBookCategory = createBookCategory;
 
         function init() {
+            vm.isCollapsed = true;
+            
             if ($rootScope.currentUser.role != 'ADMIN') {
                 $location.url("/book");
             }

@@ -1,3 +1,7 @@
+.home-cover {
+    background-repeat: no-repeat;
+}
+
 .media-padding {
     padding-top : 40px;
     padding-bottom: 10px;
@@ -19,7 +23,7 @@
 }
 
 .accordion-outer-div {
-    height:110vh;
+    height:120vh;
 }
 
 .navbar-text.pull-right {
@@ -176,6 +180,14 @@ select.validation {
     height:50vh;
 }
 
+@media only screen and (min-width : 768px) {
+    .item-image {
+        position: relative;
+        overflow: hidden;
+        height:65vh;
+    }
+}
+
 .item-image img {
     position: absolute;
     top: 0;
@@ -226,4 +238,9 @@ input.form-control {
 
 .margin-right-20-px {
     margin-right: 20px;
+}
+
+.review-box {
+    border: 1px solid #bbb;
+    box-shadow: 4px 4px 8px slategray;
 }

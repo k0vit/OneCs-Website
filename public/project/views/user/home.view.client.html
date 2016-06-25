@@ -40,6 +40,12 @@
                         Sign-Out
                     </a>
                 </li>
+                <li ng-show="model.isUserLoggedIn && model.user.role==='ADMIN'">
+                    <a href="#/administer" class="navbar-link">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                        Admin Page
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -47,34 +53,41 @@
 
 <div class="search-relative-pos">
     <div class="search-form">
+        <div class="alert alert-warning"
+             ng-show="model.searchForm && model.searchForm.category && model.searchForm.category!='Book'">
+            <b>Currently only <strong> Books </strong> has been implemented.</b>
+        </div>
+        <div class="alert alert-danger" ng-show="model.searchForm.error">
+            {{model.searchForm.error}}
+        </div>
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4">
-                <select id="Category" class="form-control search-field" ng-model="model.category">
+                <select id="Category" class="form-control search-field" ng-model="model.searchForm.category">
                     <option value="Book">Book</option>
                     <option value="Research Paper">Research Paper</option>
                     <option value="Jobs">Jobs</option>
                     <option value="Courses">Courses</option>
                     <option value="IDE">IDE</option>
-                    <option value="Category" ng-selected="true">Select Category</option>
+                    <option value="default" ng-selected="true">Select Category</option>
                 </select>
             </div>
             <div class="col-sm-8 col-md-8 col-lg-8">
                 <div class="input-group">
-                    <input ng-model="model.search"
+                    <input ng-model="model.searchForm.searchTerm"
                            class="form-control search-field"
-                           placeholder="Enter Search Term Here"
+                           placeholder="{{model.searchForm && model.searchForm.category==='Book' ? 'Search By Book Title' : 'Enter Search Term Here'}}"
                            type="text"
                            name="Search"
                            required
                            autocomplete="off" autocorrect="off" autocapitalize="off"/>
-                            <span class="input-group-btn">
-                                <button ng-model="model.title"
-                                        ng-click="model.search()"
-                                        class="btn btn-danger"
-                                        type="button">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
+                    <span class="input-group-btn">
+                        <button ng-model="model.title"
+                                ng-click="model.search()"
+                                class="btn btn-danger"
+                                type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
@@ -89,10 +102,10 @@
     <div class="row">
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">
             <a href="#/book">
-            <img src="resources/category/book/book-small.jpg" class="img-responsive thumbnail" width="100%">
-            <div class="carousel-caption">
-                <h4>Books</h4>
-            </div>
+                <img src="resources/category/book/book-small.jpg" class="img-responsive thumbnail" width="100%">
+                <div class="carousel-caption">
+                    <h4>Books</h4>
+                </div>
             </a>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">

@@ -5,8 +5,8 @@
 
     function LoginController($location, $rootScope, UserService) {
         var vm = this;
-        vm.isCollapsed = true;
         vm.login = login;
+        vm.isCollapsed = true;
 
         function login() {
             if (!vm.user || !vm.user.username || !vm.user.password) {
@@ -20,7 +20,10 @@
                             var user = response.data;
                             if (user) {
                                 $rootScope.currentUser = user;
-                                if ($rootScope.previousPath) {
+                                if (user.role==='ADMIN') {
+                                    $location.url("/administer");
+                                }
+                                else if ($rootScope.previousPath) {
                                     $location.url($rootScope.previousPath);
                                 }
                                 else {

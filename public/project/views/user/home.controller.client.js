@@ -6,11 +6,10 @@
     function HomeController($interval, $rootScope, UserService, $location) {
         var vm = this;
         vm.logout = logout;
+        vm.search = search;
         var slideCount = 2;
         var slides = [
             'resources/home-slide/cs-topics3.png',
-            'resources/home-slide/cs-topics2.png',
-            'resources/home-slide/cs-topics.png',
             'resources/home-slide/languages.png',
             'resources/home-slide/laptop.jpg'
         ];
@@ -61,6 +60,28 @@
                         vm.error = error.data;
                     }
                 );
+        }
+
+        function search() {
+            if (validateSearchForm()) {
+                if (vm.searchForm.category==='Book') {
+                    $location.url("/book/" +  vm.searchForm.searchTerm);
+                }
+            }
+        }
+
+        function validateSearchForm() {
+            if (!vm.searchForm || !vm.searchForm.category || vm.searchForm.category==='default'
+                || !vm.searchForm.searchTerm ) {
+                vm.searchForm.error = "Please select search category and enter search term";
+                return false;
+            }
+            else if (vm.searchForm.category!='Book') {
+                vm.searchForm.error = "Currently only Book functionality has been implemented";
+                return false;
+            }
+
+            return true;
         }
     }
 })();

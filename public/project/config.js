@@ -70,6 +70,14 @@
                     loggedIn: checkLoggedIn
                 }
             })
+            .when("/administer", {
+                templateUrl: "views/admin/administer.view.client.html",
+                controller: "AdministerController",
+                controllerAs: "model",
+                resolve: {
+                    loggedIn: checkLoggedIn
+                }
+            })
             .when("/book-category/:bkCatId", {
                 templateUrl: "views/book/book-category-edit.view.client.html",
                 controller: "BookCategoryEditController",
@@ -96,6 +104,10 @@
                             if ($route.current.$$route.originalPath === '/profile') {
                                 deferred.reject();
                                 $location.url("/login");
+                            }
+                            else if ($route.current.$$route.originalPath === '/administer') {
+                                deferred.reject();
+                                $location.url("/home");
                             }
                             else {
                                 deferred.resolve();
