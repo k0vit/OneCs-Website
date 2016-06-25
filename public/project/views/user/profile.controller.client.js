@@ -3,38 +3,40 @@
         .module("OneCs")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, UserService, $location, $rootScope) {
+    function ProfileController($routeParams, UserService, $location, $rootScope, BookReviewService) {
         var vm = this;
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
         vm.navigateToBookDetailPage = navigateToBookDetailPage;
         vm.isCollapsed = true;
-        var id = $rootScope.currentUser._id;
+        var otherUserId = $routeParams.otherUserId;
+        var currentUserId;
 
         function init() {
-            UserService
-                .findUserById(id)
-                .then(
-                    function(response) {
-                        vm.user = response.data;
-                    },
-                    function(error) {
-                        vm.error = error.data;
-                    }
-                );
+            if (otherUserId &&
+                (!$rootScope.currentUser || otherUserId!=$rootScope.currentUser._id)) {
+                getUserDetails(otherUserId);
+                vm.isOtherUser = true;
+                fetchUserReviews(otherUserId);
+            }
+            else {
+                currentUserId = $rootScope.currentUser._id;
+                getUserDetails(currentUserId);
+                fetchUserReviews(currentUserId);
+            }
         }
         init();
 
-        function navigateToBookDetailPage(book) {
+        function navigateToBookDetailPage(bookCat, bookId) {
             $rootScope.previousPath = "/profile";
-            $location.url("/book/" + book.bookCategory + "/" + book.bookId);
+            $location.url("/book/" + bookCat + "/" + bookId);
         }
 
         function updateUser() {
             if (validate()) {
                 UserService
-                    .updateUser(id, vm.user)
+                    .updateUser(currentUserId, vm.user)
                     .then(
                         function (response) {
                             vm.success = "User successfully updated";
@@ -65,7 +67,7 @@
 
         function unregisterUser() {
             UserService
-                .deleteUser(id)
+                .deleteUser(currentUserId)
                 .then(
                     function (response) {
                         vm.user=null;
@@ -87,6 +89,32 @@
                 return false;
             }
             return true;
+        }
+
+        function getUserDetails(id) {
+            UserService
+                .findUserById(id)
+                .then(
+                    function(response) {
+                        vm.user = response.data;
+                    },
+                    function(error) {
+                        vm.error = error.data;
+                    }
+                );
+        }
+
+        function fetchUserReviews(id) {
+            BookReviewService
+                .findBookReviewByUserId(id)
+                .then(
+                    function(response) {
+                        vm.reviews = response.data;
+                    },
+                    function(error) {
+                        vm.error = error.data;
+                    }
+                );
         }
     }
 })();

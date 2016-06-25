@@ -18,6 +18,7 @@
         vm.deleteReview = deleteReview;
         vm.scrollTo = scrollTo;
         vm.showReviewForm = showReviewForm;
+        vm.getTodaysDate = getTodaysDate;
 
         function init() {
             vm.isCollapsed = true;
@@ -171,8 +172,12 @@
                 userDetail.firstName = vm.user.firstName;
                 userDetail.lastName = vm.user.lastName;
                 userDetail.userName = vm.user.username;
-                vm.review.bookId = vm.bkId;
-                vm.review.bookCat = vm.bkCat;
+                var bookDetail = {};
+                bookDetail.bookId = vm.bkId;
+                bookDetail.bookCat = vm.bkCat;
+                bookDetail.bookTitle = vm.book.volumeInfo.title;
+                bookDetail.bookImageUrl = vm.book.volumeInfo.imageLinks.smallThumbnail;
+                vm.review.book = bookDetail;
                 vm.review.user = userDetail;
                 var newReview = angular.copy(vm.review);
                 BookReviewService
@@ -258,6 +263,21 @@
             vm.editReviewForm=false;
             resetReviewForm();
             vm.addReviewForm=!vm.addReviewForm
+        }
+
+        function getTodaysDate(date) {
+            var today = new Date(date)
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if(dd<10){
+                dd='0'+dd
+            }
+            if(mm<10){
+                mm='0'+mm
+            }
+            var today = mm+'/'+dd+'/'+yyyy;
+            return today;
         }
     }
 })();

@@ -43,6 +43,10 @@
         {{model.success}}
     </div>
 
+    <div ng-show="model.isOtherUser" class="alert alert-warning">
+        You are currently visiting other user profile page
+    </div>
+
     <div class="accordion-height" id="accordion">
         <h3>Profile</h3>
         <div>
@@ -64,6 +68,7 @@
                            id="first"
                            name="firstName"
                            placeholder="Alice"
+                           ng-disabled="model.isOtherUser"
                            required
                            ng-class="{'validation': registerForm.firstName.$invalid && registerForm.$submitted}"/>
                     <span ng-show="registerForm.firstName.$invalid && registerForm.$submitted" class="validation">
@@ -78,6 +83,7 @@
                            id="last"
                            placeholder="Wonderland"
                            required
+                           ng-disabled="model.isOtherUser"
                            name="lastName"
                            ng-class="{'validation': registerForm.lastName.$invalid && registerForm.$submitted}"/>
                     <span ng-show="registerForm.lastName.$invalid && registerForm.$submitted" class="validation">
@@ -93,6 +99,7 @@
                            id="email"
                            placeholder="alice@wonderland.com"
                            required
+                           ng-disabled="model.isOtherUser"
                            name="email"
                            ng-class="{'validation': registerForm.email.$invalid && registerForm.$submitted}"/>
                     <span ng-show="registerForm.email.$invalid && registerForm.$submitted" class="validation">
@@ -104,6 +111,7 @@
                     <select id="user-type"
                             class="form-control"
                             name="role"
+                            ng-disabled="model.isOtherUser"
                             ng-model="model.user.role"
                             ng-class="{'validation': (registerForm.role.$modelValue === 'default') ||
                              (registerForm.role.$invalid && registerForm.$submitted)}">
@@ -118,23 +126,46 @@
                     </span>
                 </div>
                 <button ng-click="model.updateUser()"
+                        ng-show="!model.isOtherUser"
                         class="btn btn-primary btn-block"> Save Changes
                 </button>
             </form>
         </div>
         <h3>Reviews</h3>
-        <div></div>
-        <h3>Likes</h3>
         <div class="row">
-            <div ng-repeat="book in model.user.bookLikes">
-                <div class="col-xs-12 col-sm-offset-1 col-sm-3 col-md-3 col-lg-2 user-like-padding">
-                    <a ng-click="model.navigateToBookDetailPage(book)">
-                        <img class=""
-                             ng-src="{{book.bookImageUrl}}">
+            <div ng-repeat="review in model.reviews" class="review-padding">
+                <div class="col-xs-12 col-sm-offset-1 col-sm-3 col-md-3 col-lg-2">
+                    <a ng-click="model.navigateToBookDetailPage(review.book.bookCat, review.book.bookId)">
+                        <img ng-src="{{review.book.bookImageUrl}}">
+                    </a>
+                    <a ng-click="model.navigateToBookDetailPage(review.book.bookCat, review.book.bookId)">
+                        <h6 class="text-info">{{review.book.bookTitle}}</h6>
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-5 col-md-2 col-lg-2 user-like-padding">
-                    <a ng-click="model.navigateToBookDetailPage(book)">
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                    <div>
+                        <h4 class="text-primary text-wrap"><strong>{{review.title}}</strong></h4>
+                        <h5 class="text-wrap"><p>{{review.comment}}</p></h5>
+                        <div ng-show="review.rating">
+                            <h6 class="text-info"><strong>Rating:  </strong>
+                                <span class="badge golden-color">{{review.rating}}</span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>Likes</h3>
+        <div class="row">
+            <div ng-repeat="book in model.user.bookLikes"
+                 class="user-like-padding">
+                <div class="col-xs-12 col-sm-offset-1 col-sm-3 col-md-3 col-lg-2">
+                    <a ng-click="model.navigateToBookDetailPage(book.bookCategory, book.bookId)">
+                        <img ng-src="{{book.bookImageUrl}}">
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-5 col-md-2 col-lg-2">
+                    <a ng-click="model.navigateToBookDetailPage(book.bookCategory, book.bookId)">
                         <h4 class="text-info">{{book.bookTitle}}</h4>
                     </a>
                     <div ng-show="{{book.bookAuthors.length < 3}}">

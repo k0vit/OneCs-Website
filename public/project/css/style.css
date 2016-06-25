@@ -14,12 +14,12 @@
 }
 
 .accordion-height {
-    padding: 10px;
+    padding-top: 10px;
     width: 100%;
 }
 
 .accordion-outer-div {
-    height:100vh;
+    height:110vh;
 }
 
 .navbar-text.pull-right {
@@ -83,19 +83,17 @@ body {
     position: relative;
     border-bottom: 2px solid silver;
     padding-bottom: 20px;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
     padding-top: 20px;
     overflow: auto;
 }
 
 .user-like-padding {
-    position: relative;
     border-bottom: 1px solid silver;
     padding-top: 5px;
     padding-bottom: 5px;
     overflow: auto;
-    height: 35vh;
 }
 
 .book-desc-padding {
@@ -220,4 +218,12 @@ input.form-control {
 
 .gen-padding-top {
     padding-top: 20px;
+}
+
+.silver-color {
+    color: silver;
+}
+
+.margin-right-20-px {
+    margin-right: 20px;
 }

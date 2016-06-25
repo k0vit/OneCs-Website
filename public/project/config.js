@@ -33,6 +33,11 @@
                     loggedIn: checkLoggedIn
                 }
             })
+            .when("/profile/:otherUserId", {
+                templateUrl: "views/user/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+            })
             .when("/book", {
                 templateUrl: "views/book/book-search.view.client.html",
                 controller: "BookSearchController",

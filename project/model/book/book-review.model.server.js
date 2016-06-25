@@ -40,6 +40,6 @@ module.exports = function() {
     }
 
     function findBookReviewByBookId(bookId) {
-        return BookReview.find({bookId: bookId});
+        return BookReview.find({'book.bookId': bookId});
     }
 };

@@ -62,7 +62,8 @@
             <div class="media-left media-top col-sm-5 col-lg-3">
                 <a ng-click="model.displayBookPreview(model.book.volumeInfo.industryIdentifiers[1].identifier)">
                     <img src="https://images-na.ssl-images-amazon.com/images/G/01/digital/sitb/sticker/sitb-sticker-v3-small._CB341765094_.png">
-                    <img class="media-object book-detail-img-padding" ng-src="{{model.book.volumeInfo.imageLinks.small}}">
+                    <img class="media-object book-detail-img-padding"
+                         ng-src="{{model.book.volumeInfo.imageLinks.small}}">
                 </a>
             </div>
             <div class="col-sm-5 col-sm-offset-1 col-lg-4 col-lg-offset-1">
@@ -206,31 +207,35 @@
     <div ng-show="model.reviews.length > 0">
         <h4>Customer Reviews</h4>
         <div class="well">
-            <div ng-repeat="review in model.reviews  | orderBy : 'review.dateUpdated'"
+            <div ng-repeat="review in model.reviews | orderBy:'dateCreated':true"
                  class="panel review-padding">
                 <div>
                     <h4 class="text-primary text-wrap"><strong>{{review.title}}</strong></h4>
                     <h6 class="">
                         by
-                        {{review.user.firstName}}
-                        {{review.user.lastName}}
-                        ( {{review.user.userName}} )
-                        on {{review.dateCreated}}
+                        <a ng-href="#/profile/{{review.user._user}}">
+                            <strong>
+                                {{review.user.firstName}}
+                                {{review.user.lastName}}
+                                ( {{review.user.userName}} )
+                            </strong>
+                        </a>
+                        on {{model.getTodaysDate(review.dateCreated)}}
                     </h6>
                 </div>
-                <br>
                 <div>
                     <h5 class="text-wrap"><p>{{review.comment}}</p></h5>
                     <div ng-show="review.rating">
                         <h6 class="text-info"><strong>Rating:  </strong>
-                        <span class="badge golden-color">{{review.rating}}</span>
+                            <span class="badge golden-color">{{review.rating}}</span>
                         </h6>
                     </div>
+                    <br>
                 </div>
                 <div ng-show="model.user.username===review.user.userName">
                     <a ng-click="model.scrollTo('reviewFormId', review)"
                        target="_self"
-                    class="btn btn-primary">
+                       class="btn btn-primary margin-right-20-px">
                         Edit
                     </a>
                     <a class="btn btn-danger" ng-click="model.deleteReview(review._id)">
