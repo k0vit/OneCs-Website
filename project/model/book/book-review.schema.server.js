@@ -5,7 +5,7 @@ module.exports = function() {
     var BookReviewSchema = mongoose.Schema({
         bookId: String,
         bookCat: String,
-        rating: Number,
+        rating: String,
         title: String,
         comment: String,
         user: {

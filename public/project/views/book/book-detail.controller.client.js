@@ -17,6 +17,7 @@
         vm.createReview = createReview;
         vm.deleteReview = deleteReview;
         vm.scrollTo = scrollTo;
+        vm.showReviewForm = showReviewForm;
 
         function init() {
             vm.isCollapsed = true;
@@ -145,51 +146,57 @@
         }
 
         function updateReview() {
-            vm.editReviewForm = false;
-            vm.addReviewForm = false;
-            var newReview = angular.copy(vm.review);
-            BookReviewService
-                .updateBookReview(newReview._id, newReview)
-                .then(
-                    function(response) {
-                        getUserReviews();
-                    },
-                    function (error) {
-                        vm.error = error.data;
-                    }
-                );
-            setFormDefaultValues();
+            if (validateReviewForm) {
+                vm.editReviewForm = false;
+                vm.addReviewForm = false;
+                var newReview = angular.copy(vm.review);
+                BookReviewService
+                    .updateBookReview(newReview._id, newReview)
+                    .then(
+                        function (response) {
+                            getUserReviews();
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                        }
+                    );
+                resetReviewForm();
+            }
         }
 
         function createReview() {
-            var userDetail = {};
-            userDetail._user = vm.user._id;
-            userDetail.firstName = vm.user.firstName;
-            userDetail.lastName = vm.user.lastName;
-            userDetail.userName = vm.user.username;
-            vm.review.bookId = vm.bkId;
-            vm.review.bookCat = vm.bkCat;
-            vm.review.user = userDetail;
-            var newReview = angular.copy(vm.review);
-            BookReviewService
-                .createBookReview(newReview)
-                .then(
-                    function(response) {
-                        getUserReviews();
-                    },
-                    function (error) {
-                        vm.error = error.data;
-                    }
-                );
-            vm.editReviewForm = false;
-            vm.addReviewForm = false;
-            setFormDefaultValues();
+            if (validateReviewForm()) {
+                var userDetail = {};
+                userDetail._user = vm.user._id;
+                userDetail.firstName = vm.user.firstName;
+                userDetail.lastName = vm.user.lastName;
+                userDetail.userName = vm.user.username;
+                vm.review.bookId = vm.bkId;
+                vm.review.bookCat = vm.bkCat;
+                vm.review.user = userDetail;
+                var newReview = angular.copy(vm.review);
+                BookReviewService
+                    .createBookReview(newReview)
+                    .then(
+                        function (response) {
+                            getUserReviews();
+                        },
+                        function (error) {
+                            vm.error = error.data;
+                        }
+                    );
+                vm.editReviewForm = false;
+                vm.addReviewForm = false;
+                resetReviewForm();
+            }
         }
 
-        function setFormDefaultValues() {
-            vm.review.title = "";
-            vm.review.rating = "1";
-            vm.review.comment = "";
+        function resetReviewForm() {
+            if (vm.review) {
+                vm.review.title = "";
+                vm.review.rating = "default";
+                vm.review.comment = "";
+            }
         }
 
         function deleteReview(reviewId) {
@@ -207,6 +214,17 @@
                 );
         }
 
+        function validateReviewForm() {
+            if (!vm.review || !vm.review.title || !vm.review.comment ||
+                !vm.review.rating || vm.review.rating==='default') {
+                vm.reviewForm = {};
+                vm.reviewForm.error = "Please provide review title, comment and rating";
+                return false;
+            }
+
+            return true;
+        }
+
         function getUserReviews() {
             BookReviewService
                 .findBookReviewByBookId(vm.bkId)
@@ -221,6 +239,10 @@
         }
 
         function scrollTo(id, review) {
+            if (vm.reviewForm) {
+                vm.reviewForm.error = false;
+            }
+            vm.addReviewForm = false;
             vm.review = review;
             vm.editReviewForm=true;
             var old = $location.hash();
@@ -228,5 +250,14 @@
             $anchorScroll();
             $location.hash(old);
         };
+
+        function showReviewForm() {
+            if (vm.reviewForm) {
+                vm.reviewForm.error = false;
+            }
+            vm.editReviewForm=false;
+            resetReviewForm();
+            vm.addReviewForm=!vm.addReviewForm
+        }
     }
 })();
