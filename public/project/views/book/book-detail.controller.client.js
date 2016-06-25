@@ -3,7 +3,7 @@
         .module("OneCs")
         .controller("BookDetailController", BookDetailController);
 
-    function BookDetailController($sce, $routeParams, $location, $rootScope,
+    function BookDetailController($sce, $routeParams, $location, $rootScope, $anchorScroll,
                                   UserService, BookSearchService, BookReviewService) {
         var vm = this;
         vm.logout = logout;
@@ -16,6 +16,7 @@
         vm.updateReview = updateReview;
         vm.createReview = createReview;
         vm.deleteReview = deleteReview;
+        vm.scrollTo = scrollTo;
 
         function init() {
             vm.isCollapsed = true;
@@ -165,9 +166,10 @@
             userDetail._user = vm.user._id;
             userDetail.firstName = vm.user.firstName;
             userDetail.lastName = vm.user.lastName;
-            userDetail.userName = vm.user.userName;
+            userDetail.userName = vm.user.username;
             vm.review.bookId = vm.bkId;
             vm.review.bookCat = vm.bkCat;
+            vm.review.user = userDetail;
             var newReview = angular.copy(vm.review);
             BookReviewService
                 .createBookReview(newReview)
@@ -217,5 +219,14 @@
                     }
                 );
         }
+
+        function scrollTo(id, review) {
+            vm.review = review;
+            vm.editReviewForm=true;
+            var old = $location.hash();
+            $location.hash(id);
+            $anchorScroll();
+            $location.hash(old);
+        };
     }
 })();

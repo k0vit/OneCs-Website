@@ -1,4 +1,4 @@
-<nav role="navigation" class="navbar-default navbar-fixed-top navbar-inverse">
+<nav role="navigation" class="navbar-default navbar-fixed-top navbar-inverse" xmlns="http://www.w3.org/1999/html">
     <div class = "container">
         <div class="navbar-header">
             <button type="button"
@@ -62,8 +62,8 @@
             <div class="media-left media-top col-sm-5 col-lg-3">
                 <a ng-click="model.displayBookPreview(model.book.volumeInfo.industryIdentifiers[1].identifier)">
                     <img src="https://images-na.ssl-images-amazon.com/images/G/01/digital/sitb/sticker/sitb-sticker-v3-small._CB341765094_.png">
+                    <img class="media-object book-detail-img-padding" ng-src="{{model.book.volumeInfo.imageLinks.small}}">
                 </a>
-                <img class="media-object book-detail-img-padding" ng-src="{{model.book.volumeInfo.imageLinks.small}}">
             </div>
             <div class="col-sm-5 col-sm-offset-1 col-lg-4 col-lg-offset-1">
                 <h2 class="media-heading">{{model.book.volumeInfo.title}}</h2>
@@ -133,13 +133,13 @@
 
     <div ng-show="model.isUserLoggedIn">
         <div class="text-left">
-            <a class="btn btn-success" ng-click="model.addReviewForm=!model.addReviewForm">
+            <a class="btn btn-success btn-padding" ng-click="model.addReviewForm=!model.addReviewForm">
                 Leave a Review
             </a>
         </div>
         <div class="well margin-well" ng-show="model.addReviewForm || model.editReviewForm">
             <h4>What do you think about the product?</h4>
-            <form name="model.reviewForm" novalidate>
+            <form name="reviewForm" novalidate id="reviewForm">
                 <div class="form-group">
                     <textarea ng-model="model.review.title"
                               placeholder="Title"
@@ -193,8 +193,43 @@
             </form>
         </div>
     </div>
-    <div>
-        {{model.reviews}}
+    <div ng-show="model.reviews.length == 0 && model.isUserLoggedIn" class="alert alert-info">
+        <strong>No customer reviews</strong>. Be the first person to review
+    </div>
+    <div ng-show="model.reviews.length > 0">
+        <h4>Customer Reviews</h4>
+        <div class="well">
+            <div ng-repeat="review in model.reviews  | orderBy : 'review.dateUpdated'"
+                 class="panel review-padding">
+                <div>
+                    <h4 class="text-primary"><strong>{{review.title}}</strong></h4>
+                    <h6 class="">
+                        by
+                        {{review.user.firstName}}
+                        {{review.user.lastName}}
+                        ( {{review.user.userName}} )
+                        on {{review.dateCreated}}
+                    </h6>
+                </div>
+                <br>
+                <div>
+                    <h5><p>{{review.comment}}</p></h5>
+                    <div>
+                        <h6 class="text-info"><strong>Rating:  </strong></h6>
+                        <span class="badge">{{review.rating}}</span>
+                    </div>
+                </div>
+                <div ng-show="model.user.username===review.user.userName">
+                    <a ng-click="model.scrollTo(reviewForm, review)" target="_self">
+                        Edit
+                    </a>
+                     |
+                    <a class="text-danger" ng-click="model.deleteReview(review._id)">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
