@@ -19,6 +19,9 @@
         vm.scrollTo = scrollTo;
         vm.showReviewForm = showReviewForm;
         vm.getTodaysDate = getTodaysDate;
+        vm.isFollowingUser = isFollowingUser;
+        vm.followUser = followUser;
+        vm.unFollowUser = unFollowUser;
 
         function init() {
             vm.isCollapsed = true;
@@ -278,6 +281,48 @@
             }
             var today = mm+'/'+dd+'/'+yyyy;
             return today;
+        }
+
+        function isFollowingUser(userId) {
+            for (var i=0;i<vm.user.following.length;i++) {
+                if (vm.user.following[i]._user === userId) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function followUser(userId, username) {
+            var followingUser = {};
+            followingUser._user = userId;
+            followingUser.username = username;
+            vm.user.following.push(followingUser);
+            UserService
+                .updateUser(vm.user._id, vm.user)
+                .then(
+                    function(response) {
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
+        }
+
+        function unFollowUser(userId) {
+            for (var i=0;i<vm.user.following.length;i++) {
+                if (vm.user.following[i]._user === userId) {
+                    vm.user.following.splice(i, 1);
+                }
+            }
+            UserService
+                .updateUser(vm.user._id, vm.user)
+                .then(
+                    function(response) {
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
         }
     }
 })();

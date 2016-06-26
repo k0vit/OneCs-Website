@@ -15,6 +15,10 @@ module.exports = function() {
             bookCategory: String,
             bookImageUrl: String
         }],
+        following: [{
+            _user: { type: mongoose.Schema.Types.ObjectId, ref: 'BookReview' },
+            username: String
+        }],
         _bookReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BookReview' }],
         role: { type: String, enum: ['ADMIN', 'STUDENT'] },
         dateCreated: {type: Date},

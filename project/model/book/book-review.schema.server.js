@@ -14,8 +14,6 @@ module.exports = function() {
         },
         user: {
             _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-            firstName: String,
-            lastName: String,
             userName: String
         },
         dateCreated: {type: Date},

@@ -110,7 +110,7 @@
                     </a>
                 </div>
                 <div ng-show="!model.isUserLoggedIn" class="alert alert-warning">
-                    <strong>Not logged in?</strong> Login to 'Like' this product or write a review about it.
+                    <strong>Not logged in?</strong> Login to 'Like' this product or write a review about it or follow other users
                 </div>
                 <div ng-show="model.isUserLoggedIn && model.hasUserLikedThisBook">
                     <h5 class="text-info"><b>You have liked this product.
@@ -129,7 +129,7 @@
     </div>
 
     <div ng-show="!model.isUserLoggedIn" class="alert alert-warning">
-        <strong>Not logged in?</strong> Login to 'Like' this product or write a review about it.
+        <strong>Not logged in?</strong> Login to 'Like' this product or write a review about it or follow other users
     </div>
 
     <div ng-show="model.isUserLoggedIn">
@@ -215,9 +215,7 @@
                         by
                         <a ng-href="#/profile/{{review.user._user}}">
                             <strong>
-                                {{review.user.firstName}}
-                                {{review.user.lastName}}
-                                ( {{review.user.userName}} )
+                                {{review.user.userName}}
                             </strong>
                         </a>
                         on {{model.getTodaysDate(review.dateCreated)}}
@@ -241,6 +239,25 @@
                     <a class="btn btn-danger" ng-click="model.deleteReview(review._id)">
                         Delete
                     </a>
+                </div>
+                <div ng-show="model.user.username.role==='ADMIN'">
+                    <a class="btn btn-danger" ng-click="model.deleteReview(review._id)">
+                        Delete
+                    </a>
+                </div>
+                <div ng-show="model.user.username!==review.user.userName">
+                    <div ng-show="model.user && !model.isFollowingUser(review.user._user)">
+                        <a ng-click="model.followUser(review.user._user, review.user.userName)">
+                            Click here to follow this user ({{review.user.userName}})
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                    </div>
+                    <div ng-show="model.user && model.isFollowingUser(review.user._user)">
+                        <a class="text-danger" ng-click="model.unFollowUser(review.user._user)">
+                            Click here to unfollow this user ({{review.user.userName}})
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
