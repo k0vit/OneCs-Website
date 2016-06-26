@@ -13,8 +13,9 @@
             findUserByCredential: findUserByCredential,
             findUserById: findUserById,
             updateUser: updateUser,
+            unregister: unregister,
             deleteUser: deleteUser,
-            findUserByUsername: findUserByUsername,
+            findAllUser: findAllUser,
             login: login,
             logout: logout,
             loggedIn: loggedIn
@@ -50,6 +51,10 @@
             return $http.delete(getUrlWithId(id));
         }
 
+        function unregister(id) {
+            return $http.delete("/api/unregister/" + id);
+        }
+
         function findUserByCredential(username, password) {
             var url = "/api/user?username=" + username + "&password=" + password;
             return $http.get(url);
@@ -59,9 +64,8 @@
             return $http.get(getUrlWithId(id));
         }
 
-        function findUserByUsername(username) {
-            var url = "/api/user?username=" + username;
-            return $http.get(url);
+        function findAllUser() {
+            return $http.get("/api/user");
         }
 
         function getUrlWithId(id) {

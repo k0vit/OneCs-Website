@@ -8,6 +8,9 @@ module.exports = function(app, models) {
     app.delete("/api/bookreview/:bkRevId", deleteBookReview);
     app.get("/api/bookreview/books/:bkId", findBookReviewByBookId);
     app.get("/api/bookreview/user/:userId", findBookReviewByUserId);
+    app.get("/api/bookreview/username/:username", findBookReviewByUsername);
+    app.get("/api/bookreview/bookCat/:bkCat", findBookReviewByBookCat);
+    app.get("/api/bookreview/bookTitle/:bkTitle", findBookReviewByBookTitle);
 
     function createBookReview(req, res) {
         var newBookReview = req.body;
@@ -86,6 +89,48 @@ module.exports = function(app, models) {
         var id = req.params.userId;
         bookReviewModel
             .findBookReviewByUserId(id)
+            .then(
+                function (bookReviewies) {
+                    res.json(bookReviewies);
+                },
+                function (error) {
+                    res.status(500).send("Book Reviews with user id: "+ id +" not found");
+                }
+            );
+    }
+
+    function findBookReviewByUsername(req, res) {
+        var id = req.params.username;
+        bookReviewModel
+            .findBookReviewByUsername(id)
+            .then(
+                function (bookReviewies) {
+                    res.json(bookReviewies);
+                },
+                function (error) {
+                    res.status(500).send("Book Reviews with user id: "+ id +" not found");
+                }
+            );
+    }
+
+    function findBookReviewByBookCat(req, res) {
+        var id = req.params.bkCat;
+        bookReviewModel
+            .findBookReviewByBookCat(id)
+            .then(
+                function (bookReviewies) {
+                    res.json(bookReviewies);
+                },
+                function (error) {
+                    res.status(500).send("Book Reviews with user id: "+ id +" not found");
+                }
+            );
+    }
+
+    function findBookReviewByBookTitle(req, res) {
+        var id = req.params.bkTitle;
+        bookReviewModel
+            .findBookReviewByBookTitle(id)
             .then(
                 function (bookReviewies) {
                     res.json(bookReviewies);

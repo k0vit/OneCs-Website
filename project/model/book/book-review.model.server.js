@@ -10,7 +10,10 @@ module.exports = function() {
         findBookReviewById: findBookReviewById,
         updateBookReview: updateBookReview,
         deleteBookReview: deleteBookReview,
-        findBookReviewByBookId: findBookReviewByBookId
+        findBookReviewByBookId: findBookReviewByBookId,
+        findBookReviewByBookTitle: findBookReviewByBookTitle,
+        findBookReviewByBookCat: findBookReviewByBookCat,
+        findBookReviewByUsername: findBookReviewByUsername
     };
     return api;
 
@@ -41,5 +44,17 @@ module.exports = function() {
 
     function findBookReviewByBookId(bookId) {
         return BookReview.find({'book.bookId': bookId});
+    }
+
+    function findBookReviewByBookCat(bkCat) {
+        return BookReview.find({'book.bookCat': bkCat});
+    }
+
+    function findBookReviewByBookTitle(bkTitle) {
+        return BookReview.find({'book.bookTitle': bkTitle});
+    }
+
+    function findBookReviewByUsername(uname) {
+        return BookReview.find({'user.userName': uname});
     }
 };

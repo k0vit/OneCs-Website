@@ -13,7 +13,10 @@
             updateBookReview: updateBookReview,
             deleteBookReview: deleteBookReview,
             findBookReviewByBookId: findBookReviewByBookId,
-            findBookReviewByUserId: findBookReviewByUserId
+            findBookReviewByUserId: findBookReviewByUserId,
+            findBookReviewByBookCat: findBookReviewByBookCat,
+            findBookReviewByBookTitle: findBookReviewByBookTitle,
+            findBookReviewByUsername: findBookReviewByUsername
         };
 
         return api;
@@ -40,6 +43,18 @@
 
         function findBookReviewByUserId(userId) {
             return $http.get(baseUrl + "user/" + userId);
+        }
+
+        function findBookReviewByUsername(username) {
+            return $http.get(baseUrl + "username/" + username);
+        }
+
+        function findBookReviewByBookCat(bkCat) {
+            return $http.get(baseUrl + "bookCat/" + bkCat);
+        }
+
+        function findBookReviewByBookTitle(title) {
+            return $http.get(baseUrl + "bookTitle/" + title);
         }
 
         function getUrlWithId(id) {

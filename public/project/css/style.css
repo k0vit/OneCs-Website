@@ -1,3 +1,8 @@
+li.borderless {
+    border : 0 none;
+    margin-bottom: 5px;
+}
+
 .home-cover {
     background-repeat: no-repeat;
 }
@@ -243,4 +248,12 @@ input.form-control {
 .review-box {
     border: 1px solid #bbb;
     box-shadow: 4px 4px 8px slategray;
+}
+
+.padding-bottom-20px {
+    padding-bottom: 20px;
+}
+
+.margin-top-15px {
+    margin-top: 15px;
 }

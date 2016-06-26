@@ -14,7 +14,7 @@
 
         function init() {
             vm.isCollapsed = true;
-            
+
             if (otherUserId &&
                 (!$rootScope.currentUser || otherUserId!=$rootScope.currentUser._id)) {
                 getUserDetails(otherUserId);
@@ -68,7 +68,7 @@
 
         function unregisterUser() {
             UserService
-                .deleteUser(currentUserId)
+                .unregister(currentUserId)
                 .then(
                     function (response) {
                         vm.user=null;

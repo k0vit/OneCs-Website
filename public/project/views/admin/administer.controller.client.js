@@ -3,13 +3,16 @@
         .module("OneCs")
         .controller("AdministerController", AdministerController);
 
-    function AdministerController($location, $rootScope, UserService, BookCategoryService) {
+    function AdministerController($location, $rootScope, UserService, BookCategoryService, BookReviewService) {
         var vm = this;
         vm.logout = logout;
         vm.createBookCategory = createBookCategory;
         vm.navigateToEditBookCat = navigateToEditBookCat;
         vm.register = register;
         vm.setSelectedMenu = setSelectedMenu;
+        vm.unregisterUser = unregisterUser;
+        vm.fetchReviews = fetchReviews;
+        vm.deleteReview = deleteReview;
 
         function init() {
             vm.isCollapsed = true;
@@ -28,6 +31,10 @@
             vm.selectedMenu = menu;
             if (menu==="listBookCat") {
                 listBookCat();
+            }
+
+            if (menu==="listUser") {
+                listAllUser();
             }
         }
 
@@ -130,6 +137,103 @@
             if (!vm.bookCategory || !vm.bookCategory.title) {
                 vm.error = "Please provide book title"
             }
+        }
+
+        function listAllUser() {
+            UserService
+                .findAllUser()
+                .then(
+                    function(response) {
+                        vm.users = response.data;
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
+        }
+
+        function unregisterUser(id) {
+            UserService
+                .deleteUser(id)
+                .then(
+                    function (response) {
+                        vm.success="User Deleted Successfully";
+                        listAllUser();
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                        vm.success = false;
+                    }
+                );
+        }
+
+        function fetchReviews() {
+            vm.error = false;
+            vm.success = false;
+
+            if (validReviewListReq()) {
+                if (vm.listreviews.searchOption==='User') {
+                    BookReviewService
+                        .findBookReviewByUsername(vm.listreviews.searchTerm)
+                        .then(
+                            function (response) {
+                                vm.reviews = response.data;
+                            },
+                            function (error) {
+                                vm.error = error.data;
+                            }
+                        );
+                }
+                else if (vm.listreviews.searchOption==='BookCat') {
+                    BookReviewService
+                        .findBookReviewByBookCat(vm.listreviews.searchTerm)
+                        .then(
+                            function (response) {
+                                vm.reviews = response.data;
+                            },
+                            function (error) {
+                                vm.error = error.data;
+                            }
+                        );
+                }
+                else {
+                    BookReviewService
+                        .findBookReviewByBookTitle(vm.listreviews.searchTerm)
+                        .then(
+                            function (response) {
+                                vm.reviews = response.data;
+                            },
+                            function (error) {
+                                vm.error = error.data;
+                            }
+                        );
+                }
+            }
+        }
+
+        function validReviewListReq() {
+            if (!vm.listreviews || !vm.listreviews.searchOption || !vm.listreviews.searchTerm ||
+                vm.listreviews.searchOption === "default") {
+                vm.error = "All the fields are mandatory to search reviews";
+                return false;
+            }
+            return true;
+        }
+
+        function deleteReview(reviewId) {
+            vm.error = false;
+            vm.success = false;
+
+            BookReviewService
+                .deleteBookReview(reviewId)
+                .then(
+                    function(response) {
+                        fetchReviews();
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
         }
     }
 })();

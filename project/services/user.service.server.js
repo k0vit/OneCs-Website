@@ -13,12 +13,13 @@ module.exports = function(app, models) {
 
     app.post("/api/user", createUser);
     app.get("/api/user/:userId", findUserById);
-    app.get("/api/user/", findUser);
+    app.get("/api/user/", findAllUser);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/logout', logout);
     app.post('/api/register', register);
+    app.delete('/api/unregister/:userId', unregister);
     app.get('/api/loggedin', loggedin);
     app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
     app.get('/auth/google/callback',
@@ -172,7 +173,7 @@ module.exports = function(app, models) {
             );
     }
 
-    function deleteUser(req, res) {
+    function unregister(req, res) {
         var id = req.params.userId;
 
         userModel
@@ -187,6 +188,21 @@ module.exports = function(app, models) {
             );
 
         req.logOut();
+    }
+
+    function deleteUser(req, res) {
+        var id = req.params.userId;
+
+        userModel
+            .deleteUser(id)
+            .then(
+                function (stats) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(500).send("Unable to remove user with Id: " + id);
+                }
+            );
     }
 
     function updateUser(req, res) {
@@ -219,16 +235,17 @@ module.exports = function(app, models) {
             );
     }
 
-    function findUser(req, res) {
-        var username = req.query["username"];
-        var password = req.query["password"];
-        if(username && password) {
-            findUserByCredentials(username, password, res);
-        } else if(username) {
-            findUserByUsername(username, res);
-        } else {
-            res.sendStatus(400);
-        }
+    function findAllUser(req, res) {
+        userModel
+            .findAllUser()
+            .then(
+                function (userx) {
+                    res.json(userx);
+                },
+                function (error) {
+                    res.status(500).send("Failed to find all the users");
+                }
+            );
     }
 
     function findUserByCredentials(username, password, res) {
@@ -243,22 +260,6 @@ module.exports = function(app, models) {
                 },
                 function (error) {
                     res.status(400).send("User with username: "+ username +" not found");
-                }
-            );
-    }
-
-    function findUserByUsername(username, res) {
-        userModel
-            .findUserByUsername(username)
-            .then(
-                function (user) {
-                    if (!user) {
-                        res.status(403).send("User with username: "+ username +" not found");
-                    }
-                    res.json(user);
-                },
-                function(error) {
-                    res.status(403).send("User with username: "+ username +" not found");
                 }
             );
     }

@@ -29,7 +29,7 @@
     </div>
 
     <div>
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills padding-bottom-20px">
             <li ng-class="{active: model.selectedMenu==='addBookCat'}">
                 <a ng-click="model.setSelectedMenu('addBookCat')">
                     Add Book Category
@@ -167,9 +167,9 @@
                         class="form-control"
                         name="role"
                         ng-model="model.newuser.role">
-                <option value="STUDENT">STUDENT</option>
-                <option value="ADMIN">ADMIN</option>
-                <option ng-selected="true" value="default">Select User Role</option>
+                    <option value="STUDENT">STUDENT</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option ng-selected="true" value="default">Select User Role</option>
                 </select>
             </div>
 
@@ -181,9 +181,89 @@
 
     <div ng-show="model.selectedMenu==='listUser'">
         <h3> Listing User </h3>
+        <ul class="list-group">
+            <li ng-repeat="u in model.users | orderBy:'firstName'"
+                class="list-group-item borderless">
+                <a ng-href="#/profile/{{u._id}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                    {{u.firstName}} {{u.lastName}} ({{u.username}})
+                </a>
+                <a ng-click="model.unregisterUser(u._id)" class="btn btn-danger pull-right">
+                    Delete User
+                </a>
+                <hr>
+            </li>
+        </ul>
     </div>
 
     <div ng-show="model.selectedMenu==='listReviews'">
-        <h3> Listing Book Reviews</h3>
+        <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <select id="SearchOptions"
+                        class="form-control search-field
+                        " ng-model="model.listreviews.searchOption">
+                    <option value="User">Username</option>
+                    <option value="BookCat">Book Category</option>
+                    <option value="BookTitle">Book Title</option>
+                    <option value="default" ng-selected="true">Search By</option>
+                </select>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <div class="input-group">
+                    <input ng-model="model.listreviews.searchTerm"
+                           class="form-control search-field"
+                           placeholder="Enter Search Term Here"
+                           type="text"
+                           name="Search"
+                           required
+                           autocomplete="off" autocorrect="off" autocapitalize="off"/>
+                    <span class="input-group-btn">
+                        <button ng-model="model.title"
+                                ng-click="model.fetchReviews()"
+                                class="btn btn-danger"
+                                type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div ng-show="model.reviews.length == 0" class="alert alert-info margin-top-15px">
+            No reviews found for {{model.listreviews.searchTerm}}
+        </div>
+        <div ng-show="model.reviews.length > 0">
+            <h3> Listing Book Reviews</h3>
+            <div class="well">
+                <div ng-repeat="review in model.reviews | orderBy:'dateCreated':true"
+                     class="panel review-padding review-box">
+                    <div>
+                        <h4 class="text-primary text-wrap"><strong>{{review.title}}</strong></h4>
+                        <h6 class="">
+                            by
+                            <a ng-href="#/profile/{{review.user._user}}">
+                                <strong>
+                                    {{review.user.firstName}}
+                                    {{review.user.lastName}}
+                                    ( {{review.user.userName}} )
+                                </strong>
+                            </a>
+                            on {{model.getTodaysDate(review.dateCreated)}}
+                        </h6>
+                    </div>
+                    <div>
+                        <h5 class="text-wrap"><p>{{review.comment}}</p></h5>
+                        <div ng-show="review.rating">
+                            <h6 class="text-info"><strong>Rating:  </strong>
+                                <span class="badge golden-color">{{review.rating}}</span>
+                            </h6>
+                        </div>
+                        <br>
+                    </div>
+                    <a class="btn btn-danger" ng-click="model.deleteReview(review._id)">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
