@@ -1,3 +1,7 @@
+.ui-widget-content a {
+    color: #337ab7;
+}
+
 li.borderless {
     border : 0 none;
     margin-bottom: 5px;

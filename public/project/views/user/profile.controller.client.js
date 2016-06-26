@@ -9,6 +9,7 @@
         vm.unregisterUser = unregisterUser;
         vm.logout = logout;
         vm.navigateToBookDetailPage = navigateToBookDetailPage;
+        vm.unFollowUser = unFollowUser;
         var otherUserId = $routeParams.otherUserId;
         var currentUserId;
 
@@ -128,6 +129,23 @@
                         vm.followers = response.data;
                     },
                     function(error) {
+                        vm.error = error.data;
+                    }
+                );
+        }
+
+        function unFollowUser(userId) {
+            for (var i=0;i<vm.user.following.length;i++) {
+                if (vm.user.following[i]._user === userId) {
+                    vm.user.following.splice(i, 1);
+                }
+            }
+            UserService
+                .updateUser(vm.user._id, vm.user)
+                .then(
+                    function(response) {
+                    },
+                    function (error) {
                         vm.error = error.data;
                     }
                 );

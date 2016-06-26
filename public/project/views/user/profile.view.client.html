@@ -182,12 +182,33 @@
             </div>
         </div>
         <h3>Followers</h3>
-        <div class="row">
-            {{model.followers}}
+        <div>
+            <ul class="list-group">
+                <li ng-repeat="userFollowers in model.followers | orderBy:'username'"
+                    class="list-group-item borderless">
+                    <a ng-href="#/profile/{{userFollowers._id}}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        {{userFollowers.firstName}} {{userFollowers.lastName}} ({{userFollowers.username}})
+                    </a>
+                    <hr>
+                </li>
+            </ul>
         </div>
         <h3>Following</h3>
-        <div class="row">
-            {{model.user.following}}
+        <div>
+            <ul class="list-group">
+                <li ng-repeat="userFollowing in model.user.following | orderBy:'username'"
+                    class="list-group-item borderless">
+                    <a ng-href="#/profile/{{userFollowing._user}}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        ({{userFollowing.username}})
+                    </a>
+                    <a ng-click="model.unFollowUser(userFollowing._user)" class="btn btn-danger pull-right">
+                        Unfollow User
+                    </a>
+                    <hr>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
