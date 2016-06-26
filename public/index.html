@@ -1,30 +1,180 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Web Dev Course Home Page</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
+    <title>Kovit Nisar</title>
+    <link rel="shortcut icon" type="image/x-icon" href="resources/favicon.ico" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
 </head>
 <body>
-    <h1>Web Dev Course Home Page</h1>
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand topnav" href="#">Kovit Nisar</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#about">About</a>
+                </li>
+                <li>
+                    <a href="#asssignment">Assignments</a>
+                </li>
+                <li>
+                    <a href="#project">Project</a>
+                </li>
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <p>
-        Customize this home page to your linking.
-    </p>
+<a name="about"></a>
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1>Welcome!</h1>
+                    <h3>Kovit Nisar's Homepage</h3>
+                    <hr class="intro-divider">
+                    <ul class="list-inline intro-social-buttons">
+                        <li>
+                            <a href="https://github.com/k0vit/web-dev-kovit-nisar" class="btn btn-default btn-lg">
+                                <i class="fa fa-github fa-fw"></i>
+                                <span class="network-name">Github</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/kovitnisar"
+                               class="btn btn-default btn-lg">
+                                <i class="fa fa-linkedin fa-fw"></i>
+                                <span class="network-name">Linkedin</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <h2>Required links</h2>
-    <ul>
-        <li>
-            <a href="project/index.html">Project</a>
-        </li>
-        <li>
-            <a href="assignment/index.html">Assignment</a>
-        </li>
-        <li>
-            <a href="test/index.html">Test MongoDB</a>
-        </li>
-        <li>
-            <a href="https://github.com/k0vit/web-dev-kovit-nisar">Your public repository at GitHub.com</a>
-        </li>
-    </ul>
+<a  name="asssignment"></a>
+<div class="content-section-a">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Assignment</h2>
+                <a href="assignment/"><h3>Web App Maker</h3></a>
+                <p class="lead">A Web application that allow users to create
+                    multiple web sites. Each website having multiple pages and each page can have multiple
+                    widgets like Image, Youtube, HTML, Header and so on</p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive img-rounded" src="resources/assignment.jpg" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<a  name="project"></a>
+<div class="content-section-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1  col-sm-push-6  col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Project</h2>
+                <a href="project/"><h3>OneCs</h3></a>
+                <p class="lead"> A Web application where computer science folks can search
+                    for books, research papers, jobs, courses, youtube videos and run code on IDE</p>
+                <a href=""><h4>Demo Video</h4></a>
+            </div>
+            <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <img class="img-responsive" src="http://www.wrighttechnologies.com/wp-content/uploads/2016/01/office-computer.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<a  name="contact"></a>
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-push-2">
+                <h2>  Connect to Kovit</h2>
+            </div>
+            <div class="col-lg-6 col-lg-pull-1">
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a href="https://github.com/k0vit/web-dev-kovit-nisar" class="btn btn-default btn-lg">
+                            <i class="fa fa-github fa-fw"></i>
+                            <span class="network-name">Github</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/kovitnisar"
+                           class="btn btn-default btn-lg">
+                            <i class="fa fa-linkedin fa-fw"></i>
+                            <span class="network-name">Linkedin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="resources/Kovit-Nisar-Resume.pdf" class="btn btn-default btn-lg">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <span class="network-name">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="list-inline">
+                    <li>
+                        <a href="#about">About</a>
+                    </li>
+                    <li class="footer-menu-divider">&sdot;</li>
+                    <li>
+                        <a href="#asssignment">Assignment</a>
+                    </li>
+                    <li class="footer-menu-divider">&sdot;</li>
+                    <li>
+                        <a href="#project">Project</a>
+                    </li>
+                    <li class="footer-menu-divider">&sdot;</li>
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted small">Copyright &copy; Kovit Nisar 2016. All Rights Reserved</p>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
