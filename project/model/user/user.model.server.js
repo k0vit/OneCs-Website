@@ -13,6 +13,7 @@ module.exports = function() {
         updateUser: updateUser,
         deleteUser: deleteUser,
         findUserByGoogleId: findUserByGoogleId,
+        findFollowers: findFollowers
     };
     return api;
 
@@ -51,5 +52,9 @@ module.exports = function() {
 
     function findUserByGoogleId(googleId) {
         return User.findOne({'google.id': googleId});
+    }
+
+    function findFollowers(userId) {
+        return User.find({'following': {$elemMatch: {_user: userId}}});
     }
 };

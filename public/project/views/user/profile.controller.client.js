@@ -20,11 +20,13 @@
                 getUserDetails(otherUserId);
                 vm.isOtherUser = true;
                 fetchUserReviews(otherUserId);
+                fetchUsersFollowers(otherUserId);
             }
             else {
                 currentUserId = $rootScope.currentUser._id;
                 getUserDetails(currentUserId);
                 fetchUserReviews(currentUserId);
+                fetchUsersFollowers(currentUserId);
             }
         }
         init();
@@ -111,6 +113,19 @@
                 .then(
                     function(response) {
                         vm.reviews = response.data;
+                    },
+                    function(error) {
+                        vm.error = error.data;
+                    }
+                );
+        }
+
+        function fetchUsersFollowers(id) {
+            UserService
+                .findFollowers(id)
+                .then(
+                    function(response) {
+                        vm.followers = response.data;
                     },
                     function(error) {
                         vm.error = error.data;

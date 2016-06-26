@@ -16,6 +16,7 @@
             unregister: unregister,
             deleteUser: deleteUser,
             findAllUser: findAllUser,
+            findFollowers: findFollowers,
             login: login,
             logout: logout,
             loggedIn: loggedIn
@@ -62,6 +63,10 @@
 
         function findUserById(id) {
             return $http.get(getUrlWithId(id));
+        }
+
+        function findFollowers(id) {
+            return $http.get("/api/user/followers/" + id);
         }
 
         function findAllUser() {

@@ -16,6 +16,7 @@ module.exports = function(app, models) {
     app.get("/api/user/", findAllUser);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
+    app.get("/api/user/followers/:userId", findFollowers);
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/logout', logout);
     app.post('/api/register', register);
@@ -260,6 +261,20 @@ module.exports = function(app, models) {
                 },
                 function (error) {
                     res.status(400).send("User with username: "+ username +" not found");
+                }
+            );
+    }
+
+    function findFollowers(req, res) {
+        var userId = req.params.userId;
+        userModel
+            .findFollowers(userId)
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (error) {
+                    res.status(400).send("Failed to find followers");
                 }
             );
     }

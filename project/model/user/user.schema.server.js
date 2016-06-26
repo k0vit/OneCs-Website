@@ -16,7 +16,7 @@ module.exports = function() {
             bookImageUrl: String
         }],
         following: [{
-            _user: { type: mongoose.Schema.Types.ObjectId, ref: 'BookReview' },
+            _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
             username: String
         }],
         _bookReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BookReview' }],

@@ -21,6 +21,9 @@
             if ($rootScope.currentUser.role != 'ADMIN') {
                 $location.url("/book");
             }
+            else {
+                vm.user = $rootScope.currentUser;
+            }
         }
 
         init();

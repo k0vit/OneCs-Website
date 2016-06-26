@@ -183,7 +183,8 @@
         <h3> Listing User </h3>
         <ul class="list-group">
             <li ng-repeat="u in model.users | orderBy:'firstName'"
-                class="list-group-item borderless">
+                class="list-group-item borderless"
+            ng-show="u._id!==model.user._id">
                 <a ng-href="#/profile/{{u._id}}">
                     <span class="glyphicon glyphicon-user"></span>
                     {{u.firstName}} {{u.lastName}} ({{u.username}})
