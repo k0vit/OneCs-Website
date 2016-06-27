@@ -51,6 +51,16 @@
     </div>
 </nav>
 
+<div class="alert alert-warning alert-dismissible text-justify"
+     style="margin-bottom: 0px"
+     ng-show="model.showFuncInfo">
+    <button ng-click="model.showFuncInfo=false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    Currently user can only <strong> search and check the details of the book </strong>.
+    Research Paper, jobs, courses and IDE will be implemented in future.
+</div>
+
 <div class="search-relative-pos">
     <div class="search-form">
         <div class="alert alert-warning"
@@ -102,32 +112,44 @@
     <div class="row">
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">
             <a href="#/book">
-                <img src="resources/category/book/book-small.jpg" class="img-responsive thumbnail" width="100%">
+                <img src="resources/category/book-cat.jpg" class="img-responsive thumbnail" width="100%">
                 <div class="carousel-caption">
                     <h4>Books</h4>
                 </div>
             </a>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">
-            <img src="resources/category/research_paper.jpg" class="img-responsive thumbnail" width="100%">
+            <img src="resources/category/research-paper.jpg"
+                 class="img-responsive thumbnail"
+                 title="{{model.funcInfo}}"
+                 width="100%">
             <div class="carousel-caption">
                 <h4>Research Papers</h4>
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">
-            <img src="resources/category/course.jpg" class="img-responsive thumbnail" width="100%">
+            <img src="resources/category/course.jpg"
+                 class="img-responsive thumbnail"
+                 title="{{model.funcInfo}}"
+                 width="100%">
             <div class="carousel-caption">
                 <h4>Online Courses</h4>
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding" >
-            <img src="resources/category/job.jpg" class="img-responsive thumbnail" width="100%">
+            <img src="resources/category/job.jpg"
+                 class="img-responsive thumbnail"
+                 title="{{model.funcInfo}}"
+                 width="100%">
             <div class="carousel-caption">
                 <h4>Search Jobs</h4>
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 category-image-padding">
-            <img src="resources/category/ide.jpg" class="img-responsive thumbnail" width="100%">
+            <img src="resources/category/ide.png"
+                 class="img-responsive thumbnail"
+                 title="{{model.funcInfo}}"
+                 width="100%">
             <div class="carousel-caption">
                 <h4>One IDE</h4>
             </div>

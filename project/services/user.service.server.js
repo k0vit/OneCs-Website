@@ -1,6 +1,8 @@
 module.exports = function(app, models) {
 
     var userModel = models.userModel;
+    var bookReviewModel = models.bookReviewModel;
+
     var passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -35,7 +37,6 @@ module.exports = function(app, models) {
     passport.deserializeUser(deserializeUser);
 
     function googleStrategy(token, refreshToken, profile, done) {
-        console.log(profile);
         userModel
             .findUserByGoogleId(profile.id)
             .then(
@@ -181,10 +182,19 @@ module.exports = function(app, models) {
             .deleteUser(id)
             .then(
                 function (stats) {
-                    res.send(200);
+                    return bookReviewModel.deleteBookReviewByUser(id);
                 },
                 function (error) {
                     res.status(500).send("Unable to remove user with Id: " + id);
+                }
+            )
+            .then(
+                function (stats) {
+                    return res.send(200);
+                },
+                function (error) {
+                    res.status(500).send("User removed successfully but failed to remove all the reviews " +
+                        "associated with the user");
                 }
             );
 
@@ -198,10 +208,19 @@ module.exports = function(app, models) {
             .deleteUser(id)
             .then(
                 function (stats) {
-                    res.send(200);
+                    return bookReviewModel.deleteBookReviewByUser(id);
                 },
                 function (error) {
                     res.status(500).send("Unable to remove user with Id: " + id);
+                }
+            )
+            .then(
+                function (stats) {
+                    return res.send(200);
+                },
+                function (error) {
+                    res.status(500).send("User removed successfully but failed to remove all the reviews " +
+                        "associated with the user");
                 }
             );
     }

@@ -15,6 +15,9 @@
         ];
 
         function init() {
+            vm.funcInfo="Currently user can only search and check the details of the book." +
+                "Research Paper, jobs, courses and IDE will be implemented in future.";
+            vm.showFuncInfo = true;
             vm.isCollapsed = true;
             vm.slide = slides[0];
             $interval(changeSlide, 10000);

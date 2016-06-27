@@ -13,7 +13,8 @@ module.exports = function() {
         findBookReviewByBookId: findBookReviewByBookId,
         findBookReviewByBookTitle: findBookReviewByBookTitle,
         findBookReviewByBookCat: findBookReviewByBookCat,
-        findBookReviewByUsername: findBookReviewByUsername
+        findBookReviewByUsername: findBookReviewByUsername,
+        deleteBookReviewByUser : deleteBookReviewByUser
     };
     return api;
 
@@ -56,5 +57,9 @@ module.exports = function() {
 
     function findBookReviewByUsername(uname) {
         return BookReview.find({'user.userName': uname});
+    }
+
+    function deleteBookReviewByUser(userId) {
+        return BookReview.remove({'user._user': userId});
     }
 };
