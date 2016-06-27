@@ -177,7 +177,6 @@ module.exports = function(app, models) {
 
     function unregister(req, res) {
         var id = req.params.userId;
-
         userModel
             .deleteUser(id)
             .then(
@@ -190,20 +189,38 @@ module.exports = function(app, models) {
             )
             .then(
                 function (stats) {
-                    return res.send(200);
+                    userModel.findFollowers(id)
+                        .then(
+                            function (users) {
+                                for (var i=0;i<users.length;i++) {
+                                    var curuser = users[i]._doc;
+                                    for(var j=0;j<=curuser.following.length;j++) {
+                                        var curFollowing = curuser.following[j]._doc;
+                                        if (curFollowing._user.toString() === id) {
+                                            curuser.following.splice(j, 1);
+                                            users[i].save();
+                                            break;
+                                        }
+                                    }
+                                }
+                                return res.send(200);
+                            },
+                            function (error) {
+                                res.status(500).send("User removed successfully but failed to remove user followers " +
+                                    "associated with the user");
+                            }
+                        );
                 },
                 function (error) {
                     res.status(500).send("User removed successfully but failed to remove all the reviews " +
                         "associated with the user");
                 }
             );
-
         req.logOut();
     }
 
     function deleteUser(req, res) {
         var id = req.params.userId;
-
         userModel
             .deleteUser(id)
             .then(
@@ -216,7 +233,27 @@ module.exports = function(app, models) {
             )
             .then(
                 function (stats) {
-                    return res.send(200);
+                    userModel.findFollowers(id)
+                        .then(
+                            function (users) {
+                                for (var i=0;i<users.length;i++) {
+                                    var curuser = users[i]._doc;
+                                    for(var j=0;j<=curuser.following.length;j++) {
+                                        var curFollowing = curuser.following[j]._doc;
+                                        if (curFollowing._user.toString() === id) {
+                                            curuser.following.splice(j, 1);
+                                            users[i].save();
+                                            break;
+                                        }
+                                    }
+                                }
+                                return res.send(200);
+                            },
+                            function (error) {
+                                res.status(500).send("User removed successfully but failed to remove user followers " +
+                                    "associated with the user");
+                            }
+                        );
                 },
                 function (error) {
                     res.status(500).send("User removed successfully but failed to remove all the reviews " +

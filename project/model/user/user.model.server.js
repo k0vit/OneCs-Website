@@ -55,6 +55,6 @@ module.exports = function() {
     }
 
     function findFollowers(userId) {
-        return User.find({'following': {$elemMatch: {_user: userId}}});
+        return User.find({'following._user': userId});
     }
 };
