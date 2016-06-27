@@ -53,6 +53,9 @@
     <h4 class="alert alert-info">Search results for Title : <strong>{{model.title}}</strong>
         <span ng-show="{{model.author}}">& Author : </strong>{{model.author}}</strong></span>
     </h4>
+    <h5 class="text-danger" ng-show="model.noResult">
+        No result found
+    </h5>
     <div class="row">
         <div ng-repeat="book in model.books.items">
             <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-5 col-lg-5 book-result-padding">

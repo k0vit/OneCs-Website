@@ -63,8 +63,13 @@
         }
 
         function displayBookPreview(isbn) {
-            vm.showBookPreview=true;
-            window.initialize(isbn);
+            if (vm.book.accessInfo.viewability != 'NO_PAGES') {
+                vm.showBookPreview = true;
+                window.initialize(isbn);
+            }
+            else {
+                vm.bookPreviewError = "Sorry! No preview available for this book";
+            }
         }
 
         function getSafeHtml(htmlText) {

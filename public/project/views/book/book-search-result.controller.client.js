@@ -8,6 +8,9 @@
         vm.logout = logout;
 
         function init() {
+            if ($rootScope.previousPath) {
+                $rootScope.previousPath=false;
+            }
             vm.isCollapsed = true;
             checkIfUserLoggedIn();
             searchBooks();
@@ -49,6 +52,10 @@
                 .then(
                     function(response) {
                         vm.books = response.data;
+                        console.log(vm.books);
+                        if (vm.books.totalItems==0) {
+                            vm.noResult=true;
+                        }
                     },
                     function(error) {
                         vm.error = error;

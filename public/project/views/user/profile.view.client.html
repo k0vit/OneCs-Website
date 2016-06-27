@@ -205,6 +205,7 @@
                     </a>
                     <a ng-click="model.unFollowUser(userFollowing._user)"
                        class="btn btn-danger pull-right"
+                       ng-show="!model.isOtherUser"
                        style="color: white">
                         Unfollow User
                     </a>

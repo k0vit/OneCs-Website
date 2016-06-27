@@ -50,6 +50,9 @@
 </nav>
 
 <div class="container">
+    <div class="alert alert-danger" ng-show="model.bookPreviewError">
+        {{model.bookPreviewError}}
+    </div>
     <div class="relative-pos" ng-show="model.showBookPreview">
         <a ng-click="model.showBookPreview=false"
            class="close-book-preview">
